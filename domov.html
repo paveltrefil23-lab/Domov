@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Domov">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23e76f51'/%3E%3Cpath d='M90 50 L140 100 L140 140 L100 140 L100 110 L80 110 L80 140 L40 140 L40 100 Z' fill='white'/%3E%3C/svg%3E">
+<title>Domov</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: #0a1628;
+  color: white;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+body {
+  background: radial-gradient(ellipse at top, #3d2645 0%, #1a1f3a 50%, #0a1628 100%);
+  background-attachment: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: env(safe-area-inset-top);
+}
+button { font-family: inherit; border: none; cursor: pointer; color: inherit; }
+input, textarea, select {
+  font-family: inherit;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+}
+input:focus, textarea:focus { border-color: rgba(244, 162, 97, 0.5); }
+input[type="date"], input[type="time"], input[type="number"] { color-scheme: dark; }
+textarea { resize: none; }
+
+.app { max-width: 600px; margin: 0 auto; padding-bottom: 100px; }
+.hidden { display: none !important; }
+
+/* Login screen */
+.login-screen {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+}
+.login-card {
+max-width: 420px;
+width: 100%;
+text-align: center;
+}
+.logo {
+width: 96px;
+height: 96px;
+background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+border-radius: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 20px;
+transform: rotate(-6deg);
+box-shadow: 0 20px 60px rgba(231, 111, 81, 0.4);
+font-size: 48px;
+}
+h1.title { font-size: 48px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.subtitle { color: rgba(255,255,255,0.5); font-style: italic; font-size: 18px; margin-bottom: 32px; }
+.login-box {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 24px;
+padding: 28px;
+backdrop-filter: blur(20px);
+}
+.login-box p { color: rgba(255,255,255,0.9); margin-bottom: 16px; font-size: 17px; }
+.login-box input { margin-bottom: 12px; }
+.btn {
+width: 100%;
+padding: 16px 24px;
+border-radius: 16px;
+font-weight: 600;
+font-size: 17px;
+margin-bottom: 10px;
+transition: transform 0.15s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-orange {
+background: linear-gradient(135deg, #f4a261, #e76f51);
+color: white;
+box-shadow: 0 8px 30px rgba(231, 111, 81, 0.35);
+}
+.btn-teal {
+background: linear-gradient(135deg, #2a9d8f, #264653);
+color: white;
+box-shadow: 0 8px 30px rgba(42, 157, 143, 0.35);
+}
+.btn-small { padding: 8px 14px; font-size: 13px; border-radius: 10px; margin: 0; }
+.link-btn { background: transparent; color: rgba(255,255,255,0.5); text-decoration: underline; font-size: 13px; padding: 4px; }
+
+/* Header */
+.header {
+position: sticky;
+top: 0;
+z-index: 20;
+backdrop-filter: blur(20px);
+background: rgba(10, 22, 40, 0.85);
+border-bottom: 1px solid rgba(255,255,255,0.1);
+padding: 24px 20px 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.header h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; flex: 1; }
+.back-btn { padding: 8px; margin-left: -8px; background: transparent; font-size: 24px; }
+
+/* Home screen */
+.home-top { padding: 32px 20px 8px; }
+.greeting-small { color: rgba(255,255,255,0.5); font-size: 14px; font-style: italic; }
+.greeting-name { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; }
+.together { color: rgba(255,255,255,0.6); font-style: italic; margin-top: 4px; }
+.top-bar { display: flex; justify-content: space-between; align-items: flex-start; }
+
+.upcoming-card {
+margin: 0 20px 24px;
+padding: 16px;
+border-radius: 16px;
+background: rgba(244, 162, 97, 0.1);
+border: 1px solid rgba(255,255,255,0.1);
+}
+.upcoming-title {
+color: #ffccbc;
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-weight: 600;
+margin-bottom: 8px;
+}
+.upcoming-item {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 4px 0;
+font-size: 14px;
+}
+.upcoming-item .date { margin-left: auto; color: rgba(255,255,255,0.5); font-size: 12px; }
+
+.tiles {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+padding: 0 20px;
+}
+.tile {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 24px;
+padding: 20px;
+text-align: left;
+min-height: 130px;
+transition: transform 0.15s;
+position: relative;
+overflow: hidden;
+}
+.tile:active { transform: scale(0.97); }
+.tile-icon {
+width: 44px;
+height: 44px;
+border-radius: 16px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 22px;
+margin-bottom: 12px;
+}
+.tile-label { font-weight: 600; font-size: 16px; line-height: 1.2; }
+.tile-count { color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 4px; }
+.tile-subtitle { font-size: 14px; margin-top: 4px; font-weight: 700; }
+
+/* Tabs */
+.tabs {
+display: flex;
+gap: 8px;
+overflow-x: auto;
+padding: 16px 20px;
+scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+padding: 8px 16px;
+border-radius: 999px;
+white-space: nowrap;
+font-size: 14px;
+font-weight: 500;
+background: rgba(255,255,255,0.08);
+color: rgba(255,255,255,0.7);
+}
+.tab.active {
+background: linear-gradient(135deg, #f4a261, #e76f51);
+color: #0a1628;
+}
+
+/* Lists */
+.section-title {
+color: rgba(255,255,255,0.4);
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-weight: 600;
+padding: 0 20px;
+margin: 16px 0 8px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.list { padding: 0 20px; }
+.list > * + * { margin-top: 8px; }
+
+.card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 20px;
+padding: 16px;
+display: flex;
+align-items: flex-start;
+gap: 12px;
+}
+.card.done { opacity: 0.5; }
+.card-title { font-weight: 500; font-size: 15px; line-height: 1.3; }
+.card-title.done { text-decoration: line-through; }
+.card-note { color: rgba(255,255,255,0.5); font-size: 13px; font-style: italic; margin-top: 4px; }
+.card-meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+.checkbox {
+flex-shrink: 0;
+width: 24px;
+height: 24px;
+border: 2px solid rgba(255,255,255,0.3);
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: transparent;
+margin-top: 2px;
+}
+.checkbox.checked {
+background: #2a9d8f;
+border-color: #2a9d8f;
+}
+.checkbox.checked::after {
+content: ‘✓’;
+color: white;
+font-weight: bold;
+font-size: 14px;
+}
+.card-body { flex: 1; min-width: 0; }
+
+.badge {
+padding: 2px 8px;
+border-radius: 999px;
+font-size: 11px;
+display: inline-flex;
+align-items: center;
+gap: 4px;
+}
+.badge-orange { background: rgba(244, 162, 97, 0.15); color: #f4a261; }
+.badge-teal { background: rgba(42, 157, 143, 0.15); color: #4db6ac; }
+.badge-purple { background: rgba(179, 157, 219, 0.15); color: #b39ddb; }
+.badge-red { background: rgba(239, 83, 80, 0.15); color: #ef5350; }
+.badge-green { background: rgba(129, 199, 132, 0.15); color: #81c784; }
+
+.del-btn {
+background: transparent;
+color: rgba(255,255,255,0.3);
+padding: 4px;
+font-size: 16px;
+}
+.amount { font-weight: 700; font-size: 17px; }
+.amount-red { color: #ef9a9a; }
+.amount-green { color: #a5d6a7; }
+
+/* FAB */
+.fab {
+position: fixed;
+bottom: calc(24px + env(safe-area-inset-bottom));
+right: 24px;
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background: linear-gradient(135deg, #f4a261, #e76f51);
+color: white;
+font-size: 32px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 10px 40px rgba(231, 111, 81, 0.5);
+z-index: 30;
+transition: transform 0.15s;
+}
+.fab:active { transform: scale(0.93); }
+
+/* Modal */
+.modal-bg {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 40;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+padding: 16px;
+}
+.modal {
+width: 100%;
+max-width: 440px;
+background: linear-gradient(180deg, #1a1f3a, #0a1628);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 28px;
+padding: 24px;
+max-height: 90vh;
+overflow-y: auto;
+margin-bottom: env(safe-area-inset-bottom);
+}
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+.modal-header h3 { font-size: 22px; font-weight: 700; }
+.modal-close { background: transparent; color: rgba(255,255,255,0.6); padding: 4px; font-size: 24px; }
+.field { margin-bottom: 12px; }
+.field-label { color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px; }
+
+.option-grid { display: grid; gap: 8px; margin-bottom: 16px; }
+.option-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.option-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.option {
+padding: 12px;
+border-radius: 12px;
+font-size: 14px;
+font-weight: 500;
+background: rgba(255,255,255,0.06);
+color: rgba(255,255,255,0.7);
+text-align: center;
+}
+.option.active {
+background: linear-gradient(135deg, #2a9d8f, #264653);
+color: white;
+}
+.option.active-orange { background: linear-gradient(135deg, #f4a261, #e76f51); color: #0a1628; }
+.option.active-pink { background: linear-gradient(135deg, #f06292, #c2185b); color: white; }
+.option.active-green { background: linear-gradient(135deg, #81c784, #388e3c); color: white; }
+.option.active-blue { background: linear-gradient(135deg, #64b5f6, #1976d2); color: white; }
+.option.active-purple { background: linear-gradient(135deg, #b39ddb, #7e57c2); color: #0a1628; }
+
+.btn-submit {
+width: 100%;
+padding: 16px;
+border-radius: 16px;
+font-weight: 700;
+font-size: 17px;
+color: #0a1628;
+background: linear-gradient(135deg, #f4a261, #e76f51);
+}
+.btn-submit:disabled { opacity: 0.4; }
+
+.empty { text-align: center; padding: 64px 20px; color: rgba(255,255,255,0.5); font-style: italic; }
+
+.balance-card {
+margin: 16px 20px;
+padding: 24px;
+border-radius: 24px;
+border: 1px solid rgba(255,255,255,0.1);
+}
+.balance-card.positive { background: linear-gradient(135deg, rgba(129, 199, 132, 0.2), rgba(46, 125, 50, 0.1)); }
+.balance-card.negative { background: linear-gradient(135deg, rgba(239, 83, 80, 0.2), rgba(198, 40, 40, 0.1)); }
+.balance-card.neutral { background: rgba(255,255,255,0.04); }
+.balance-label { color: rgba(255,255,255,0.6); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.balance-amount { font-size: 32px; font-weight: 700; }
+.balance-sub { font-size: 14px; margin-top: 4px; }
+
+.date-pill {
+flex-shrink: 0;
+width: 56px;
+text-align: center;
+border-radius: 12px;
+padding: 8px 4px;
+background: rgba(179, 157, 219, 0.15);
+}
+.date-pill-month { font-size: 10px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.date-pill-day { font-size: 22px; font-weight: 700; line-height: 1; margin: 2px 0; }
+.date-pill-time { font-size: 10px; color: rgba(255,255,255,0.6); }
+
+.action-bar { display: flex; gap: 8px; margin-top: 12px; }
+.action-btn {
+flex: 1;
+padding: 8px;
+border-radius: 10px;
+font-size: 12px;
+font-weight: 500;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+}
+
+.meal-day {
+border-radius: 16px;
+padding: 16px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.04);
+margin-bottom: 12px;
+}
+.meal-day.today {
+background: rgba(255, 183, 77, 0.1);
+border-color: rgba(255, 183, 77, 0.3);
+}
+.meal-day-header {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+margin-bottom: 12px;
+}
+.meal-day-name { font-weight: 700; font-size: 17px; }
+.meal-day-date { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 13px; }
+.meal-row {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 8px 0;
+width: 100%;
+text-align: left;
+background: transparent;
+}
+.meal-type { color: rgba(255,255,255,0.5); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; width: 64px; }
+.meal-text { color: rgba(255,255,255,0.9); font-size: 14px; flex: 1; }
+.meal-text.empty-meal { color: rgba(255,255,255,0.3); font-style: italic; }
+
+.week-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
+.week-nav button {
+padding: 8px 12px;
+background: rgba(255,255,255,0.08);
+color: white;
+border-radius: 8px;
+font-size: 16px;
+}
+
+.activity-item {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 14px;
+padding: 12px;
+display: flex;
+gap: 12px;
+}
+.avatar {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 700;
+font-size: 13px;
+color: white;
+flex-shrink: 0;
+}
+
+/* Connection status */
+.conn-status {
+position: fixed;
+top: calc(env(safe-area-inset-top) + 8px);
+left: 50%;
+transform: translateX(-50%);
+background: rgba(239, 83, 80, 0.9);
+color: white;
+padding: 6px 14px;
+border-radius: 999px;
+font-size: 12px;
+z-index: 100;
+backdrop-filter: blur(10px);
+}
+
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+
+.code-display {
+background: rgba(0,0,0,0.4);
+padding: 12px;
+border-radius: 8px;
+font-family: monospace;
+font-size: 14px;
+word-break: break-all;
+margin: 8px 0;
+color: #81c784;
+border: 1px solid rgba(129, 199, 132, 0.2);
+}
+</style>
+
+</head>
+<body>
+
+<!-- CONFIG SCREEN (first time) -->
+
+<div id="config-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">🏡</div>
+    <h1 class="title">Domov</h1>
+    <p class="subtitle">První spuštění — potřebujeme nastavit cloud</p>
+    <div class="login-box" style="text-align: left;">
+      <p style="text-align: center;">Vlož nastavení Firebase</p>
+      <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-align: center;">
+        (podle návodu na kroku 4)
+      </p>
+      <textarea id="firebase-config" rows="10" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","databaseURL":"https://..."}'  style="font-family: monospace; font-size: 12px;"></textarea>
+      <button class="btn btn-orange" style="margin-top: 12px;" onclick="saveFirebaseConfig()">Uložit a pokračovat</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+
+<div id="login-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">🏡</div>
+    <h1 class="title">Domov</h1>
+    <p class="subtitle">Všechno důležité na jednom místě</p>
+    <div class="login-box">
+      <p>Přihlášení</p>
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email">
+      <input type="password" id="login-password" placeholder="Heslo" autocomplete="current-password">
+      <button class="btn btn-orange" onclick="login()">Přihlásit se</button>
+      <button class="btn btn-teal" onclick="register()">Zaregistrovat nový účet</button>
+      <p id="login-error" style="color: #ef9a9a; font-size: 13px; margin-top: 8px; min-height: 18px;"></p>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 16px;">
+        Oba si vytvořte účet a přidejte stejný kód domácnosti
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- HOUSEHOLD SETUP -->
+
+<div id="household-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">💕</div>
+    <h1 class="title">Domácnost</h1>
+    <p class="subtitle">Propoj se se svým protějškem</p>
+    <div class="login-box" style="text-align: left;">
+      <p style="text-align: center; margin-bottom: 16px;">Máš už kód od partnera?</p>
+
+```
+  <p style="color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px;">Vytvoř novou domácnost:</p>
+  <input type="text" id="new-household-name" placeholder="Jméno (např. Pavel)" style="margin-bottom: 8px;">
+  <button class="btn btn-orange" onclick="createHousehold()">Vytvořit novou domácnost</button>
+  
+  <div style="text-align: center; margin: 16px 0; color: rgba(255,255,255,0.4);">— nebo —</div>
+  
+  <p style="color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px;">Připojit k existující:</p>
+  <input type="text" id="join-name" placeholder="Tvoje jméno" style="margin-bottom: 8px;">
+  <input type="text" id="join-code" placeholder="Kód domácnosti od partnera" style="margin-bottom: 8px; text-transform: uppercase;">
+  <button class="btn btn-teal" onclick="joinHousehold()">Připojit se</button>
+  
+  <p id="household-error" style="color: #ef9a9a; font-size: 13px; margin-top: 8px; min-height: 18px;"></p>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- MAIN APP -->
+
+<div id="main-app" class="hidden">
+  <div id="screen-container"></div>
+</div>
+
+<div id="conn-status" class="conn-status hidden">Offline</div>
+
+<!-- Firebase SDK (compat - works everywhere) -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<script>
+// Adapter so the rest of the code works the same
+window.firebaseImports = {
+  initializeApp: (config) => firebase.initializeApp(config),
+  getAuth: (app) => firebase.auth(),
+  signInWithEmailAndPassword: (auth, email, pass) => auth.signInWithEmailAndPassword(email, pass),
+  createUserWithEmailAndPassword: (auth, email, pass) => auth.createUserWithEmailAndPassword(email, pass),
+  signOut: (auth) => auth.signOut(),
+  onAuthStateChanged: (auth, cb) => auth.onAuthStateChanged(cb),
+  getDatabase: (app) => firebase.database(),
+  ref: (db, path) => path ? db.ref(path) : db.ref(),
+  onValue: (ref, cb) => ref.on('value', cb),
+  set: (ref, data) => ref.set(data),
+  push: (ref) => ref.push(),
+  update: (ref, data) => ref.update(data),
+  remove: (ref) => ref.remove(),
+  get: (ref) => ref.once('value'),
+  child: (ref, path) => ref.child(path),
+  serverTimestamp: () => firebase.database.ServerValue.TIMESTAMP
+};
+
+// Start app when page loads
+window.addEventListener('load', () => window.initApp());
+</script>
+
+<script>
+// ======= GLOBAL STATE =======
+let app = null;
+let auth = null;
+let db = null;
+let currentUser = null;
+let userData = null; // {name, householdId}
+let householdData = {}; // all shared data
+let dataRef = null;
+let currentScreen = 'home';
+let currentFilter = 'all';
+let mealWeekOffset = 0;
+
+// ======= INIT =======
+function initApp() {
+  // Check if firebase config exists
+  const cfg = localStorage.getItem('firebase-config');
+  if (!cfg) {
+    document.getElementById('config-screen').classList.remove('hidden');
+    return;
+  }
+  try {
+    initFirebase(JSON.parse(cfg));
+  } catch (e) {
+    localStorage.removeItem('firebase-config');
+    document.getElementById('config-screen').classList.remove('hidden');
+  }
+}
+window.initApp = initApp;
+
+function initFirebase(config) {
+  try {
+    app = window.firebaseImports.initializeApp(config);
+    auth = window.firebaseImports.getAuth(app);
+    db = window.firebaseImports.getDatabase(app);
+    
+    window.firebaseImports.onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user;
+        loadUserData();
+      } else {
+        currentUser = null;
+        userData = null;
+        showScreen('login');
+      }
+    });
+  } catch (e) {
+    alert('Chyba nastavení Firebase: ' + e.message);
+    localStorage.removeItem('firebase-config');
+    location.reload();
+  }
+}
+
+function saveFirebaseConfig() {
+  const text = document.getElementById('firebase-config').value.trim();
+  try {
+    // Try to parse. Allow both JSON and JS object syntax
+    let cfg;
+    try {
+      cfg = JSON.parse(text);
+    } catch (e) {
+      // Try as JS object
+      cfg = eval('(' + text + ')');
+    }
+    if (!cfg.apiKey || !cfg.databaseURL) {
+      alert('Chybí apiKey nebo databaseURL. Zkontroluj že jsi zkopíroval celé nastavení včetně databaseURL.');
+      return;
+    }
+    localStorage.setItem('firebase-config', JSON.stringify(cfg));
+    location.reload();
+  } catch (e) {
+    alert('Špatný formát. Zkopíruj celé nastavení z Firebase (od { do })');
+  }
+}
+window.saveFirebaseConfig = saveFirebaseConfig;
+
+function showScreen(screen) {
+  ['config-screen', 'login-screen', 'household-screen', 'main-app'].forEach(s => {
+    document.getElementById(s).classList.add('hidden');
+  });
+  if (screen === 'login') document.getElementById('login-screen').classList.remove('hidden');
+  else if (screen === 'household') document.getElementById('household-screen').classList.remove('hidden');
+  else if (screen === 'main') document.getElementById('main-app').classList.remove('hidden');
+  else if (screen === 'config') document.getElementById('config-screen').classList.remove('hidden');
+}
+
+// ======= AUTH =======
+async function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Vyplň email a heslo'; return; }
+  try {
+    await window.firebaseImports.signInWithEmailAndPassword(auth, email, pass);
+  } catch (e) {
+    err.textContent = translateError(e.code);
+  }
+}
+window.login = login;
+
+async function register() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Vyplň email a heslo (heslo min. 6 znaků)'; return; }
+  if (pass.length < 6) { err.textContent = 'Heslo musí mít aspoň 6 znaků'; return; }
+  try {
+    await window.firebaseImports.createUserWithEmailAndPassword(auth, email, pass);
+  } catch (e) {
+    err.textContent = translateError(e.code);
+  }
+}
+window.register = register;
+
+function translateError(code) {
+  const map = {
+    'auth/invalid-email': 'Neplatný email',
+    'auth/user-not-found': 'Uživatel neexistuje',
+    'auth/wrong-password': 'Špatné heslo',
+    'auth/invalid-credential': 'Špatný email nebo heslo',
+    'auth/email-already-in-use': 'Email už je zaregistrovaný',
+    'auth/weak-password': 'Heslo musí mít aspoň 6 znaků',
+    'auth/network-request-failed': 'Chyba sítě',
+  };
+  return map[code] || 'Chyba: ' + code;
+}
+
+async function logout() {
+  if (dataRef) { dataRef = null; }
+  await window.firebaseImports.signOut(auth);
+}
+window.logout = logout;
+
+// ======= USER DATA & HOUSEHOLD =======
+async function loadUserData() {
+  try {
+    const userRef = window.firebaseImports.ref(db, 'users/' + currentUser.uid);
+    const snap = await window.firebaseImports.get(userRef);
+    if (snap.exists()) {
+      userData = snap.val();
+      if (userData.householdId) {
+        subscribeToHousehold();
+        showScreen('main');
+        renderScreen();
+      } else {
+        showScreen('household');
+      }
+    } else {
+      showScreen('household');
+    }
+  } catch (e) {
+    console.error(e);
+    alert('Chyba načítání: ' + e.message);
+  }
+}
+
+function generateHouseholdCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s = '';
+  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+
+async function createHousehold() {
+  const name = document.getElementById('new-household-name').value.trim();
+  const err = document.getElementById('household-error');
+  err.textContent = '';
+  if (!name) { err.textContent = 'Zadej jméno'; return; }
+  try {
+    const code = generateHouseholdCode();
+    const householdId = 'h_' + code;
+    // Create household
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'households/' + householdId), {
+      code: code,
+      created: Date.now(),
+      members: { [currentUser.uid]: name }
+    });
+    // Save user
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'users/' + currentUser.uid), {
+      name: name,
+      householdId: householdId,
+      email: currentUser.email
+    });
+    userData = { name, householdId };
+    subscribeToHousehold();
+    showScreen('main');
+    renderScreen();
+    // Show code
+    setTimeout(() => {
+      alert('✨ Domácnost vytvořena!\n\nTvůj kód: ' + code + '\n\nPošli ho partnerovi, aby se mohl připojit ve své appce.');
+    }, 300);
+  } catch (e) {
+    err.textContent = 'Chyba: ' + e.message;
+  }
+}
+window.createHousehold = createHousehold;
+
+async function joinHousehold() {
+  const name = document.getElementById('join-name').value.trim();
+  const code = document.getElementById('join-code').value.trim().toUpperCase();
+  const err = document.getElementById('household-error');
+  err.textContent = '';
+  if (!name || !code) { err.textContent = 'Vyplň jméno i kód'; return; }
+  try {
+    const householdId = 'h_' + code;
+    const hRef = window.firebaseImports.ref(db, 'households/' + householdId);
+    const snap = await window.firebaseImports.get(hRef);
+    if (!snap.exists()) {
+      err.textContent = 'Domácnost s tímto kódem neexistuje';
+      return;
+    }
+    // Add member
+    await window.firebaseImports.update(window.firebaseImports.ref(db, 'households/' + householdId + '/members'), {
+      [currentUser.uid]: name
+    });
+    // Save user
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'users/' + currentUser.uid), {
+      name: name,
+      householdId: householdId,
+      email: currentUser.email
+    });
+    userData = { name, householdId };
+    subscribeToHousehold();
+    showScreen('main');
+    renderScreen();
+  } catch (e) {
+    err.textContent = 'Chyba: ' + e.message;
+  }
+}
+window.joinHousehold = joinHousehold;
+
+function subscribeToHousehold() {
+  if (!userData || !userData.householdId) return;
+  dataRef = window.firebaseImports.ref(db, 'households/' + userData.householdId);
+  window.firebaseImports.onValue(dataRef, (snap) => {
+    householdData = snap.val() || {};
+    if (currentScreen && !document.getElementById('main-app').classList.contains('hidden')) {
+      renderScreen();
+    }
+  });
+}
+
+// ======= DATA HELPERS =======
+function getList(name) {
+  const raw = householdData[name];
+  if (!raw) return [];
+  return Object.entries(raw).map(([id, v]) => ({ id, ...v }));
+}
+function getMembers() { return householdData.members || {}; }
+function getPartnerName() {
+  const members = getMembers();
+  const partnerUid = Object.keys(members).find(uid => uid !== currentUser.uid);
+  return partnerUid ? members[partnerUid] : 'Partner';
+}
+function getMyName() { return userData ? userData.name : 'Já'; }
+
+async function saveItem(listName, data, id = null) {
+  const path = 'households/' + userData.householdId + '/' + listName;
+  if (id) {
+    await window.firebaseImports.update(window.firebaseImports.ref(db, path + '/' + id), data);
+  } else {
+    const newRef = window.firebaseImports.push(window.firebaseImports.ref(db, path));
+    await window.firebaseImports.set(newRef, data);
+    return newRef.key;
+  }
+}
+
+async function removeItem(listName, id) {
+  const path = 'households/' + userData.householdId + '/' + listName + '/' + id;
+  await window.firebaseImports.remove(window.firebaseImports.ref(db, path));
+}
+
+async function logActivity(action, detail) {
+  const entry = {
+    user: getMyName(),
+    action: action,
+    detail: detail || '',
+    at: Date.now()
+  };
+  const path = 'households/' + userData.householdId + '/activity';
+  const newRef = window.firebaseImports.push(window.firebaseImports.ref(db, path));
+  await window.firebaseImports.set(newRef, entry);
+  
+  // Cleanup old activity (keep last 100)
+  const allActivity = getList('activity');
+  if (allActivity.length > 100) {
+    const sorted = allActivity.sort((a, b) => b.at - a.at);
+    const toDelete = sorted.slice(100);
+    for (const a of toDelete) {
+      await removeItem('activity', a.id);
+    }
+  }
+}
+
+// ======= RENDERING =======
+function renderScreen() {
+  const container = document.getElementById('screen-container');
+  const screens = {
+    'home': renderHome,
+    'tasks': renderTasks,
+    'calendar': renderCalendar,
+    'shopping': renderShopping,
+    'money': renderMoney,
+    'bills': renderBills,
+    'wishlist': renderWishlist,
+    'meals': renderMeals,
+    'places': renderPlaces,
+    'maintenance': renderMaintenance,
+    'activity': renderActivity,
+  };
+  const fn = screens[currentScreen] || renderHome;
+  container.innerHTML = fn();
+  attachScreenHandlers();
+}
+
+function goTo(screen) {
+  currentScreen = screen;
+  currentFilter = 'all';
+  window.scrollTo(0, 0);
+  renderScreen();
+}
+window.goTo = goTo;
+
+function attachScreenHandlers() {
+  // handlers are attached via onclick attributes for simplicity
+}
+
+// ======= HOME SCREEN =======
+function renderHome() {
+  const tasks = getList('tasks');
+  const events = getList('events');
+  const shopping = getList('shopping');
+  const debts = getList('debts');
+  const expenses = getList('expenses');
+  const wishlist = getList('wishlist');
+  const places = getList('places');
+  const maintenance = getList('maintenance');
+  
+  const taskCount = tasks.filter(t => !t.done).length;
+  const shoppingCount = shopping.filter(s => !s.done).length;
+  
+  const now = Date.now();
+  const weekAhead = now + 7 * 24 * 60 * 60 * 1000;
+  const upcomingEvents = events.filter(e => {
+    const t = new Date(e.start).getTime();
+    return t >= now - 24 * 60 * 60 * 1000 && t <= weekAhead;
+  }).sort((a, b) => new Date(a.start) - new Date(b.start));
+  
+  // Debt balance
+  let balance = 0;
+  debts.forEach(d => {
+    if (!d.settled) {
+      if (d.from === getMyName()) balance -= d.amount;
+      else if (d.to === getMyName()) balance += d.amount;
+    }
+  });
+  
+  const activeBills = expenses.filter(e => !e.paid).length;
+  const activeWishes = wishlist.filter(w => !w.bought).length;
+  const placesToVisit = places.filter(p => !p.visited).length;
+  const upcomingMaint = maintenance.filter(m => {
+    if (!m.nextDate) return false;
+    return new Date(m.nextDate).getTime() <= now + 30 * 24 * 60 * 60 * 1000;
+  }).length;
+
+  const tiles = [
+    { id: 'tasks', label: 'Úkoly', icon: '✓', count: taskCount, gradient: 'linear-gradient(135deg, #f4a261, #e76f51)' },
+    { id: 'calendar', label: 'Kalendář', icon: '📅', count: upcomingEvents.length, gradient: 'linear-gradient(135deg, #b39ddb, #7e57c2)' },
+    { id: 'shopping', label: 'Nákupy', icon: '🛒', count: shoppingCount, gradient: 'linear-gradient(135deg, #81c784, #4caf50)' },
+    { id: 'money', label: 'Peníze mezi námi', icon: '💰', 
+      subtitle: balance > 0 ? '+' + fmtMoney(balance) : balance < 0 ? fmtMoney(balance) : 'Vyrovnáno',
+      subtitleColor: balance >= 0 ? '#a5d6a7' : '#ef9a9a',
+      gradient: balance >= 0 ? 'linear-gradient(135deg, #81c784, #388e3c)' : 'linear-gradient(135deg, #ef5350, #c62828)' },
+    { id: 'bills', label: 'Společné výdaje', icon: '🏡', count: activeBills, gradient: 'linear-gradient(135deg, #64b5f6, #1976d2)' },
+    { id: 'wishlist', label: 'Přání', icon: '🎁', count: activeWishes, gradient: 'linear-gradient(135deg, #f06292, #c2185b)' },
+    { id: 'meals', label: 'Jídelníček', icon: '🍳', gradient: 'linear-gradient(135deg, #ffb74d, #f57c00)' },
+    { id: 'places', label: 'Místa', icon: '📍', count: placesToVisit, gradient: 'linear-gradient(135deg, #4db6ac, #00796b)' },
+    { id: 'maintenance', label: 'Údržba', icon: '🔧', count: upcomingMaint, gradient: 'linear-gradient(135deg, #90a4ae, #455a64)' },
+    { id: 'activity', label: 'Aktivita', icon: '⚡', gradient: 'linear-gradient(135deg, #ba68c8, #7b1fa2)' },
+  ];
+  
+  let html = `
+    <div class="app">
+      <div class="home-top">
+        <div class="top-bar">
+          <div>
+            <p class="greeting-small">Ahoj,</p>
+            <p class="greeting-name">${escapeHtml(getMyName())}</p>
+            <p class="together">Společně s ${escapeHtml(getPartnerName().toLowerCase())}em</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+            <button class="link-btn" onclick="showHouseholdCode()">kód domácnosti</button>
+            <button class="link-btn" onclick="logout()">odhlásit</button>
+          </div>
+        </div>
+      </div>
+  `;
+  
+  if (upcomingEvents.length > 0) {
+    html += `<div class="upcoming-card">
+      <p class="upcoming-title">🔔 Tento týden</p>
+      ${upcomingEvents.slice(0, 3).map(e => `
+        <div class="upcoming-item">
+          <span>📅</span>
+          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(e.title)}</span>
+          <span class="date">${fmtDate(e.start, true)}</span>
+        </div>
+      `).join('')}
+    </div>`;
+  }
+  
+  html += `<div class="tiles">`;
+  tiles.forEach(t => {
+    html += `<button class="tile" onclick="goTo('${t.id}')">
+      <div class="tile-icon" style="background: ${t.gradient};">${t.icon}</div>
+      <div class="tile-label">${t.label}</div>
+      ${t.count !== undefined && t.count > 0 ? `<div class="tile-count">${t.count} ${pluralCZ(t.count)}</div>` : ''}
+      ${t.subtitle ? `<div class="tile-subtitle" style="color: ${t.subtitleColor};">${t.subtitle}</div>` : ''}
+    </button>`;
+  });
+  html += `</div></div>`;
+  return html;
+}
+
+function showHouseholdCode() {
+  const code = userData.householdId.replace('h_', '');
+  alert('Kód domácnosti: ' + code + '\n\nPošli ho partnerovi, aby se mohl připojit.');
+}
+window.showHouseholdCode = showHouseholdCode;
+
+// ======= HEADER =======
+function header(title) {
+  return `<div class="header">
+    <button class="back-btn" onclick="goTo('home')">←</button>
+    <h2>${title}</h2>
+  </div>`;
+}
+
+// ======= TASKS =======
+function renderTasks() {
+  const tasks = getList('tasks');
+  const partnerName = getPartnerName();
+  const myName = getMyName();
+  
+  let filtered = tasks.filter(t => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'mine') return t.owner === myName;
+    if (currentFilter === 'partner') return t.owner === partnerName;
+    if (currentFilter === 'shared') return t.owner === 'shared';
+    return true;
+  });
+  
+  const active = filtered.filter(t => !t.done).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const done = filtered.filter(t => t.done).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  
+  let html = header('Úkoly') + `<div class="app">
+    <div class="tabs">
+      ${tabBtn('all', 'Vše')}
+      ${tabBtn('mine', 'Moje')}
+      ${tabBtn('partner', partnerName)}
+      ${tabBtn('shared', 'Společné')}
+    </div>
+  `;
+  
+  if (active.length > 0) {
+    html += `<div class="section-title">Aktivní</div><div class="list">`;
+    active.forEach(t => html += taskCard(t));
+    html += `</div>`;
+  }
+  if (done.length > 0) {
+    html += `<div class="section-title">Hotovo (${done.length})</div><div class="list">`;
+    done.forEach(t => html += taskCard(t));
+    html += `</div>`;
+  }
+  if (filtered.length === 0) {
+    html += `<div class="empty">Žádné úkoly</div>`;
+  }
+  html += `</div>
+    <button class="fab" onclick="showAddTask()">+</button>
+  `;
+  return html;
+}
+
+function tabBtn(id, label) {
+  return `<button class="tab ${currentFilter === id ? 'active' : ''}" onclick="setFilter('${id}')">${escapeHtml(label)}</button>`;
+}
+function setFilter(f) { currentFilter = f; renderScreen(); }
+window.setFilter = setFilter;
+
+function taskCard(t) {
+  const myName = getMyName();
+  const ownerLabel = t.owner === 'shared' ? 'Oba' : t.owner;
+  const badgeClass = t.owner === 'shared' ? 'badge-orange' : t.owner === myName ? 'badge-teal' : 'badge-purple';
+  return `<div class="card ${t.done ? 'done' : ''}">
+    <button class="checkbox ${t.done ? 'checked' : ''}" onclick="toggleTask('${t.id}')"></button>
+    <div class="card-body">
+      <div class="card-title ${t.done ? 'done' : ''}">${escapeHtml(t.title)}</div>
+      <div class="card-meta">
+        <span class="badge ${badgeClass}">${escapeHtml(ownerLabel)}</span>
+        <span>přidal ${escapeHtml(t.createdBy || '?')}</span>
+      </div>
+    </div>
+    <button class="del-btn" onclick="deleteTask('${t.id}', '${escapeHtml(t.title).replace(/'/g, '&#39;')}')">🗑</button>
+  </div>`;
+}
+
+function showAddTask() {
+  const partnerName = getPartnerName();
+  openModal('Nový úkol', `
+    <div class="field">
+      <input type="text" id="m-title" placeholder="Co je potřeba udělat?" autofocus>
+    </div>
+    <div class="field-label">Pro koho?</div>
+    <div class="option-grid cols-3" id="m-owner-grid">
+      <button class="option" data-v="me">Pro mě</button>
+      <button class="option active" data-v="shared">Pro oba</button>
+      <button class="option" data-v="partner">Pro ${escapeHtml(partnerName.toLowerCase())}e</button>
+    </div>
+    <button class="btn-submit" onclick="addTask()">Přidat</button>
+  `);
+  setupOptionGrid('m-owner-grid');
+}
+window.showAddTask = showAddTask;
+
+async function addTask() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) return;
+  const ownerChoice = document.querySelector('#m-owner-grid .option.active')?.dataset.v || 'shared';
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const owner = ownerChoice === 'me' ? myName : ownerChoice === 'partner' ? partnerName : 'shared';
+  await saveItem('tasks', {
+    title, owner, done: false, createdBy: myName, createdAt: Date.now()
+  });
+  await logActivity('přidal úkol', title);
+  closeModal();
+}
+window.addTask = addTask;
+
+async function toggleTask(id) {
+  const tasks = getList('tasks');
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  await saveItem('tasks', { done: !t.done, completedBy: !t.done ? getMyName() : null }, id);
+  await logActivity(!t.done ? 'dokončil úkol' : 'vrátil úkol', t.title);
+}
+window.toggleTask = toggleTask;
+
+async function deleteTask(id, title) {
+  if (!confirm('Smazat úkol "' + title + '"?')) return;
+  await removeItem('tasks', id);
+  await logActivity('smazal úkol', title);
+}
+window.deleteTask = deleteTask;
+
+// ======= CALENDAR =======
+function renderCalendar() {
+  const events = getList('events').sort((a, b) => new Date(a.start) - new Date(b.start));
+  const now = Date.now() - 24 * 60 * 60 * 1000;
+  const upcoming = events.filter(e => new Date(e.start).getTime() >= now);
+  const past = events.filter(e => new Date(e.start).getTime() < now);
+  
+  let html = header('Kalendář') + `<div class="app">`;
+  
+  if (upcoming.length > 0) {
+    html += `<div class="section-title">Nadcházející</div><div class="list">`;
+    upcoming.forEach(e => html += eventCard(e));
+    html += `</div>`;
+  }
+  if (past.length > 0) {
+    html += `<details><summary class="section-title">Proběhlé (${past.length})</summary><div class="list" style="margin-top: 8px;">`;
+    past.slice(0, 20).forEach(e => html += eventCard(e));
+    html += `</div></details>`;
+  }
+  if (events.length === 0) {
+    html += `<div class="empty">Žádné termíny</div>`;
+  }
+  html += `</div>
+    <button class="fab" onclick="showAddEvent()">+</button>
+  `;
+  return html;
+}
+
+function eventCard(e) {
+  const d = new Date(e.start);
+  const myName = getMyName();
+  const ownerLabel = e.forWhom === 'shared' ? 'Oba' : e.forWhom;
+  const badgeClass = e.forWhom === 'shared' ? 'badge-purple' : e.forWhom === myName ? 'badge-teal' : 'badge-orange';
+  return `<div class="card" style="flex-direction: column; gap: 0;">
+    <div style="display: flex; gap: 12px; width: 100%;">
+      <div class="date-pill">
+        <div class="date-pill-month">${d.toLocaleDateString('cs-CZ', { month: 'short' })}</div>
+        <div class="date-pill-day">${d.getDate()}</div>
+        <div class="date-pill-time">${d.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' })}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${escapeHtml(e.title)}</div>
+        ${e.note ? `<div class="card-note">${escapeHtml(e.note)}</div>` : ''}
+        <div class="card-meta">
+          <span class="badge ${badgeClass}">${escapeHtml(ownerLabel)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="action-btn" style="background: rgba(100, 181, 246, 0.15); color: #64b5f6;" onclick="exportEvent('${e.id}')">📲 Do iPhone kalendáře</button>
+      <button class="action-btn" style="background: rgba(239, 83, 80, 0.15); color: #ef5350; flex: 0 0 auto; padding: 8px 16px;" onclick="deleteEvent('${e.id}', '${escapeHtml(e.title).replace(/'/g, '&#39;')}')">🗑</button>
+    </div>
+  </div>`;
+}
+
+function showAddEvent() {
+  const partnerName = getPartnerName();
+  openModal('Nový termín', `
+    <div class="field">
+      <input type="text" id="m-title" placeholder="Co za událost?" autofocus>
+    </div>
+    <div class="option-grid cols-2">
+      <input type="date" id="m-date">
+      <input type="time" id="m-time" value="09:00">
+    </div>
+    <div class="field">
+      <textarea id="m-note" rows="2" placeholder="Poznámka"></textarea>
+
+```
+</div>
+<div class="field-label">Koho se týká?</div>
+<div class="option-grid cols-3" id="m-owner-grid">
+  <button class="option" data-v="me">Mě</button>
+  <button class="option active active-purple" data-v="shared">Oba</button>
+  <button class="option" data-v="partner">${escapeHtml(partnerName)}</button>
+</div>
+<button class="btn-submit" style="background: linear-gradient(135deg, #b39ddb, #7e57c2);" onclick="addEvent()">Přidat</button>
+```
+
+`);
+setupOptionGrid(‘m-owner-grid’, ‘active-purple’);
+// Default date = today
+document.getElementById(‘m-date’).value = new Date().toISOString().split(‘T’)[0];
+}
+window.showAddEvent = showAddEvent;
+
+async function addEvent() {
+const title = document.getElementById(‘m-title’).value.trim();
+const date = document.getElementById(‘m-date’).value;
+const time = document.getElementById(‘m-time’).value || ‘09:00’;
+const note = document.getElementById(‘m-note’).value.trim();
+if (!title || !date) return;
+const ownerChoice = document.querySelector(’#m-owner-grid .option.active’)?.dataset.v || ‘shared’;
+const myName = getMyName();
+const partnerName = getPartnerName();
+const forWhom = ownerChoice === ‘me’ ? myName : ownerChoice === ‘partner’ ? partnerName : ‘shared’;
+await saveItem(‘events’, {
+title, note, start: date + ‘T’ + time, forWhom, createdBy: myName, createdAt: Date.now()
+});
+await logActivity(‘přidal termín’, title);
+closeModal();
+}
+window.addEvent = addEvent;
+
+async function deleteEvent(id, title) {
+if (!confirm(‘Smazat termín “’ + title + ‘”?’)) return;
+await removeItem(‘events’, id);
+await logActivity(‘smazal termín’, title);
+}
+window.deleteEvent = deleteEvent;
+
+function exportEvent(id) {
+const e = getList(‘events’).find(x => x.id === id);
+if (!e) return;
+const start = new Date(e.start);
+const end = new Date(start.getTime() + 60 * 60 * 1000);
+const fmt = (d) => d.toISOString().replace(/[-:]/g, ‘’).split(’.’)[0] + ‘Z’;
+const ics = `BEGIN:VCALENDAR VERSION:2.0 PRODID:-//Domov//CS BEGIN:VEVENT UID:${id}@domov DTSTAMP:${fmt(new Date())} DTSTART:${fmt(start)} DTEND:${fmt(end)} SUMMARY:${e.title} DESCRIPTION:${(e.note || '').replace(/\n/g, '\\n')} BEGIN:VALARM TRIGGER:-PT1H ACTION:DISPLAY DESCRIPTION:Reminder END:VALARM END:VEVENT END:VCALENDAR`;
+const blob = new Blob([ics], { type: ‘text/calendar’ });
+const url = URL.createObjectURL(blob);
+const a = document.createElement(‘a’);
+a.href = url;
+a.download = (e.title || ‘udalost’).replace(/[^a-z0-9]/gi, ‘_’) + ‘.ics’;
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+window.exportEvent = exportEvent;
+
+// ======= SHOPPING =======
+function renderShopping() {
+const items = getList(‘shopping’).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+const active = items.filter(i => !i.done);
+const done = items.filter(i => i.done);
+
+let html = header(‘Nákupy’) + `<div class="app"> <div style="padding: 16px 20px; display: flex; gap: 8px;"> <input type="text" id="shop-input" placeholder="Přidat položku..." onkeydown="if(event.key==='Enter') addShoppingItem()"> <button class="btn-small" style="background: linear-gradient(135deg, #81c784, #4caf50); color: white; padding: 12px 18px; font-size: 20px;" onclick="addShoppingItem()">+</button> </div> `;
+
+if (active.length > 0) {
+html += `<div class="section-title">K nákupu (${active.length})</div><div class="list">`;
+active.forEach(i => {
+html += `<div class="card"> <button class="checkbox" onclick="toggleShopping('${i.id}')"></button> <div class="card-body"> <div class="card-title">${escapeHtml(i.name)}</div> </div> <span style="color: rgba(255,255,255,0.3); font-size: 11px;">${escapeHtml(i.addedBy || '')}</span> <button class="del-btn" onclick="deleteShopping('${i.id}', '${escapeHtml(i.name).replace(/'/g, '&#39;')}')">🗑</button> </div>`;
+});
+html += `</div>`;
+}
+if (done.length > 0) {
+html += `<div class="section-title">Nakoupeno (${done.length}) <button class="link-btn" onclick="clearDoneShopping()">vymazat</button></div><div class="list">`;
+done.forEach(i => {
+html += `<div class="card done"> <button class="checkbox checked" onclick="toggleShopping('${i.id}')"></button> <div class="card-body"> <div class="card-title done">${escapeHtml(i.name)}</div> </div> </div>`;
+});
+html += `</div>`;
+}
+if (items.length === 0) {
+html += `<div class="empty">Prázdný seznam</div>`;
+}
+html += `</div>`;
+return html;
+}
+
+async function addShoppingItem() {
+const input = document.getElementById(‘shop-input’);
+const name = input.value.trim();
+if (!name) return;
+await saveItem(‘shopping’, { name, done: false, addedBy: getMyName(), createdAt: Date.now() });
+await logActivity(‘přidal nákup’, name);
+input.value = ‘’;
+input.focus();
+}
+window.addShoppingItem = addShoppingItem;
+
+async function toggleShopping(id) {
+const items = getList(‘shopping’);
+const i = items.find(x => x.id === id);
+if (!i) return;
+await saveItem(‘shopping’, { done: !i.done, doneBy: !i.done ? getMyName() : null }, id);
+await logActivity(!i.done ? ‘koupil’ : ‘vrátil na nákup’, i.name);
+}
+window.toggleShopping = toggleShopping;
+
+async function deleteShopping(id, name) {
+await removeItem(‘shopping’, id);
+}
+window.deleteShopping = deleteShopping;
+
+async function clearDoneShopping() {
+if (!confirm(‘Vymazat všechny nakoupené položky?’)) return;
+const items = getList(‘shopping’).filter(i => i.done);
+for (const i of items) {
+await removeItem(‘shopping’, i.id);
+}
+await logActivity(‘vymazal nakoupené’, ‘’);
+}
+window.clearDoneShopping = clearDoneShopping;
+
+// ======= MONEY =======
+function renderMoney() {
+const debts = getList(‘debts’).sort((a, b) => (b.at || 0) - (a.at || 0));
+const myName = getMyName();
+const partnerName = getPartnerName();
+
+let balance = 0;
+debts.forEach(d => {
+if (!d.settled) {
+if (d.from === myName) balance -= d.amount;
+else if (d.to === myName) balance += d.amount;
+}
+});
+
+const active = debts.filter(d => !d.settled);
+const settled = debts.filter(d => d.settled);
+
+const balanceClass = balance > 0 ? ‘positive’ : balance < 0 ? ‘negative’ : ‘neutral’;
+
+let html = header(‘Peníze mezi námi’) + `<div class="app"> <div class="balance-card ${balanceClass}"> <div class="balance-label">Aktuální stav</div> ${balance === 0  ? '<div class="balance-amount">Vyrovnáno ✓</div>' : balance > 0 ? `<div class="balance-amount">+${fmtMoney(balance)}</div>
+<div class="balance-sub" style="color: #a5d6a7;">${escapeHtml(partnerName)} ti dluží</div>`:`<div class="balance-amount">${fmtMoney(balance)}</div>
+<div class="balance-sub" style="color: #ef9a9a;">Dlužíš ${escapeHtml(partnerName.toLowerCase())}ovi</div>`} ${active.length > 0 ?`<button class="btn-small" style="margin-top: 12px; background: rgba(255,255,255,0.1); color: white;" onclick="settleAll()">Vyrovnat vše</button>`: ''} </div>`;
+
+if (active.length > 0) {
+html += `<div class="section-title">Nevyrovnané (${active.length})</div><div class="list">`;
+active.forEach(d => html += debtCard(d));
+html += `</div>`;
+}
+if (settled.length > 0) {
+html += `<details style="margin-top: 16px;"><summary class="section-title">Vyrovnané (${settled.length})</summary><div class="list" style="margin-top: 8px;">`;
+settled.slice(0, 20).forEach(d => html += debtCard(d));
+html += `</div></details>`;
+}
+if (debts.length === 0) {
+html += `<div class="empty">Žádné dluhy 🎉</div>`;
+}
+html += `</div> <button class="fab" onclick="showAddDebt()">+</button> `;
+return html;
+}
+
+function debtCard(d) {
+const myName = getMyName();
+const iOwe = d.from === myName;
+return `<div class="card ${d.settled ? 'done' : ''}">
+<button class="checkbox ${d.settled ? 'checked' : ''}" onclick="toggleDebt('${d.id}')"></button>
+<div class="card-body">
+<div class="card-title ${d.settled ? 'done' : ''}">${escapeHtml(d.description)}</div>
+<div class="card-meta">
+<span>${iOwe ? ‘Dlužíš ’ + escapeHtml(d.to.toLowerCase()) + ‘ovi’ : escapeHtml(d.from) + ’ ti dluží’}</span>
+<span>· ${fmtDate(d.at)}</span>
+</div>
+</div>
+<div class="amount ${iOwe ? 'amount-red' : 'amount-green'}">${iOwe ? ‘-’ : ‘+’}${fmtMoney(d.amount)}</div>
+<button class="del-btn" onclick="deleteDebt('${d.id}', '${escapeHtml(d.description).replace(/'/g, '&#39;')}')">🗑</button>
+
+  </div>`;
+}
+
+function showAddDebt() {
+const myName = getMyName();
+const partnerName = getPartnerName();
+openModal(‘Nový výdaj’, `<div class="field"> <input type="text" id="m-desc" placeholder="Za co? (např. oběd, benzín)" autofocus> </div> <div class="field"> <input type="number" id="m-amount" placeholder="Kolik Kč?" inputmode="decimal"> </div> <div class="field-label">Kdo zaplatil?</div> <div class="option-grid cols-2" id="m-paid-grid"> <button class="option active active-green" data-v="${escapeHtml(myName)}">${escapeHtml(myName)}</button> <button class="option" data-v="${escapeHtml(partnerName)}">${escapeHtml(partnerName)}</button> </div> <p style="color: rgba(255,255,255,0.5); font-size: 12px; font-style: italic; margin-bottom: 16px;"> Celá částka = dluh toho druhého. Pokud jde o půl na půl, zadej polovinu částky. </p> <button class="btn-submit" style="background: linear-gradient(135deg, #81c784, #4caf50);" onclick="addDebt()">Přidat</button>`);
+setupOptionGrid(‘m-paid-grid’, ‘active-green’);
+}
+window.showAddDebt = showAddDebt;
+
+async function addDebt() {
+const desc = document.getElementById(‘m-desc’).value.trim();
+const amount = parseFloat(document.getElementById(‘m-amount’).value);
+if (!desc || !amount) return;
+const paidBy = document.querySelector(’#m-paid-grid .option.active’)?.dataset.v || getMyName();
+const myName = getMyName();
+const partnerName = getPartnerName();
+const from = paidBy === myName ? partnerName : myName;
+const to = paidBy;
+await saveItem(‘debts’, {
+description: desc, amount, from, to, at: Date.now(), settled: false
+});
+await logActivity(‘přidal dluh’, desc + ’ — ’ + amount + ’ Kč’);
+closeModal();
+}
+window.addDebt = addDebt;
+
+async function toggleDebt(id) {
+const d = getList(‘debts’).find(x => x.id === id);
+if (!d) return;
+await saveItem(‘debts’, { settled: !d.settled }, id);
+await logActivity(!d.settled ? ‘vyrovnal dluh’ : ‘obnovil dluh’, d.description);
+}
+window.toggleDebt = toggleDebt;
+
+async function deleteDebt(id, desc) {
+if (!confirm(‘Smazat “’ + desc + ‘”?’)) return;
+await removeItem(‘debts’, id);
+await logActivity(‘smazal dluh’, desc);
+}
+window.deleteDebt = deleteDebt;
+
+async function settleAll() {
+if (!confirm(‘Označit všechny dluhy jako vyrovnané?’)) return;
+const debts = getList(‘debts’).filter(d => !d.settled);
+for (const d of debts) {
+await saveItem(‘debts’, { settled: true }, d.id);
+}
+await logActivity(‘vyrovnal všechny dluhy’, ‘’);
+}
+window.settleAll = settleAll;
+
+// ======= BILLS =======
+function renderBills() {
+const bills = getList(‘expenses’).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+const total = bills.filter(b => b.recurring !== false).reduce((s, b) => s + (b.amount || 0), 0);
+const active = bills.filter(b => !b.paid);
+const paid = bills.filter(b => b.paid);
+
+let html = header(‘Společné výdaje’) + `<div class="app"> <div class="balance-card" style="background: linear-gradient(135deg, rgba(100, 181, 246, 0.2), rgba(25, 118, 210, 0.1));"> <div class="balance-label">Měsíčně celkem</div> <div class="balance-amount">${fmtMoney(total)}</div> <div class="balance-sub" style="color: #90caf9;">Napůl = ${fmtMoney(total / 2)} / osoba</div> </div> `;
+
+if (active.length > 0) {
+html += `<div class="section-title">K zaplacení (${active.length})</div><div class="list">`;
+active.forEach(b => html += billCard(b));
+html += `</div>`;
+}
+if (paid.length > 0) {
+html += `<details><summary class="section-title">Zaplaceno (${paid.length})</summary><div class="list" style="margin-top: 8px;">`;
+paid.forEach(b => html += billCard(b));
+html += `</div></details>`;
+}
+if (bills.length === 0) {
+html += `<div class="empty">Žádné výdaje</div>`;
+}
+html += `</div> <button class="fab" onclick="showAddBill()">+</button> `;
+return html;
+}
+
+function billCard(b) {
+return `<div class="card ${b.paid ? 'done' : ''}"> <button class="checkbox ${b.paid ? 'checked' : ''}" onclick="toggleBill('${b.id}')"></button> <div class="card-body"> <div class="card-title ${b.paid ? 'done' : ''}">${escapeHtml(b.name)}</div> <div class="card-meta"> <span>Platí ${escapeHtml(b.paidBy || '?')}</span> ${b.dueDay ? `<span>· do ${b.dueDay}. v měsíci</span>` : ‘’}
+</div>
+</div>
+<div class="amount">${fmtMoney(b.amount)}</div>
+<button class="del-btn" onclick="deleteBill('${b.id}', '${escapeHtml(b.name).replace(/'/g, '&#39;')}')">🗑</button>
+
+  </div>`;
+}
+
+function showAddBill() {
+const myName = getMyName();
+const partnerName = getPartnerName();
+openModal(‘Nový výdaj’, `<div class="field"> <input type="text" id="m-name" placeholder="Co? (Nájem, Internet, Elektřina...)" autofocus> </div> <div class="field"> <input type="number" id="m-amount" placeholder="Částka Kč" inputmode="decimal"> </div> <div class="field"> <input type="number" min="1" max="31" id="m-dueday" placeholder="Den splatnosti (nepovinné)"> </div> <div class="field-label">Kdo platí?</div> <div class="option-grid cols-2" id="m-paid-grid"> <button class="option active active-blue" data-v="${escapeHtml(myName)}">${escapeHtml(myName)}</button> <button class="option" data-v="${escapeHtml(partnerName)}">${escapeHtml(partnerName)}</button> </div> <button class="btn-submit" style="background: linear-gradient(135deg, #64b5f6, #1976d2); color: white;" onclick="addBill()">Přidat</button>`);
+setupOptionGrid(‘m-paid-grid’, ‘active-blue’);
+}
+window.showAddBill = showAddBill;
+
+async function addBill() {
+const name = document.getElementById(‘m-name’).value.trim();
+const amount = parseFloat(document.getElementById(‘m-amount’).value);
+const dueDay = parseInt(document.getElementById(‘m-dueday’).value) || null;
+if (!name || !amount) return;
+const paidBy = document.querySelector(’#m-paid-grid .option.active’)?.dataset.v || getMyName();
+await saveItem(‘expenses’, {
+name, amount, paidBy, dueDay, recurring: true, paid: false, createdAt: Date.now()
+});
+await logActivity(‘přidal výdaj’, name + ’ — ’ + amount + ’ Kč’);
+closeModal();
+}
+window.addBill = addBill;
+
+async function toggleBill(id) {
+const b = getList(‘expenses’).find(x => x.id === id);
+if (!b) return;
+await saveItem(‘expenses’, { paid: !b.paid, paidAt: !b.paid ? Date.now() : null }, id);
+await logActivity(!b.paid ? ‘zaplatil’ : ‘vrátil platbu’, b.name);
+}
+window.toggleBill = toggleBill;
+
+async function deleteBill(id, name) {
+if (!confirm(‘Smazat “’ + name + ‘”?’)) return;
+await removeItem(‘expenses’, id);
+await logActivity(‘smazal výdaj’, name);
+}
+window.deleteBill = deleteBill;
+
+// ======= WISHLIST =======
+function renderWishlist() {
+const items = getList(‘wishlist’).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+const myName = getMyName();
+const partnerName = getPartnerName();
+
+let filtered = items;
+if (currentFilter === ‘mine’) filtered = items.filter(w => w.forWhom === myName);
+else if (currentFilter === ‘partner’) filtered = items.filter(w => w.forWhom === partnerName);
+
+let html = header(‘Přání & dárky’) + `<div class="app"> <div class="tabs"> <button class="tab ${currentFilter === 'all' ? 'active' : ''}" style="${currentFilter === 'all' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : ''}" onclick="setFilter('all')">Vše</button> <button class="tab ${currentFilter === 'mine' ? 'active' : ''}" style="${currentFilter === 'mine' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : ''}" onclick="setFilter('mine')">Moje přání</button> <button class="tab ${currentFilter === 'partner' ? 'active' : ''}" style="${currentFilter === 'partner' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : ''}" onclick="setFilter('partner')">${escapeHtml(partnerName)} chce</button> </div> <div class="list"> `;
+
+filtered.forEach(w => {
+html += `<div class="card ${w.bought ? 'done' : ''}"> <button class="checkbox ${w.bought ? 'checked' : ''}" style="${w.bought ? 'background: #f06292; border-color: #f06292;' : ''}" onclick="toggleWish('${w.id}')"></button> <div class="card-body"> <div class="card-title ${w.bought ? 'done' : ''}">${escapeHtml(w.name)}</div> <div class="card-meta"> <span class="badge" style="background: rgba(240, 98, 146, 0.15); color: #f06292;">Pro ${escapeHtml(w.forWhom.toLowerCase())}e</span> ${w.price ? `<span>${fmtMoney(parseFloat(w.price))}</span>`: ''} ${w.link ?`<a href="${escapeHtml(w.link)}" target="_blank" style="color: #64b5f6; font-size: 11px;">odkaz</a>` : ''} </div> </div> <button class="del-btn" onclick="deleteWish('${w.id}', '${escapeHtml(w.name).replace(/'/g, '&#39;')}')">🗑</button> </div>`;
+});
+
+if (filtered.length === 0) html += `<div class="empty">Žádná přání</div>`;
+
+html += `</div></div> <button class="fab" onclick="showAddWish()">+</button> `;
+return html;
+}
+
+function showAddWish() {
+const myName = getMyName();
+const partnerName = getPartnerName();
+openModal(‘Nové přání’, `<div class="field"> <input type="text" id="m-name" placeholder="Co by sis přál(a)?" autofocus> </div> <div class="field"> <input type="text" id="m-link" placeholder="Odkaz (nepovinné)"> </div> <div class="field"> <input type="number" id="m-price" placeholder="Cena Kč (nepovinné)"> </div> <div class="field-label">Pro koho?</div> <div class="option-grid cols-2" id="m-for-grid"> <button class="option active active-pink" data-v="${escapeHtml(myName)}">${escapeHtml(myName)}</button> <button class="option" data-v="${escapeHtml(partnerName)}">${escapeHtml(partnerName)}</button> </div> <button class="btn-submit" style="background: linear-gradient(135deg, #f06292, #c2185b); color: white;" onclick="addWish()">Přidat</button>`);
+setupOptionGrid(‘m-for-grid’, ‘active-pink’);
+}
+window.showAddWish = showAddWish;
+
+async function addWish() {
+const name = document.getElementById(‘m-name’).value.trim();
+const link = document.getElementById(‘m-link’).value.trim();
+const price = document.getElementById(‘m-price’).value;
+if (!name) return;
+const forWhom = document.querySelector(’#m-for-grid .option.active’)?.dataset.v || getMyName();
+await saveItem(‘wishlist’, {
+name, link, price, forWhom, addedBy: getMyName(), bought: false, createdAt: Date.now()
+});
+await logActivity(‘přidal přání’, name);
+closeModal();
+}
+window.addWish = addWish;
+
+async function toggleWish(id) {
+const w = getList(‘wishlist’).find(x => x.id === id);
+if (!w) return;
+await saveItem(‘wishlist’, { bought: !w.bought, boughtBy: !w.bought ? getMyName() : null }, id);
+await logActivity(!w.bought ? ‘koupil dárek’ : ‘vrátil dárek’, w.name);
+}
+window.toggleWish = toggleWish;
+
+async function deleteWish(id, name) {
+if (!confirm(‘Smazat “’ + name + ‘”?’)) return;
+await removeItem(‘wishlist’, id);
+await logActivity(‘smazal přání’, name);
+}
+window.deleteWish = deleteWish;
+
+// ======= MEALS =======
+function renderMeals() {
+const meals = householdData.meals || {};
+const today = new Date();
+const day = today.getDay();
+const diffToMonday = day === 0 ? -6 : 1 - day;
+const monday = new Date(today);
+monday.setDate(today.getDate() + diffToMonday + mealWeekOffset * 7);
+monday.setHours(0, 0, 0, 0);
+
+const days = [];
+for (let i = 0; i < 7; i++) {
+const d = new Date(monday);
+d.setDate(monday.getDate() + i);
+days.push(d);
+}
+
+const dayLabels = [‘Po’, ‘Út’, ‘St’, ‘Čt’, ‘Pá’, ‘So’, ‘Ne’];
+const mealTypes = [
+{ id: ‘breakfast’, label: ‘Snídaně’ },
+{ id: ‘lunch’, label: ‘Oběd’ },
+{ id: ‘dinner’, label: ‘Večeře’ },
+];
+
+let html = header(‘Jídelníček’) + `<div class="app"> <div class="week-nav"> <button onclick="changeWeek(-1)">←</button> <span style="font-weight: 500;">${mealWeekOffset === 0 ? 'Tento týden' : mealWeekOffset === 1 ? 'Příští týden' : mealWeekOffset === -1 ? 'Minulý týden' : (mealWeekOffset > 0 ? '+' : '') + mealWeekOffset + ' týdnů'}</span> <button onclick="changeWeek(1)">→</button> </div> <div style="padding: 0 20px;"> `;
+
+days.forEach((d, i) => {
+const key = d.toISOString().split(‘T’)[0];
+const dayMeals = meals[key] || {};
+const isToday = d.toDateString() === new Date().toDateString();
+html += `<div class="meal-day ${isToday ? 'today' : ''}"> <div class="meal-day-header"> <span class="meal-day-name">${dayLabels[i]} <span class="meal-day-date">${d.getDate()}. ${d.toLocaleDateString('cs-CZ', { month: 'short' })}</span></span> ${isToday ? '<span style="color: #ffb74d; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">Dnes</span>' : ''} </div> `;
+mealTypes.forEach(mt => {
+const val = dayMeals[mt.id] || ‘’;
+html += `<button class="meal-row" onclick="editMeal('${key}', '${mt.id}', '${mt.label}', '${dayLabels[i]} ${d.getDate()}.')"> <span class="meal-type">${mt.label}</span> <span class="meal-text ${!val ? 'empty-meal' : ''}">${val ? escapeHtml(val) : 'přidat...'}</span> </button>`;
+});
+html += `</div>`;
+});
+html += `</div></div>`;
+return html;
+}
+
+function changeWeek(delta) {
+mealWeekOffset += delta;
+renderScreen();
+}
+window.changeWeek = changeWeek;
+
+function editMeal(key, type, typeLabel, dayLabel) {
+const meals = householdData.meals || {};
+const current = (meals[key] && meals[key][type]) || ‘’;
+openModal(typeLabel + ’ — ’ + dayLabel, `<div class="field"> <input type="text" id="m-meal" placeholder="Co vaříte?" value="${escapeHtml(current)}" autofocus> </div> <button class="btn-submit" style="background: linear-gradient(135deg, #ffb74d, #f57c00);" onclick="saveMeal('${key}', '${type}', '${typeLabel}', '${dayLabel}')">Uložit</button>`);
+setTimeout(() => {
+const inp = document.getElementById(‘m-meal’);
+inp.addEventListener(‘keydown’, e => {
+if (e.key === ‘Enter’) saveMeal(key, type, typeLabel, dayLabel);
+});
+}, 100);
+}
+window.editMeal = editMeal;
+
+async function saveMeal(key, type, typeLabel, dayLabel) {
+const val = document.getElementById(‘m-meal’).value.trim();
+const path = ‘households/’ + userData.householdId + ‘/meals/’ + key;
+const ref = window.firebaseImports.ref(db, path);
+const snap = await window.firebaseImports.get(ref);
+const existing = snap.val() || {};
+if (val) existing[type] = val;
+else delete existing[type];
+await window.firebaseImports.set(ref, existing);
+await logActivity(‘upravil jídelníček’, dayLabel + ’ ’ + typeLabel + ’: ’ + (val || ‘smazáno’));
+closeModal();
+}
+window.saveMeal = saveMeal;
+
+// ======= PLACES =======
+const placeCategories = {
+restaurant: { label: ‘Restaurace’, icon: ‘🍽️’ },
+trip: { label: ‘Výlet’, icon: ‘🏞️’ },
+cafe: { label: ‘Kavárna’, icon: ‘☕’ },
+culture: { label: ‘Kultura’, icon: ‘🎭’ },
+other: { label: ‘Jiné’, icon: ‘📍’ },
+};
+
+function renderPlaces() {
+const places = getList(‘places’).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+const toVisit = places.filter(p => !p.visited);
+const visited = places.filter(p => p.visited);
+
+let html = header(‘Místa’) + `<div class="app">`;
+
+if (toVisit.length > 0) {
+html += `<div class="section-title">K navštívení (${toVisit.length})</div><div class="list">`;
+toVisit.forEach(p => {
+const cat = placeCategories[p.category] || placeCategories.other;
+html += `<div class="card"> <span style="font-size: 24px; flex-shrink: 0;">${cat.icon}</span> <div class="card-body"> <div class="card-title">${escapeHtml(p.name)}</div> ${p.note ? `<div class="card-note">${escapeHtml(p.note)}</div>` : ''} <div class="card-meta"> <span>${cat.label} · přidal ${escapeHtml(p.addedBy || '?')}</span> </div> </div> <button class="btn-small" style="background: rgba(77, 182, 172, 0.2); color: #4db6ac;" onclick="visitPlace('${p.id}')">Navštívit ✓</button> <button class="del-btn" onclick="deletePlace('${p.id}', '${escapeHtml(p.name).replace(/'/g, '&#39;')}')">🗑</button> </div>`;
+});
+html += `</div>`;
+}
+if (visited.length > 0) {
+html += `<div class="section-title">Navštíveno (${visited.length})</div><div class="list">`;
+visited.forEach(p => {
+const cat = placeCategories[p.category] || placeCategories.other;
+let stars = ‘’;
+for (let i = 1; i <= 5; i++) {
+stars += `<button onclick="ratePlace('${p.id}', ${i})" style="background: transparent; padding: 2px; font-size: 14px; color: ${i <= (p.rating || 0) ? '#ffc107' : 'rgba(255,255,255,0.3)'};">★</button>`;
+}
+html += `<div class="card" style="opacity: 0.7;"> <span style="font-size: 20px; flex-shrink: 0;">${cat.icon}</span> <div class="card-body"> <div class="card-title">${escapeHtml(p.name)}</div> <div>${stars}</div> </div> <button class="link-btn" onclick="unvisitPlace('${p.id}')">vrátit</button> <button class="del-btn" onclick="deletePlace('${p.id}', '${escapeHtml(p.name).replace(/'/g, '&#39;')}')">🗑</button> </div>`;
+});
+html += `</div>`;
+}
+if (places.length === 0) html += `<div class="empty">Žádná místa</div>`;
+
+html += `</div> <button class="fab" onclick="showAddPlace()">+</button> `;
+return html;
+}
+
+function showAddPlace() {
+let options = ‘’;
+Object.entries(placeCategories).forEach(([id, c], idx) => {
+options += `<button class="option ${idx === 0 ? 'active' : ''}" data-v="${id}">${c.icon} ${c.label}</button>`;
+});
+openModal(‘Nové místo’, `<div class="field"> <input type="text" id="m-name" placeholder="Název místa" autofocus> </div> <div class="field-label">Kategorie</div> <div class="option-grid cols-3" id="m-cat-grid">${options}</div> <div class="field"> <textarea id="m-note" rows="2" placeholder="Poznámka"></textarea> </div> <button class="btn-submit" style="background: linear-gradient(135deg, #4db6ac, #00796b); color: white;" onclick="addPlace()">Přidat</button>`);
+setupOptionGrid(‘m-cat-grid’);
+}
+window.showAddPlace = showAddPlace;
+
+async function addPlace() {
+const name = document.getElementById(‘m-name’).value.trim();
+const note = document.getElementById(‘m-note’).value.trim();
+if (!name) return;
+const category = document.querySelector(’#m-cat-grid .option.active’)?.dataset.v || ‘other’;
+await saveItem(‘places’, {
+name, note, category, addedBy: getMyName(), visited: false, rating: 0, createdAt: Date.now()
+});
+await logActivity(‘přidal místo’, name);
+closeModal();
+}
+window.addPlace = addPlace;
+
+async function visitPlace(id) {
+const p = getList(‘places’).find(x => x.id === id);
+if (!p) return;
+await saveItem(‘places’, { visited: true }, id);
+await logActivity(‘navštívil’, p.name);
+}
+window.visitPlace = visitPlace;
+
+async function unvisitPlace(id) {
+await saveItem(‘places’, { visited: false }, id);
+}
+window.unvisitPlace = unvisitPlace;
+
+async function ratePlace(id, rating) {
+const p = getList(‘places’).find(x => x.id === id);
+if (!p) return;
+await saveItem(‘places’, { rating: p.rating === rating ? 0 : rating }, id);
+}
+window.ratePlace = ratePlace;
+
+async function deletePlace(id, name) {
+if (!confirm(‘Smazat “’ + name + ‘”?’)) return;
+await removeItem(‘places’, id);
+await logActivity(‘smazal místo’, name);
+}
+window.deletePlace = deletePlace;
+
+// ======= MAINTENANCE =======
+function renderMaintenance() {
+const items = getList(‘maintenance’).sort((a, b) => {
+if (!a.nextDate && !b.nextDate) return 0;
+if (!a.nextDate) return 1;
+if (!b.nextDate) return -1;
+return new Date(a.nextDate) - new Date(b.nextDate);
+});
+
+let html = header(‘Domácí údržba’) + `<div class="app"><div class="list">`;
+
+items.forEach(m => {
+let daysUntil = null;
+let urgent = false, overdue = false;
+if (m.nextDate) {
+daysUntil = Math.ceil((new Date(m.nextDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+overdue = daysUntil < 0;
+urgent = daysUntil >= 0 && daysUntil <= 30;
+}
+const bg = overdue ? ‘rgba(239, 83, 80, 0.1)’ : urgent ? ‘rgba(255, 183, 77, 0.1)’ : ‘rgba(255,255,255,0.04)’;
+const bc = overdue ? ‘rgba(239, 83, 80, 0.3)’ : urgent ? ‘rgba(255, 183, 77, 0.3)’ : ‘rgba(255,255,255,0.08)’;
+const dateColor = overdue ? ‘#ef5350’ : urgent ? ‘#ffb74d’ : ‘rgba(255,255,255,0.5)’;
+
+```
+html += `<div class="card" style="background: ${bg}; border-color: ${bc};">
+  <span style="font-size: 20px;">🔧</span>
+  <div class="card-body">
+    <div class="card-title">${escapeHtml(m.name)}</div>
+    ${m.note ? `<div class="card-note">${escapeHtml(m.note)}</div>` : ''}
+    <div style="font-size: 12px; margin-top: 4px;">
+      ${m.lastDate ? `<div style="color: rgba(255,255,255,0.5);">Naposledy: ${fmtDate(m.lastDate, true)}</div>` : ''}
+      ${m.nextDate ? `<div style="color: ${dateColor};">Příště: ${fmtDate(m.nextDate, true)}${daysUntil !== null ? (overdue ? ' (před ' + Math.abs(daysUntil) + ' dny!)' : urgent ? ' (za ' + daysUntil + ' d)' : '') : ''}</div>` : ''}
+    </div>
+  </div>
+  <button class="btn-small" style="background: rgba(129, 199, 132, 0.15); color: #81c784;" onclick="markMaintDone('${m.id}')">Hotovo</button>
+  <button class="del-btn" onclick="deleteMaint('${m.id}', '${escapeHtml(m.name).replace(/'/g, '&#39;')}')">🗑</button>
+</div>`;
+```
+
+});
+
+if (items.length === 0) html += `<div class="empty">Žádná údržba</div>`;
+
+html += `</div></div> <button class="fab" onclick="showAddMaint()">+</button> `;
+return html;
+}
+
+function showAddMaint() {
+openModal(‘Nová údržba’, `<div class="field"> <input type="text" id="m-name" placeholder="Co? (Revize plynu, Servis auta...)" autofocus> </div> <div class="field-label">Naposledy provedeno</div> <div class="field"> <input type="date" id="m-last"> </div> <div class="field-label">Další termín</div> <div class="field"> <input type="date" id="m-next"> </div> <div class="field"> <textarea id="m-note" rows="2" placeholder="Poznámka (firma, telefon...)"></textarea> </div> <button class="btn-submit" style="background: linear-gradient(135deg, #90a4ae, #455a64); color: white;" onclick="addMaint()">Přidat</button>`);
+}
+window.showAddMaint = showAddMaint;
+
+async function addMaint() {
+const name = document.getElementById(‘m-name’).value.trim();
+const lastDate = document.getElementById(‘m-last’).value;
+const nextDate = document.getElementById(‘m-next’).value;
+const note = document.getElementById(‘m-note’).value.trim();
+if (!name) return;
+await saveItem(‘maintenance’, {
+name, lastDate, nextDate, note, addedBy: getMyName(), createdAt: Date.now()
+});
+await logActivity(‘přidal údržbu’, name);
+closeModal();
+}
+window.addMaint = addMaint;
+
+async function markMaintDone(id) {
+const m = getList(‘maintenance’).find(x => x.id === id);
+if (!m) return;
+const today = new Date().toISOString().split(‘T’)[0];
+await saveItem(‘maintenance’, { lastDate: today, nextDate: ‘’ }, id);
+await logActivity(‘provedl údržbu’, m.name);
+}
+window.markMaintDone = markMaintDone;
+
+async function deleteMaint(id, name) {
+if (!confirm(‘Smazat “’ + name + ‘”?’)) return;
+await removeItem(‘maintenance’, id);
+await logActivity(‘smazal údržbu’, name);
+}
+window.deleteMaint = deleteMaint;
+
+// ======= ACTIVITY =======
+function renderActivity() {
+const activity = getList(‘activity’).sort((a, b) => (b.at || 0) - (a.at || 0));
+let html = header(‘Aktivita’) + `<div class="app"> <p style="padding: 0 20px; color: rgba(255,255,255,0.5); font-style: italic; font-size: 13px;">Kdo co kdy dělal</p> <div class="list" style="margin-top: 12px;"> `;
+activity.forEach(a => {
+const color = a.user === getMyName() ? ‘linear-gradient(135deg, #2a9d8f, #264653)’ : ‘linear-gradient(135deg, #f4a261, #e76f51)’;
+html += `<div class="activity-item"> <div class="avatar" style="background: ${color};">${escapeHtml((a.user || '?').charAt(0))}</div> <div style="flex: 1; min-width: 0;"> <div style="font-size: 13px;"><strong>${escapeHtml(a.user || '?')}</strong> <span style="color: rgba(255,255,255,0.6);">${escapeHtml(a.action)}</span>${a.detail ? ': ' + escapeHtml(a.detail) : ''}</div> <div style="color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 2px;">${fmtDate(a.at, true)}</div> </div> </div>`;
+});
+if (activity.length === 0) html += `<div class="empty">Zatím žádná aktivita</div>`;
+html += `</div></div>`;
+return html;
+}
+
+// ======= UTILITIES =======
+function escapeHtml(s) {
+if (s === undefined || s === null) return ‘’;
+return String(s)
+.replace(/&/g, ‘&’)
+.replace(/</g, ‘<’)
+.replace(/>/g, ‘>’)
+.replace(/”/g, ‘"’);
+}
+
+function fmtMoney(n) {
+if (!n && n !== 0) return ‘0 Kč’;
+return Math.round(n).toLocaleString(‘cs-CZ’) + ’ Kč’;
+}
+
+function fmtDate(d, includeTime) {
+const date = typeof d === ‘number’ ? new Date(d) : new Date(d);
+const opts = { day: ‘numeric’, month: ‘short’ };
+if (includeTime) {
+opts.hour = ‘2-digit’;
+opts.minute = ‘2-digit’;
+}
+return date.toLocaleString(‘cs-CZ’, opts);
+}
+
+function pluralCZ(n) {
+if (n === 1) return ‘položka’;
+if (n >= 2 && n <= 4) return ‘položky’;
+return ‘položek’;
+}
+
+// ======= MODAL =======
+function openModal(title, content) {
+const bg = document.createElement(‘div’);
+bg.className = ‘modal-bg’;
+bg.id = ‘modal-bg’;
+bg.innerHTML = `<div class="modal" onclick="event.stopPropagation()">
+<div class="modal-header">
+<h3>${title}</h3>
+<button class="modal-close" onclick="closeModal()">✕</button>
+</div>
+${content}
+
+  </div>`;
+  bg.onclick = closeModal;
+  document.body.appendChild(bg);
+  setTimeout(() => {
+    const autofocus = bg.querySelector('[autofocus]');
+    if (autofocus) autofocus.focus();
+  }, 100);
+}
+
+function closeModal() {
+const bg = document.getElementById(‘modal-bg’);
+if (bg) bg.remove();
+}
+window.closeModal = closeModal;
+
+function setupOptionGrid(gridId, activeClass = ‘’) {
+const grid = document.getElementById(gridId);
+if (!grid) return;
+grid.querySelectorAll(’.option’).forEach(btn => {
+btn.onclick = () => {
+grid.querySelectorAll(’.option’).forEach(b => {
+b.classList.remove(‘active’, ‘active-orange’, ‘active-pink’, ‘active-green’, ‘active-blue’, ‘active-purple’);
+});
+btn.classList.add(‘active’);
+if (activeClass) btn.classList.add(activeClass);
+};
+});
+}
+
+// ======= ONLINE/OFFLINE =======
+window.addEventListener(‘online’, () => {
+document.getElementById(‘conn-status’).classList.add(‘hidden’);
+});
+window.addEventListener(‘offline’, () => {
+document.getElementById(‘conn-status’).classList.remove(‘hidden’);
+});
+if (!navigator.onLine) {
+document.getElementById(‘conn-status’).classList.remove(‘hidden’);
+}
+
+// Reset config (for debugging)
+window.resetConfig = () => {
+if (confirm(‘Smazat Firebase nastavení a začít znovu?’)) {
+localStorage.removeItem(‘firebase-config’);
+location.reload();
+}
+};
+</script>
+
+</body>
+</html>
