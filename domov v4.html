@@ -1,0 +1,2969 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Domov">
+<meta name="theme-color" content="#0a1628">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23e76f51'/%3E%3Cpath d='M90 50 L140 100 L140 140 L100 140 L100 110 L80 110 L80 140 L40 140 L40 100 Z' fill='white'/%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Domov%22%2C%22short_name%22%3A%22Domov%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a1628%22%2C%22theme_color%22%3A%22%230a1628%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520180%2520180%2527%253E%253Crect%2520width%253D%2527180%2527%2520height%253D%2527180%2527%2520rx%253D%252740%2527%2520fill%253D%2527%2523e76f51%2527%252F%253E%253Cpath%2520d%253D%2527M90%252050%2520L140%2520100%2520L140%2520140%2520L100%2520140%2520L100%2520110%2520L80%2520110%2520L80%2520140%2520L40%2520140%2520L40%2520100%2520Z%2527%2520fill%253D%2527white%2527%252F%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%252Bxml%22%7D%5D%7D">
+<title>Domov</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: #0a1628;
+  color: white;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+body {
+  background: radial-gradient(ellipse at top, #3d2645 0%, #1a1f3a 50%, #0a1628 100%);
+  background-attachment: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: env(safe-area-inset-top);
+}
+button { font-family: inherit; border: none; cursor: pointer; color: inherit; }
+input, textarea, select {
+  font-family: inherit;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+}
+input:focus, textarea:focus, select:focus { border-color: rgba(244, 162, 97, 0.5); }
+input[type="date"], input[type="time"], input[type="number"] { color-scheme: dark; }
+textarea { resize: none; }
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff88' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+.app { max-width: 600px; margin: 0 auto; padding-bottom: 100px; }
+.hidden { display: none !important; }
+
+/* Login/config screens */
+.login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.login-card { max-width: 420px; width: 100%; text-align: center; }
+.logo { width: 96px; height: 96px; background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%); border-radius: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; transform: rotate(-6deg); box-shadow: 0 20px 60px rgba(231, 111, 81, 0.4); font-size: 48px; }
+h1.title { font-size: 48px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.subtitle { color: rgba(255,255,255,0.5); font-style: italic; font-size: 18px; margin-bottom: 32px; }
+.login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 28px; backdrop-filter: blur(20px); }
+.login-box p { color: rgba(255,255,255,0.9); margin-bottom: 16px; font-size: 17px; }
+.login-box input { margin-bottom: 12px; }
+
+.btn { width: 100%; padding: 16px 24px; border-radius: 16px; font-weight: 600; font-size: 17px; margin-bottom: 10px; transition: transform 0.15s; }
+.btn:active { transform: scale(0.97); }
+.btn-orange { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; box-shadow: 0 8px 30px rgba(231, 111, 81, 0.35); }
+.btn-teal { background: linear-gradient(135deg, #2a9d8f, #264653); color: white; box-shadow: 0 8px 30px rgba(42, 157, 143, 0.35); }
+.btn-small { padding: 8px 14px; font-size: 13px; border-radius: 10px; margin: 0; }
+.link-btn { background: transparent; color: rgba(255,255,255,0.5); text-decoration: underline; font-size: 13px; padding: 4px; }
+
+/* Header */
+.header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(20px); background: rgba(10, 22, 40, 0.85); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; }
+.header h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; flex: 1; }
+.back-btn { padding: 8px; margin-left: -8px; background: transparent; font-size: 24px; }
+
+/* Home screen */
+.home-top { padding: 32px 20px 8px; }
+.greeting-small { color: rgba(255,255,255,0.5); font-size: 14px; font-style: italic; }
+.greeting-name { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; }
+.together { color: rgba(255,255,255,0.6); font-style: italic; margin-top: 4px; }
+.top-bar { display: flex; justify-content: space-between; align-items: flex-start; }
+
+.today-card { margin: 8px 20px 20px; padding: 16px; border-radius: 20px; background: linear-gradient(135deg, rgba(244, 162, 97, 0.15), rgba(231, 111, 81, 0.08)); border: 1px solid rgba(244, 162, 97, 0.25); }
+.today-title { color: #ffccbc; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.today-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.today-row:last-child { border-bottom: none; }
+.today-row .t-icon { font-size: 16px; flex-shrink: 0; width: 22px; text-align: center; }
+.today-row .t-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.today-row .t-time { color: rgba(255,255,255,0.5); font-size: 12px; flex-shrink: 0; }
+.today-empty { padding: 8px 0; color: rgba(255,255,255,0.55); font-size: 13px; font-style: italic; text-align: center; }
+
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px; }
+.tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 20px; text-align: left; min-height: 130px; transition: transform 0.15s; position: relative; overflow: hidden; }
+.tile:active { transform: scale(0.97); }
+.tile-icon { width: 44px; height: 44px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 12px; }
+.tile-label { font-weight: 600; font-size: 16px; line-height: 1.2; }
+.tile-count { color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 4px; }
+.tile-subtitle { font-size: 14px; margin-top: 4px; font-weight: 700; }
+.tile-dot { position: absolute; top: 14px; right: 14px; width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 12px currentColor; }
+.tile-dot.red { background: #ef5350; color: #ef5350; }
+.tile-dot.orange { background: #ffb74d; color: #ffb74d; }
+
+/* Tabs */
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding: 16px 20px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: 8px 16px; border-radius: 999px; white-space: nowrap; font-size: 14px; font-weight: 500; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+.tab.active { background: linear-gradient(135deg, #f4a261, #e76f51); color: #0a1628; }
+
+/* Lists */
+.section-title { color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; padding: 0 20px; margin: 16px 0 8px; display: flex; justify-content: space-between; align-items: center; }
+.list { padding: 0 20px; }
+.list > * + * { margin-top: 8px; }
+
+.card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; }
+.card.done { opacity: 0.5; }
+.card-title { font-weight: 500; font-size: 15px; line-height: 1.3; }
+.card-title.done { text-decoration: line-through; }
+.card-note { color: rgba(255,255,255,0.5); font-size: 13px; font-style: italic; margin-top: 4px; }
+.card-meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: rgba(255,255,255,0.4); }
+.card-body { flex: 1; min-width: 0; }
+
+.checkbox { flex-shrink: 0; width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: transparent; margin-top: 2px; }
+.checkbox.checked { background: #2a9d8f; border-color: #2a9d8f; }
+.checkbox.checked::after { content: '✓'; color: white; font-weight: bold; font-size: 14px; }
+
+.badge { padding: 2px 8px; border-radius: 999px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; }
+.badge-orange { background: rgba(244, 162, 97, 0.15); color: #f4a261; }
+.badge-teal { background: rgba(42, 157, 143, 0.15); color: #4db6ac; }
+.badge-purple { background: rgba(179, 157, 219, 0.15); color: #b39ddb; }
+.badge-red { background: rgba(239, 83, 80, 0.15); color: #ef5350; }
+.badge-green { background: rgba(129, 199, 132, 0.15); color: #81c784; }
+.badge-blue { background: rgba(100, 181, 246, 0.15); color: #64b5f6; }
+
+.del-btn { background: transparent; color: rgba(255,255,255,0.3); padding: 4px; font-size: 16px; }
+.amount { font-weight: 700; font-size: 17px; }
+.amount-red { color: #ef9a9a; }
+.amount-green { color: #a5d6a7; }
+
+/* Contact buttons (address/phone/link) */
+.contact-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.contact-btn { font-size: 12px; padding: 6px 10px; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.contact-btn.addr { background: rgba(77, 182, 172, 0.15); color: #4db6ac; }
+.contact-btn.phone { background: rgba(129, 199, 132, 0.15); color: #81c784; }
+.contact-btn.link { background: rgba(100, 181, 246, 0.15); color: #64b5f6; }
+
+/* FAB */
+.fab { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom)); right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f4a261, #e76f51); color: white; font-size: 32px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(231, 111, 81, 0.5); z-index: 30; transition: transform 0.15s; }
+.fab:active { transform: scale(0.93); }
+
+/* Modal */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 40; display: flex; align-items: flex-end; justify-content: center; padding: 16px; }
+.modal { width: 100%; max-width: 440px; background: linear-gradient(180deg, #1a1f3a, #0a1628); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 24px; max-height: 90vh; overflow-y: auto; margin-bottom: env(safe-area-inset-bottom); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-header h3 { font-size: 22px; font-weight: 700; }
+.modal-close { background: transparent; color: rgba(255,255,255,0.6); padding: 4px; font-size: 24px; }
+.field { margin-bottom: 12px; }
+.field-label { color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px; }
+.option-grid { display: grid; gap: 8px; margin-bottom: 16px; }
+.option-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.option-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.option { padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 500; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); text-align: center; }
+.option.active { background: linear-gradient(135deg, #2a9d8f, #264653); color: white; }
+.option.active-orange { background: linear-gradient(135deg, #f4a261, #e76f51); color: #0a1628; }
+.option.active-pink { background: linear-gradient(135deg, #f06292, #c2185b); color: white; }
+.option.active-green { background: linear-gradient(135deg, #81c784, #388e3c); color: white; }
+.option.active-blue { background: linear-gradient(135deg, #64b5f6, #1976d2); color: white; }
+.option.active-purple { background: linear-gradient(135deg, #b39ddb, #7e57c2); color: #0a1628; }
+.btn-submit { width: 100%; padding: 16px; border-radius: 16px; font-weight: 700; font-size: 17px; color: #0a1628; background: linear-gradient(135deg, #f4a261, #e76f51); }
+.btn-submit:disabled { opacity: 0.4; }
+
+.empty { text-align: center; padding: 64px 20px; color: rgba(255,255,255,0.5); font-style: italic; }
+
+/* Balance / money */
+.balance-card { margin: 16px 20px; padding: 20px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); }
+.balance-card.positive { background: linear-gradient(135deg, rgba(129, 199, 132, 0.2), rgba(46, 125, 50, 0.1)); }
+.balance-card.negative { background: linear-gradient(135deg, rgba(239, 83, 80, 0.2), rgba(198, 40, 40, 0.1)); }
+.balance-card.neutral { background: rgba(255,255,255,0.04); }
+.balance-label { color: rgba(255,255,255,0.6); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.balance-amount { font-size: 32px; font-weight: 700; }
+.balance-sub { font-size: 14px; margin-top: 4px; }
+
+/* Fund contribution cards */
+.fund-person { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px; }
+.fund-person.paid { background: linear-gradient(135deg, rgba(129, 199, 132, 0.15), rgba(129, 199, 132, 0.05)); border-color: rgba(129, 199, 132, 0.3); }
+.fund-person.prepaid { background: linear-gradient(135deg, rgba(100, 181, 246, 0.15), rgba(100, 181, 246, 0.05)); border-color: rgba(100, 181, 246, 0.3); }
+.fund-person.unpaid { background: linear-gradient(135deg, rgba(239, 83, 80, 0.1), rgba(239, 83, 80, 0.05)); border-color: rgba(239, 83, 80, 0.2); }
+.fund-status-icon { font-size: 22px; flex-shrink: 0; }
+.fund-person-name { font-weight: 600; font-size: 15px; }
+.fund-person-detail { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.prediction-card { margin: 0 20px 16px; padding: 14px 16px; border-radius: 16px; background: rgba(100, 181, 246, 0.08); border: 1px solid rgba(100, 181, 246, 0.2); display: flex; align-items: center; gap: 12px; }
+.prediction-icon { font-size: 20px; }
+.prediction-text { flex: 1; font-size: 13px; color: rgba(255,255,255,0.85); }
+.prediction-text strong { color: #90caf9; font-weight: 600; }
+
+/* Date pill */
+.date-pill { flex-shrink: 0; width: 56px; text-align: center; border-radius: 12px; padding: 8px 4px; background: rgba(179, 157, 219, 0.15); }
+.date-pill.orange { background: rgba(244, 162, 97, 0.2); }
+.date-pill.teal { background: rgba(77, 182, 172, 0.2); }
+.date-pill.pink { background: rgba(240, 98, 146, 0.2); }
+.date-pill-month { font-size: 10px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.date-pill-day { font-size: 22px; font-weight: 700; line-height: 1; margin: 2px 0; }
+.date-pill-time { font-size: 10px; color: rgba(255,255,255,0.6); }
+
+.action-bar { display: flex; gap: 8px; margin-top: 12px; }
+.action-btn { flex: 1; padding: 8px; border-radius: 10px; font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+/* User avatars */
+.user-avatar { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); border: 1.5px solid rgba(255,255,255,0.15); }
+.user-avatar.small { width: 24px; height: 24px; font-size: 14px; border-width: 1px; }
+.user-avatar.large { width: 64px; height: 64px; font-size: 36px; border-width: 2px; }
+.user-avatar.xlarge { width: 96px; height: 96px; font-size: 52px; border-width: 3px; }
+.user-avatar.with-bg-teal { background: linear-gradient(135deg, #2a9d8f, #264653); border-color: rgba(42,157,143,0.5); }
+.user-avatar.with-bg-purple { background: linear-gradient(135deg, #b39ddb, #7e57c2); border-color: rgba(179,157,219,0.5); }
+.user-avatar.with-bg-orange { background: linear-gradient(135deg, #f4a261, #e76f51); border-color: rgba(244,162,97,0.5); }
+
+/* Owner option buttons (with avatar + name) */
+.owner-option { padding: 14px 10px; border-radius: 14px; font-size: 13px; font-weight: 500; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; border: 2px solid transparent; transition: all 0.15s; }
+.owner-option .ow-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)); border: 1.5px solid rgba(255,255,255,0.1); }
+.owner-option .ow-avatar-both { background: linear-gradient(135deg, rgba(244,162,97,0.25), rgba(231,111,81,0.15)); font-size: 22px; letter-spacing: -4px; }
+.owner-option.active { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+.owner-option.active.me { border-color: #4db6ac; background: rgba(42,157,143,0.2); }
+.owner-option.active.partner { border-color: #b39ddb; background: rgba(126,87,194,0.2); }
+.owner-option.active.shared { border-color: #f4a261; background: rgba(231,111,81,0.2); }
+
+/* Task/Event owner avatar on cards */
+.owner-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 3px; border-radius: 999px; background: rgba(255,255,255,0.08); font-size: 12px; font-weight: 500; }
+.owner-chip .oc-avatar { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; background: rgba(255,255,255,0.1); }
+.owner-chip.me { background: rgba(42,157,143,0.15); color: #4db6ac; }
+.owner-chip.me .oc-avatar { background: rgba(42,157,143,0.3); }
+.owner-chip.partner { background: rgba(126,87,194,0.15); color: #b39ddb; }
+.owner-chip.partner .oc-avatar { background: rgba(126,87,194,0.3); }
+.owner-chip.shared { background: rgba(244,162,97,0.15); color: #f4a261; }
+.owner-chip.shared .oc-avatar { background: rgba(244,162,97,0.3); font-size: 11px; letter-spacing: -2px; }
+
+/* Emoji picker */
+.emoji-picker-cats { display: flex; gap: 4px; padding-bottom: 10px; overflow-x: auto; scrollbar-width: none; margin-bottom: 8px; }
+.emoji-picker-cats::-webkit-scrollbar { display: none; }
+.emoji-picker-cats button { flex-shrink: 0; padding: 6px 12px; background: rgba(255,255,255,0.06); border-radius: 999px; color: rgba(255,255,255,0.6); font-size: 12px; white-space: nowrap; }
+.emoji-picker-cats button.active { background: linear-gradient(135deg, #f4a261, #e76f51); color: #0a1628; font-weight: 600; }
+.emoji-picker-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; max-height: 260px; overflow-y: auto; padding: 4px; background: rgba(0,0,0,0.2); border-radius: 12px; }
+.emoji-picker-item { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 26px; background: rgba(255,255,255,0.04); border-radius: 10px; transition: all 0.1s; }
+.emoji-picker-item:active { transform: scale(0.9); background: rgba(244,162,97,0.25); }
+.emoji-picker-item.selected { background: linear-gradient(135deg, rgba(244,162,97,0.3), rgba(231,111,81,0.2)); border: 2px solid rgba(244,162,97,0.6); }
+
+/* Profile screen */
+.profile-current { text-align: center; padding: 20px; margin-bottom: 16px; }
+.profile-current .user-avatar { margin: 0 auto 12px; }
+.profile-current-name { font-size: 24px; font-weight: 700; }
+
+/* Meals */
+.meal-day { border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); margin-bottom: 12px; }
+.meal-day.today { background: rgba(255, 183, 77, 0.1); border-color: rgba(255, 183, 77, 0.3); }
+.meal-day-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+.meal-day-name { font-weight: 700; font-size: 17px; }
+.meal-day-date { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 13px; }
+.meal-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; width: 100%; text-align: left; background: transparent; }
+.meal-type { color: rgba(255,255,255,0.5); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; width: 64px; }
+.meal-text { color: rgba(255,255,255,0.9); font-size: 14px; flex: 1; }
+.meal-text.empty-meal { color: rgba(255,255,255,0.3); font-style: italic; }
+.week-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
+.week-nav button { padding: 8px 12px; background: rgba(255,255,255,0.08); color: white; border-radius: 8px; font-size: 16px; }
+
+/* Activity */
+.activity-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px; display: flex; gap: 12px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: white; flex-shrink: 0; }
+
+/* Pets */
+.pet-card { background: linear-gradient(135deg, rgba(255,183,77,0.12), rgba(255,255,255,0.04)); border: 1px solid rgba(255,183,77,0.25); border-radius: 22px; padding: 18px; margin-bottom: 14px; }
+.pet-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.pet-avatar { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #ffb74d, #f57c00); display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0; box-shadow: 0 4px 16px rgba(255,183,77,0.3); }
+.pet-name { font-size: 20px; font-weight: 700; line-height: 1.1; }
+.pet-breed { font-size: 12px; color: rgba(255,255,255,0.55); font-style: italic; margin-top: 2px; }
+.pet-next { margin: 10px 0 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,183,77,0.12); border: 1px solid rgba(255,183,77,0.25); font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.pet-next.urgent { background: rgba(239, 83, 80, 0.15); border-color: rgba(239, 83, 80, 0.3); }
+.pet-next.ok { background: rgba(129, 199, 132, 0.1); border-color: rgba(129, 199, 132, 0.25); }
+.pet-records-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin: 12px 0 6px; font-weight: 600; }
+.pet-record { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(0,0,0,0.25); margin-bottom: 6px; }
+.pet-record-icon { font-size: 18px; flex-shrink: 0; }
+.pet-record-body { flex: 1; min-width: 0; }
+.pet-record-name { font-size: 14px; font-weight: 500; }
+.pet-record-dates { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.pet-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+/* Cards (loyalty) */
+.card-loyalty { background: linear-gradient(135deg, #2a2d4a, #1a1f3a); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 16px; margin-bottom: 10px; }
+.card-loyalty-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.card-loyalty-name { font-size: 17px; font-weight: 700; }
+.card-loyalty-store { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+.card-loyalty-number { font-family: monospace; font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+.barcode-box { background: white; border-radius: 12px; padding: 14px; margin-top: 12px; text-align: center; }
+.barcode-box svg { max-width: 100%; height: auto; }
+.color-chip { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: middle; }
+
+/* Search */
+.search-box { padding: 12px 20px 0; }
+.search-input { width: 100%; padding: 12px 14px; padding-left: 40px; background: rgba(0,0,0,0.25) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 14px center; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; font-size: 14px; outline: none; }
+
+/* Connection status */
+.conn-status { position: fixed; top: calc(env(safe-area-inset-top) + 8px); left: 50%; transform: translateX(-50%); background: rgba(239, 83, 80, 0.9); color: white; padding: 6px 14px; border-radius: 999px; font-size: 12px; z-index: 100; backdrop-filter: blur(10px); }
+
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details[open] summary .chev { transform: rotate(90deg); }
+.chev { display: inline-block; transition: transform 0.2s; margin-right: 4px; }
+
+.code-display { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; word-break: break-all; margin: 8px 0; color: #81c784; border: 1px solid rgba(129, 199, 132, 0.2); }
+
+/* Calendar day color bar */
+.calendar-day-bar { width: 4px; border-radius: 2px; align-self: stretch; margin-right: 8px; }
+.bar-orange { background: linear-gradient(180deg, #f4a261, #e76f51); }
+.bar-teal { background: linear-gradient(180deg, #2a9d8f, #264653); }
+.bar-purple { background: linear-gradient(180deg, #b39ddb, #7e57c2); }
+.bar-pink { background: linear-gradient(180deg, #f06292, #c2185b); }
+
+/* Monthly calendar grid */
+.cal-view-switch { display: flex; gap: 6px; padding: 8px 20px 4px; }
+.cal-view-btn { flex: 1; padding: 8px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); border-radius: 10px; font-size: 13px; font-weight: 500; }
+.cal-view-btn.active { background: linear-gradient(135deg, #b39ddb, #7e57c2); color: white; }
+.cal-nav { display: flex; align-items: center; gap: 10px; padding: 8px 20px 12px; }
+.cal-nav button { padding: 8px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; font-size: 16px; color: white; }
+.cal-nav .cal-month-label { flex: 1; text-align: center; font-size: 17px; font-weight: 700; text-transform: capitalize; }
+.cal-nav .today-btn { font-size: 13px; padding: 6px 12px; background: rgba(244, 162, 97, 0.15); color: #f4a261; border: 1px solid rgba(244, 162, 97, 0.3); border-radius: 10px; }
+.cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); padding: 0 16px 6px; gap: 2px; }
+.cal-weekday { text-align: center; font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; padding: 4px 0; }
+.cal-weekday.weekend { color: rgba(244, 162, 97, 0.6); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; padding: 0 16px; }
+.cal-day { aspect-ratio: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 6px 4px; position: relative; display: flex; flex-direction: column; align-items: center; transition: all 0.15s; overflow: hidden; cursor: pointer; }
+.cal-day:active { transform: scale(0.94); }
+.cal-day.other-month { opacity: 0.28; }
+.cal-day.today { background: linear-gradient(135deg, rgba(244,162,97,0.25), rgba(231,111,81,0.12)); border-color: rgba(244,162,97,0.5); }
+.cal-day.today .cal-day-num { color: #fff; font-weight: 800; }
+.cal-day.selected { background: linear-gradient(135deg, rgba(179,157,219,0.3), rgba(126,87,194,0.15)); border-color: rgba(179,157,219,0.6); }
+.cal-day.has-events { background: rgba(255,255,255,0.06); }
+.cal-day-num { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.1; }
+.cal-day.weekend .cal-day-num { color: rgba(244,162,97,0.85); }
+.cal-day-dots { display: flex; gap: 2px; margin-top: auto; margin-bottom: 2px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.cal-day-dot { width: 5px; height: 5px; border-radius: 50%; }
+.cal-day-dot.teal { background: #4db6ac; }
+.cal-day-dot.orange { background: #f4a261; }
+.cal-day-dot.purple { background: #b39ddb; }
+.cal-day-dot.paw { background: #ffb74d; }
+.cal-day-emojis { display: flex; gap: 1px; margin-top: auto; margin-bottom: 2px; justify-content: center; flex-wrap: wrap; line-height: 1; max-width: 100%; }
+.cal-day-emoji { font-size: 11px; opacity: 0.95; }
+.cal-day-emoji.shared::before { content: '👥'; font-size: 10px; }
+.cal-day-count { font-size: 9px; color: rgba(255,255,255,0.5); margin-top: -2px; }
+
+/* Day detail panel */
+.day-detail { margin: 16px 20px; padding: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; }
+.day-detail-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+.day-detail-title { font-size: 18px; font-weight: 700; text-transform: capitalize; }
+.day-detail-empty { text-align: center; padding: 20px 0; color: rgba(255,255,255,0.5); font-style: italic; font-size: 13px; }
+.day-item { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+.day-item:first-child { border-top: none; }
+.day-item-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.day-item-icon.task { background: linear-gradient(135deg, rgba(244,162,97,0.25), rgba(231,111,81,0.15)); }
+.day-item-icon.event { background: linear-gradient(135deg, rgba(179,157,219,0.25), rgba(126,87,194,0.15)); }
+.day-item-icon.pet { background: linear-gradient(135deg, rgba(255,183,77,0.3), rgba(245,124,0,0.15)); }
+.day-item-body { flex: 1; min-width: 0; }
+.day-item-title { font-size: 14px; font-weight: 500; }
+.day-item-time { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+.day-item-actions { display: flex; gap: 4px; }
+.day-item-actions button { padding: 4px 8px; border-radius: 8px; font-size: 11px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+
+/* Week view */
+.week-day-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px; margin-bottom: 10px; }
+.week-day-card.today { background: linear-gradient(135deg, rgba(244,162,97,0.12), rgba(231,111,81,0.06)); border-color: rgba(244,162,97,0.3); }
+.week-day-card-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.week-day-card-name { font-size: 16px; font-weight: 700; text-transform: capitalize; }
+.week-day-card-date { color: rgba(255,255,255,0.55); font-size: 13px; }
+.week-day-card-today-badge { margin-left: auto; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #f4a261; font-weight: 700; }
+
+/* Shopping categories */
+.shop-category-header { display: flex; align-items: center; gap: 8px; padding: 14px 20px 8px; color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.shop-category-icon { font-size: 16px; }
+
+/* Smart suggestion */
+.smart-tip { margin: 12px 20px; padding: 12px 14px; border-radius: 14px; background: linear-gradient(135deg, rgba(186, 104, 200, 0.15), rgba(123, 31, 162, 0.08)); border: 1px solid rgba(186, 104, 200, 0.25); font-size: 13px; color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 10px; }
+.smart-tip-icon { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<!-- CONFIG SCREEN -->
+<div id="config-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">🏡</div>
+    <h1 class="title">Domov</h1>
+    <p class="subtitle">První spuštění — potřebujeme nastavit cloud</p>
+    <div class="login-box" style="text-align: left;">
+      <p style="text-align: center;">Vlož nastavení Firebase</p>
+      <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-align: center;">(podle návodu na kroku 4)</p>
+      <textarea id="firebase-config" rows="10" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","databaseURL":"https://..."}' style="font-family: monospace; font-size: 12px;"></textarea>
+      <button class="btn btn-orange" style="margin-top: 12px;" onclick="saveFirebaseConfig()">Uložit a pokračovat</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">🏡</div>
+    <h1 class="title">Domov</h1>
+    <p class="subtitle">Všechno důležité na jednom místě</p>
+    <div class="login-box">
+      <p>Přihlášení</p>
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email">
+      <input type="password" id="login-password" placeholder="Heslo" autocomplete="current-password">
+      <button class="btn btn-orange" onclick="login()">Přihlásit se</button>
+      <button class="btn btn-teal" onclick="register()">Zaregistrovat nový účet</button>
+      <p id="login-error" style="color: #ef9a9a; font-size: 13px; margin-top: 8px; min-height: 18px;"></p>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 16px;">Oba si vytvořte účet a přidejte stejný kód domácnosti</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOUSEHOLD SETUP -->
+<div id="household-screen" class="login-screen hidden">
+  <div class="login-card">
+    <div class="logo">💕</div>
+    <h1 class="title">Domácnost</h1>
+    <p class="subtitle">Propoj se se svým protějškem</p>
+    <div class="login-box" style="text-align: left;">
+      <p style="text-align: center; margin-bottom: 16px;">Máš už kód od partnera?</p>
+      <p style="color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px;">Vytvoř novou domácnost:</p>
+      <input type="text" id="new-household-name" placeholder="Jméno (např. Pavel)" style="margin-bottom: 8px;">
+      <button class="btn btn-orange" onclick="createHousehold()">Vytvořit novou domácnost</button>
+      <div style="text-align: center; margin: 16px 0; color: rgba(255,255,255,0.4);">— nebo —</div>
+      <p style="color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 6px;">Připojit k existující:</p>
+      <input type="text" id="join-name" placeholder="Tvoje jméno" style="margin-bottom: 8px;">
+      <input type="text" id="join-code" placeholder="Kód domácnosti od partnera" style="margin-bottom: 8px; text-transform: uppercase;">
+      <button class="btn btn-teal" onclick="joinHousehold()">Připojit se</button>
+      <p id="household-error" style="color: #ef9a9a; font-size: 13px; margin-top: 8px; min-height: 18px;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app" class="hidden">
+  <div id="screen-container"></div>
+</div>
+
+<div id="conn-status" class="conn-status hidden">Offline</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<!-- JsBarcode for loyalty cards -->
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+<script>
+window.firebaseImports = {
+  initializeApp: (config) => firebase.initializeApp(config),
+  getAuth: () => firebase.auth(),
+  signInWithEmailAndPassword: (auth, email, pass) => auth.signInWithEmailAndPassword(email, pass),
+  createUserWithEmailAndPassword: (auth, email, pass) => auth.createUserWithEmailAndPassword(email, pass),
+  signOut: (auth) => auth.signOut(),
+  onAuthStateChanged: (auth, cb) => auth.onAuthStateChanged(cb),
+  getDatabase: () => firebase.database(),
+  ref: (db, path) => path ? db.ref(path) : db.ref(),
+  onValue: (ref, cb) => ref.on('value', cb),
+  set: (ref, data) => ref.set(data),
+  push: (ref) => ref.push(),
+  update: (ref, data) => ref.update(data),
+  remove: (ref) => ref.remove(),
+  get: (ref) => ref.once('value'),
+  serverTimestamp: () => firebase.database.ServerValue.TIMESTAMP
+};
+window.addEventListener('load', () => window.initApp());
+</script>
+
+<script>
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+let app = null, auth = null, db = null;
+let currentUser = null;
+let userData = null;
+let householdData = {};
+let dataRef = null;
+let currentScreen = 'home';
+let currentFilter = 'all';
+let mealWeekOffset = 0;
+let historySearchMoney = '';
+
+// Calendar view state
+let calendarView = 'month'; // 'month' | 'week' | 'list'
+let calendarAnchor = new Date(); // the month/week we're looking at
+let calendarSelectedDate = null; // YYYY-MM-DD of clicked day for detail panel
+
+// Monthly contribution amount (what each person pays into household fund)
+const MONTHLY_FUND = 10000;
+
+// ============================================================
+// INIT
+// ============================================================
+function initApp() {
+  const cfg = localStorage.getItem('firebase-config');
+  if (!cfg) { document.getElementById('config-screen').classList.remove('hidden'); return; }
+  try { initFirebase(JSON.parse(cfg)); }
+  catch (e) { localStorage.removeItem('firebase-config'); document.getElementById('config-screen').classList.remove('hidden'); }
+}
+window.initApp = initApp;
+
+function initFirebase(config) {
+  try {
+    app = window.firebaseImports.initializeApp(config);
+    auth = window.firebaseImports.getAuth(app);
+    db = window.firebaseImports.getDatabase(app);
+    window.firebaseImports.onAuthStateChanged(auth, (user) => {
+      if (user) { currentUser = user; loadUserData(); }
+      else { currentUser = null; userData = null; showScreen('login'); }
+    });
+  } catch (e) { alert('Chyba nastavení Firebase: ' + e.message); localStorage.removeItem('firebase-config'); location.reload(); }
+}
+
+function saveFirebaseConfig() {
+  const text = document.getElementById('firebase-config').value.trim();
+  try {
+    let cfg;
+    try { cfg = JSON.parse(text); }
+    catch (e) { cfg = eval('(' + text + ')'); }
+    if (!cfg.apiKey || !cfg.databaseURL) { alert('Chybí apiKey nebo databaseURL.'); return; }
+    localStorage.setItem('firebase-config', JSON.stringify(cfg));
+    location.reload();
+  } catch (e) { alert('Špatný formát. Zkopíruj celé nastavení z Firebase (od { do })'); }
+}
+window.saveFirebaseConfig = saveFirebaseConfig;
+
+function showScreen(screen) {
+  ['config-screen', 'login-screen', 'household-screen', 'main-app'].forEach(s => document.getElementById(s).classList.add('hidden'));
+  if (screen === 'login') document.getElementById('login-screen').classList.remove('hidden');
+  else if (screen === 'household') document.getElementById('household-screen').classList.remove('hidden');
+  else if (screen === 'main') document.getElementById('main-app').classList.remove('hidden');
+  else if (screen === 'config') document.getElementById('config-screen').classList.remove('hidden');
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+async function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Vyplň email a heslo'; return; }
+  try { await window.firebaseImports.signInWithEmailAndPassword(auth, email, pass); }
+  catch (e) { err.textContent = translateError(e.code); }
+}
+window.login = login;
+
+async function register() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Vyplň email a heslo (heslo min. 6 znaků)'; return; }
+  if (pass.length < 6) { err.textContent = 'Heslo musí mít aspoň 6 znaků'; return; }
+  try { await window.firebaseImports.createUserWithEmailAndPassword(auth, email, pass); }
+  catch (e) { err.textContent = translateError(e.code); }
+}
+window.register = register;
+
+function translateError(code) {
+  const map = {
+    'auth/invalid-email': 'Neplatný email',
+    'auth/user-not-found': 'Uživatel neexistuje',
+    'auth/wrong-password': 'Špatné heslo',
+    'auth/invalid-credential': 'Špatný email nebo heslo',
+    'auth/email-already-in-use': 'Email už je zaregistrovaný',
+    'auth/weak-password': 'Heslo musí mít aspoň 6 znaků',
+    'auth/network-request-failed': 'Chyba sítě',
+  };
+  return map[code] || 'Chyba: ' + code;
+}
+
+async function logout() {
+  if (dataRef) dataRef = null;
+  await window.firebaseImports.signOut(auth);
+}
+window.logout = logout;
+
+// ============================================================
+// USER DATA & HOUSEHOLD
+// ============================================================
+async function loadUserData() {
+  try {
+    const userRef = window.firebaseImports.ref(db, 'users/' + currentUser.uid);
+    const snap = await window.firebaseImports.get(userRef);
+    if (snap.exists()) {
+      userData = snap.val();
+      if (userData.householdId) { subscribeToHousehold(); showScreen('main'); renderScreen(); }
+      else showScreen('household');
+    } else showScreen('household');
+  } catch (e) { alert('Chyba načítání: ' + e.message); }
+}
+
+function generateHouseholdCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s = '';
+  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+
+async function createHousehold() {
+  const name = document.getElementById('new-household-name').value.trim();
+  const err = document.getElementById('household-error');
+  err.textContent = '';
+  if (!name) { err.textContent = 'Zadej jméno'; return; }
+  try {
+    const code = generateHouseholdCode();
+    const householdId = 'h_' + code;
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'households/' + householdId), {
+      code, created: Date.now(), members: { [currentUser.uid]: name }
+    });
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'users/' + currentUser.uid), {
+      name, householdId, email: currentUser.email
+    });
+    userData = { name, householdId };
+    subscribeToHousehold(); showScreen('main'); renderScreen();
+    setTimeout(() => { alert('✨ Domácnost vytvořena!\n\nTvůj kód: ' + code + '\n\nPošli ho partnerovi.'); }, 300);
+  } catch (e) { err.textContent = 'Chyba: ' + e.message; }
+}
+window.createHousehold = createHousehold;
+
+async function joinHousehold() {
+  const name = document.getElementById('join-name').value.trim();
+  const code = document.getElementById('join-code').value.trim().toUpperCase();
+  const err = document.getElementById('household-error');
+  err.textContent = '';
+  if (!name || !code) { err.textContent = 'Vyplň jméno i kód'; return; }
+  try {
+    const householdId = 'h_' + code;
+    const hRef = window.firebaseImports.ref(db, 'households/' + householdId);
+    const snap = await window.firebaseImports.get(hRef);
+    if (!snap.exists()) { err.textContent = 'Domácnost s tímto kódem neexistuje'; return; }
+    await window.firebaseImports.update(window.firebaseImports.ref(db, 'households/' + householdId + '/members'), { [currentUser.uid]: name });
+    await window.firebaseImports.set(window.firebaseImports.ref(db, 'users/' + currentUser.uid), { name, householdId, email: currentUser.email });
+    userData = { name, householdId };
+    subscribeToHousehold(); showScreen('main'); renderScreen();
+  } catch (e) { err.textContent = 'Chyba: ' + e.message; }
+}
+window.joinHousehold = joinHousehold;
+
+function subscribeToHousehold() {
+  if (!userData || !userData.householdId) return;
+  dataRef = window.firebaseImports.ref(db, 'households/' + userData.householdId);
+  window.firebaseImports.onValue(dataRef, (snap) => {
+    householdData = snap.val() || {};
+    if (currentScreen && !document.getElementById('main-app').classList.contains('hidden')) renderScreen();
+  });
+}
+
+// ============================================================
+// DATA HELPERS
+// ============================================================
+function getList(name) {
+  const raw = householdData[name];
+  if (!raw) return [];
+  return Object.entries(raw).map(([id, v]) => ({ id, ...v }));
+}
+function getMembers() { return householdData.members || {}; }
+function getMyName() { return userData ? userData.name : 'Já'; }
+function getPartnerName() {
+  const m = getMembers();
+  const uid = Object.keys(m).find(u => u !== currentUser.uid);
+  return uid ? m[uid] : 'Partner';
+}
+function getAllMemberNames() {
+  return Object.values(getMembers());
+}
+
+// ============================================================
+// PROFILES / AVATARS
+// ============================================================
+// Profiles stored in householdData.profiles[uid] = { emoji, color }
+const DEFAULT_EMOJIS = {
+  me: '🧔',
+  partner: '🌸',
+  fallback: '😊'
+};
+
+function getProfiles() { return householdData.profiles || {}; }
+
+function getMyProfile() {
+  if (!currentUser) return { emoji: DEFAULT_EMOJIS.me };
+  const p = getProfiles()[currentUser.uid];
+  return p || { emoji: DEFAULT_EMOJIS.me };
+}
+
+function getPartnerUid() {
+  const m = getMembers();
+  return Object.keys(m).find(u => u !== currentUser.uid);
+}
+
+function getPartnerProfile() {
+  const uid = getPartnerUid();
+  if (!uid) return { emoji: DEFAULT_EMOJIS.partner };
+  const p = getProfiles()[uid];
+  return p || { emoji: DEFAULT_EMOJIS.partner };
+}
+
+// Get profile by name (handy when we only have a name string in old records)
+function getProfileByName(name) {
+  if (!name) return { emoji: DEFAULT_EMOJIS.fallback };
+  if (name === getMyName()) return getMyProfile();
+  if (name === getPartnerName()) return getPartnerProfile();
+  // Search all members
+  const members = getMembers();
+  const uid = Object.keys(members).find(u => members[u] === name);
+  if (uid) {
+    const p = getProfiles()[uid];
+    if (p) return p;
+  }
+  return { emoji: DEFAULT_EMOJIS.fallback };
+}
+
+function getEmojiFor(name) {
+  return getProfileByName(name).emoji || DEFAULT_EMOJIS.fallback;
+}
+
+async function saveMyProfile(emoji) {
+  if (!currentUser || !userData || !userData.householdId) return;
+  await window.firebaseImports.update(
+    window.firebaseImports.ref(db, 'households/' + userData.householdId + '/profiles/' + currentUser.uid),
+    { emoji }
+  );
+}
+
+// Render HTML chip: avatar + name (used on cards)
+function ownerChipHtml(ownerValue) {
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  if (ownerValue === 'shared' || ownerValue === 'Oba' || ownerValue === 'both') {
+    return '<span class="owner-chip shared"><span class="oc-avatar">' + getEmojiFor(myName) + getEmojiFor(partnerName) + '</span>Oba</span>';
+  }
+  const cls = ownerValue === myName ? 'me' : 'partner';
+  return '<span class="owner-chip ' + cls + '"><span class="oc-avatar">' + getEmojiFor(ownerValue) + '</span>' + escapeHtml(ownerValue) + '</span>';
+}
+
+// Render choice grid for Me / Both / Partner
+function ownerChoiceGrid(gridId, currentValue, includeBoth) {
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const myEmoji = getMyProfile().emoji;
+  const partnerEmoji = getPartnerProfile().emoji;
+
+  const meActive = currentValue === 'me' || currentValue === myName;
+  const sharedActive = currentValue === 'shared' || currentValue === 'both';
+  const partnerActive = currentValue === 'partner' || currentValue === partnerName;
+
+  let html = '<div class="option-grid ' + (includeBoth ? 'cols-3' : 'cols-2') + '" id="' + gridId + '">';
+  html += '<button class="owner-option ' + (meActive ? 'active me' : '') + '" data-v="me"><div class="ow-avatar">' + myEmoji + '</div><span>' + escapeHtml(myName) + '</span></button>';
+  if (includeBoth) {
+    html += '<button class="owner-option ' + (sharedActive ? 'active shared' : '') + '" data-v="shared"><div class="ow-avatar ow-avatar-both">' + myEmoji + partnerEmoji + '</div><span>Oba</span></button>';
+  }
+  html += '<button class="owner-option ' + (partnerActive ? 'active partner' : '') + '" data-v="partner"><div class="ow-avatar">' + partnerEmoji + '</div><span>' + escapeHtml(partnerName) + '</span></button>';
+  html += '</div>';
+  return html;
+}
+
+function setupOwnerGrid(gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.querySelectorAll('.owner-option').forEach(btn => {
+    btn.onclick = () => {
+      grid.querySelectorAll('.owner-option').forEach(b => b.classList.remove('active','me','partner','shared'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      if (v === 'me') btn.classList.add('me');
+      else if (v === 'partner') btn.classList.add('partner');
+      else if (v === 'shared') btn.classList.add('shared');
+    };
+  });
+}
+
+async function saveItem(listName, data, id = null) {
+  const path = 'households/' + userData.householdId + '/' + listName;
+  if (id) await window.firebaseImports.update(window.firebaseImports.ref(db, path + '/' + id), data);
+  else {
+    const newRef = window.firebaseImports.push(window.firebaseImports.ref(db, path));
+    await window.firebaseImports.set(newRef, data);
+    return newRef.key;
+  }
+}
+async function removeItem(listName, id) {
+  await window.firebaseImports.remove(window.firebaseImports.ref(db, 'households/' + userData.householdId + '/' + listName + '/' + id));
+}
+async function logActivity(action, detail) {
+  const entry = { user: getMyName(), action, detail: detail || '', at: Date.now() };
+  const newRef = window.firebaseImports.push(window.firebaseImports.ref(db, 'households/' + userData.householdId + '/activity'));
+  await window.firebaseImports.set(newRef, entry);
+  const all = getList('activity');
+  if (all.length > 100) {
+    const sorted = all.sort((a,b) => b.at - a.at);
+    for (const a of sorted.slice(100)) await removeItem('activity', a.id);
+  }
+}
+
+// ============================================================
+// SMART FINANCE LOGIC — unified transaction ledger
+// ============================================================
+// Transactions (collection: "txns") — each entry:
+//   { type: 'rent' | 'payment', from, to, amount, note, at, forMonth (rent only), id }
+// - 'rent'    = Pavel → Marta, monthly housing contribution (10 000)
+// - 'payment' = Any payment between them (brejle, benzín, bunda...)
+//
+// Balance logic: positive = partner owes me, negative = I owe partner
+//   rent: Pavel → Marta 10 000 means Pavel's side goes -10 000
+//   payment Marta → Pavel 11 000 means Pavel's side goes +11 000
+//
+// Auto-allocation of rent months based on "forMonth" tag
+
+function monthLabel(date) {
+  const months = ['leden','únor','březen','duben','květen','červen','červenec','srpen','září','říjen','listopad','prosinec'];
+  return months[date.getMonth()] + ' ' + date.getFullYear();
+}
+function monthLabelShort(date) {
+  const months = ['leden','únor','březen','duben','květen','červen','červenec','srpen','září','říjen','listopad','prosinec'];
+  return months[date.getMonth()];
+}
+function absMonth(date) { return date.getFullYear() * 12 + date.getMonth(); }
+function fromAbsMonth(abs) { return new Date(Math.floor(abs / 12), abs % 12, 1); }
+
+// Settings (fundConfig): { payer, receiver, monthlyAmount, startMonth (YYYY-MM) }
+// Default: Pavel → Marta, 10000, startMonth = earliest rent payment month
+function getFundConfig() {
+  const cfg = householdData.fundConfig || {};
+  const members = getAllMemberNames();
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  return {
+    payer: cfg.payer || myName,
+    receiver: cfg.receiver || partnerName,
+    monthlyAmount: cfg.monthlyAmount || MONTHLY_FUND,
+    startMonth: cfg.startMonth || null, // e.g. '2026-04'
+    enabled: cfg.enabled !== false
+  };
+}
+
+// Compute the full state of the financial ledger
+function computeLedger() {
+  const txns = getList('txns').sort((a,b) => (a.at || 0) - (b.at || 0));
+  const config = getFundConfig();
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+
+  // Total net balance between the two people: positive = I have credit (partner owes me)
+  let myCredit = 0;
+  txns.forEach(t => {
+    const amt = t.amount || 0;
+    if (t.to === myName) myCredit += amt;      // someone sent me money
+    else if (t.from === myName) myCredit -= amt; // I sent someone money
+  });
+
+  // How many months has Pavel covered via rent + credit?
+  // Total he has "sent to housing" = sum of rent-typed txns + any extra credit above what's owed
+  // Simpler: total amount Pavel has given to Marta (rent + payments) - total Marta has given to Pavel = Pavel's contribution to household
+  const now = new Date();
+  const nowAbs = absMonth(now);
+
+  let ret = {
+    config,
+    myName, partnerName,
+    myCredit, // positive = partner owes me, negative = I owe partner
+    monthsStatus: [], // for each month: { monthAbs, label, allocated, needed }
+    coveredUntilAbs: null,
+    coveredUntilLabel: null,
+    shortfall: 0,
+    prepaidAmount: 0,
+    prepaidMonths: 0,
+    prepaidRemainder: 0,
+    nextRentDue: null, // { monthAbs, label, amountToPay }
+    txns,
+    canEstimateMonths: !!config.startMonth && !!config.monthlyAmount
+  };
+
+  if (!config.enabled || !config.startMonth) return ret;
+
+  // Parse startMonth
+  const [sy, sm] = config.startMonth.split('-').map(Number);
+  const startAbs = sy * 12 + (sm - 1);
+
+  // Net flow from payer to receiver = how much "housing credit" payer has given
+  // payer = Pavel (usually). payer sends money to receiver (Marta) = counts toward rent
+  // receiver sends money to payer = reduces what payer owes
+  let netGivenByPayer = 0;
+  txns.forEach(t => {
+    const amt = t.amount || 0;
+    if (t.from === config.payer && t.to === config.receiver) netGivenByPayer += amt;
+    else if (t.from === config.receiver && t.to === config.payer) netGivenByPayer -= amt;
+  });
+
+  // How many rent months has Pavel "paid off"?
+  const monthsFullyPaid = Math.floor(netGivenByPayer / config.monthlyAmount);
+  const remainderInNextMonth = netGivenByPayer - (monthsFullyPaid * config.monthlyAmount);
+
+  // Last month fully covered (absolute):
+  const lastCoveredAbs = startAbs + monthsFullyPaid - 1;
+  ret.coveredUntilAbs = lastCoveredAbs >= startAbs - 1 ? lastCoveredAbs : null;
+  ret.coveredUntilLabel = ret.coveredUntilAbs !== null && ret.coveredUntilAbs >= 0
+    ? monthLabel(fromAbsMonth(ret.coveredUntilAbs)) : null;
+
+  // Current month covered?
+  ret.currentMonthCovered = lastCoveredAbs >= nowAbs;
+  ret.monthsAheadCount = Math.max(0, lastCoveredAbs - nowAbs);
+  ret.prepaidAmount = Math.max(0, netGivenByPayer - Math.max(0, nowAbs - startAbs + 1) * config.monthlyAmount + (ret.currentMonthCovered ? config.monthlyAmount : 0));
+  // Simpler: if covered beyond now, prepaid = remaining credit
+  if (ret.currentMonthCovered) {
+    // amount paid beyond current month's rent
+    ret.prepaidAmount = netGivenByPayer - ((nowAbs - startAbs + 1) * config.monthlyAmount);
+    ret.prepaidMonths = Math.floor(ret.prepaidAmount / config.monthlyAmount);
+    ret.prepaidRemainder = ret.prepaidAmount - ret.prepaidMonths * config.monthlyAmount;
+  }
+
+  // Shortfall = how much I need to pay to catch up through current month
+  if (!ret.currentMonthCovered) {
+    const monthsNeededThrough = Math.max(1, nowAbs - startAbs + 1);
+    const totalNeeded = monthsNeededThrough * config.monthlyAmount;
+    ret.shortfall = Math.max(0, totalNeeded - netGivenByPayer);
+  }
+
+  // Next rent payment: the month after coveredUntilAbs, or current month if nothing covered
+  const nextAbs = ret.coveredUntilAbs !== null && ret.coveredUntilAbs >= nowAbs
+    ? ret.coveredUntilAbs + 1
+    : nowAbs;
+  const nextDate = fromAbsMonth(nextAbs);
+  let amountToPay = config.monthlyAmount;
+  // If there's remainder credit, reduce amount
+  if (ret.coveredUntilAbs !== null && ret.coveredUntilAbs >= nowAbs && ret.prepaidRemainder > 0) {
+    amountToPay = Math.max(0, config.monthlyAmount - ret.prepaidRemainder);
+  }
+  ret.nextRentDue = {
+    monthAbs: nextAbs,
+    label: monthLabel(nextDate),
+    date: nextDate,
+    amountToPay
+  };
+
+  return ret;
+}
+
+// LEGACY compatibility for any old code paths still referencing computeFundStatus/computePersonalBalance
+function computeFundStatus() {
+  const led = computeLedger();
+  const result = {};
+  const myName = getMyName();
+  getAllMemberNames().forEach(n => {
+    if (n === led.config.payer) {
+      result[n] = {
+        status: led.currentMonthCovered ? (led.monthsAheadCount > 0 ? 'prepaid' : 'paid') : 'unpaid',
+        monthsAhead: led.monthsAheadCount,
+        nextPaymentDate: led.nextRentDue ? led.nextRentDue.date : new Date()
+      };
+    } else {
+      result[n] = { status: 'paid', monthsAhead: 0, nextPaymentDate: new Date() };
+    }
+  });
+  return result;
+}
+function computePersonalBalance() {
+  const led = computeLedger();
+  // Keep tile logic: positive = partner owes me, negative = I owe partner
+  // For home tile, we want "net balance between us" — but now we unify: use myCredit
+  return led.myCredit;
+}
+
+// ============================================================
+// TODAY WIDGET DATA
+// ============================================================
+function getTodayItems() {
+  const items = [];
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const todayEnd = todayStart + 24*60*60*1000;
+
+  getList('tasks').filter(t => !t.done && t.dueDate).forEach(t => {
+    const d = new Date(t.dueDate).getTime();
+    if (d >= todayStart && d < todayEnd) items.push({ icon: '✓', text: t.title, time: t.dueTime || '', kind: 'task' });
+  });
+  getList('events').forEach(e => {
+    const d = new Date(e.start).getTime();
+    if (d >= todayStart && d < todayEnd) {
+      const dt = new Date(e.start);
+      const time = dt.toLocaleTimeString('cs-CZ', { hour:'2-digit', minute:'2-digit' });
+      items.push({ icon: '📅', text: e.title, time, kind: 'event' });
+    }
+  });
+  getList('pets').forEach(p => {
+    (p.records || []).forEach(r => {
+      if (r.nextDate) {
+        const d = new Date(r.nextDate).getTime();
+        if (d >= todayStart && d < todayEnd) items.push({ icon: '🐾', text: p.name + ': ' + r.type, time: '', kind: 'pet' });
+      }
+    });
+  });
+  return items.sort((a,b) => (a.time||'99:99').localeCompare(b.time||'99:99'));
+}
+
+// ============================================================
+// RENDER ORCHESTRATOR
+// ============================================================
+function renderScreen() {
+  const container = document.getElementById('screen-container');
+  const screens = {
+    'home': renderHome, 'tasks': renderTasks, 'calendar': renderCalendar,
+    'shopping': renderShopping, 'money': renderMoney, 'bills': renderBills,
+    'wishlist': renderWishlist, 'meals': renderMeals, 'places': renderPlaces,
+    'maintenance': renderMaintenance, 'activity': renderActivity,
+    'pets': renderPets, 'cards': renderCards, 'profile': renderProfile
+  };
+  const fn = screens[currentScreen] || renderHome;
+  container.innerHTML = fn();
+  if (currentScreen === 'cards') setTimeout(renderAllBarcodes, 50);
+}
+
+function goTo(screen) {
+  currentScreen = screen; currentFilter = 'all'; historySearchMoney = '';
+  window.scrollTo(0, 0); renderScreen();
+}
+window.goTo = goTo;
+
+// ============================================================
+// HOME SCREEN
+// ============================================================
+function renderHome() {
+  const tasks = getList('tasks');
+  const events = getList('events');
+  const shopping = getList('shopping');
+  const expenses = getList('expenses').filter(e => !e.paid);
+  const wishlist = getList('wishlist').filter(w => !w.bought);
+  const places = getList('places').filter(p => !p.visited);
+  const maint = getList('maintenance');
+  const pets = getList('pets');
+  const cards = getList('loyaltyCards');
+
+  const taskCount = tasks.filter(t => !t.done).length;
+  const shoppingCount = shopping.filter(s => !s.done).length;
+  const balance = computePersonalBalance();
+  const fundStatus = computeFundStatus();
+  const myStatus = fundStatus[getMyName()];
+
+  const now = Date.now();
+  const weekAhead = now + 7*24*60*60*1000;
+  const urgentMaint = maint.filter(m => m.nextDate && new Date(m.nextDate).getTime() <= weekAhead).length;
+  let urgentPets = 0;
+  pets.forEach(p => { (p.records || []).forEach(r => { if (r.nextDate && new Date(r.nextDate).getTime() <= weekAhead) urgentPets++; }); });
+  const anyBillOverdue = expenses.some(e => e.dueDay && new Date().getDate() > e.dueDay);
+  const iOwe = balance < 0;
+  const iAmUnpaidThisMonth = myStatus && myStatus.status === 'unpaid';
+
+  const tiles = [
+    { id:'tasks', label:'Úkoly', icon:'✓', count:taskCount, gradient:'linear-gradient(135deg, #f4a261, #e76f51)' },
+    { id:'calendar', label:'Kalendář', icon:'📅', count: events.filter(e => new Date(e.start).getTime() >= now - 86400000).length, gradient:'linear-gradient(135deg, #b39ddb, #7e57c2)' },
+    { id:'shopping', label:'Nákupy', icon:'🛒', count:shoppingCount, gradient:'linear-gradient(135deg, #81c784, #4caf50)' },
+    { id:'money', label:'Finance', icon:'💰',
+      subtitle: iOwe ? 'Dlužíš ' + fmtMoney(Math.abs(balance)) : balance > 0 ? '+' + fmtMoney(balance) : 'Vyrovnáno',
+      subtitleColor: iOwe ? '#ef9a9a' : '#a5d6a7',
+      dot: (iOwe || iAmUnpaidThisMonth) ? 'red' : null,
+      gradient:'linear-gradient(135deg, #81c784, #388e3c)' },
+    { id:'bills', label:'Společné výdaje', icon:'🏡', count:expenses.length, dot: anyBillOverdue ? 'orange' : null, gradient:'linear-gradient(135deg, #64b5f6, #1976d2)' },
+    { id:'pets', label:'Pejsci', icon:'🐾', count:pets.length, dot: urgentPets > 0 ? 'orange' : null, gradient:'linear-gradient(135deg, #ffb74d, #f57c00)' },
+    { id:'meals', label:'Jídelníček', icon:'🍳', gradient:'linear-gradient(135deg, #ff8a65, #e64a19)' },
+    { id:'wishlist', label:'Přání', icon:'🎁', count:wishlist.length, gradient:'linear-gradient(135deg, #f06292, #c2185b)' },
+    { id:'places', label:'Místa', icon:'📍', count:places.length, gradient:'linear-gradient(135deg, #4db6ac, #00796b)' },
+    { id:'cards', label:'Věrnostní karty', icon:'💳', count:cards.length, gradient:'linear-gradient(135deg, #9575cd, #5e35b1)' },
+    { id:'maintenance', label:'Údržba', icon:'🔧', count:maint.length, dot: urgentMaint > 0 ? 'orange' : null, gradient:'linear-gradient(135deg, #90a4ae, #455a64)' },
+    { id:'activity', label:'Aktivita', icon:'⚡', gradient:'linear-gradient(135deg, #ba68c8, #7b1fa2)' },
+  ];
+
+  let html = `<div class="app">
+    <div class="home-top">
+      <div class="top-bar">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button onclick="goTo('profile')" style="background: transparent; padding: 0;">
+            <div class="user-avatar large" style="box-shadow: 0 4px 16px rgba(0,0,0,0.3);">${getMyProfile().emoji}</div>
+          </button>
+          <div>
+            <p class="greeting-small">Ahoj,</p>
+            <p class="greeting-name">${escapeHtml(getMyName())}</p>
+            <p class="together">Společně s ${getPartnerProfile().emoji} ${escapeHtml(getPartnerName())}</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+          <button class="link-btn" onclick="goTo('profile')">můj avatar</button>
+          <button class="link-btn" onclick="showHouseholdCode()">kód domácnosti</button>
+          <button class="link-btn" onclick="logout()">odhlásit</button>
+        </div>
+      </div>
+    </div>`;
+
+  const todayItems = getTodayItems();
+  html += `<div class="today-card">
+    <div class="today-title">📍 Dnes</div>`;
+  if (todayItems.length === 0) html += `<div class="today-empty">Dnes nic nemáte v plánu ✨</div>`;
+  else {
+    todayItems.slice(0, 5).forEach(it => {
+      html += `<div class="today-row">
+        <span class="t-icon">${it.icon}</span>
+        <span class="t-text">${escapeHtml(it.text)}</span>
+        ${it.time ? `<span class="t-time">${it.time}</span>` : ''}
+      </div>`;
+    });
+  }
+  html += `</div>`;
+
+  html += `<div class="tiles">`;
+  tiles.forEach(t => {
+    html += `<button class="tile" onclick="goTo('${t.id}')">
+      ${t.dot ? `<div class="tile-dot ${t.dot}"></div>` : ''}
+      <div class="tile-icon" style="background: ${t.gradient};">${t.icon}</div>
+      <div class="tile-label">${t.label}</div>
+      ${t.count !== undefined && t.count > 0 ? `<div class="tile-count">${t.count} ${pluralCZ(t.count)}</div>` : ''}
+      ${t.subtitle ? `<div class="tile-subtitle" style="color: ${t.subtitleColor};">${t.subtitle}</div>` : ''}
+    </button>`;
+  });
+  html += `</div></div>`;
+  return html;
+}
+
+function showHouseholdCode() {
+  const code = userData.householdId.replace('h_', '');
+  alert('Kód domácnosti: ' + code + '\n\nPošli ho partnerovi.');
+}
+window.showHouseholdCode = showHouseholdCode;
+
+function header(title, subtitle) {
+  return `<div class="header">
+    <button class="back-btn" onclick="goTo('home')">←</button>
+    <div style="flex: 1;">
+      <h2 style="margin: 0;">${title}</h2>
+      ${subtitle ? `<p style="font-size: 12px; color: rgba(255,255,255,0.5); margin: 2px 0 0;">${subtitle}</p>` : ''}
+    </div>
+  </div>`;
+}
+
+// ============================================================
+// TASKS
+// ============================================================
+function renderTasks() {
+  const tasks = getList('tasks');
+  const partnerName = getPartnerName();
+  const myName = getMyName();
+
+  let filtered = tasks.filter(t => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'mine') return t.owner === myName;
+    if (currentFilter === 'partner') return t.owner === partnerName;
+    if (currentFilter === 'shared') return t.owner === 'shared';
+    if (currentFilter === 'dated') return !!t.dueDate;
+    return true;
+  });
+
+  const dated = filtered.filter(t => !t.done && t.dueDate).sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+  const undated = filtered.filter(t => !t.done && !t.dueDate).sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  const done = filtered.filter(t => t.done).sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+  let html = header('Úkoly') + `<div class="app">
+    <div class="tabs">
+      ${tabBtn('all','Vše')}
+      ${tabBtn('mine','Moje')}
+      ${tabBtn('partner', partnerName)}
+      ${tabBtn('shared','Společné')}
+      ${tabBtn('dated','S termínem')}
+    </div>`;
+
+  if (dated.length > 0) { html += `<div class="section-title">S termínem</div><div class="list">`; dated.forEach(t => html += taskCard(t)); html += `</div>`; }
+  if (undated.length > 0) { html += `<div class="section-title">Bez termínu</div><div class="list">`; undated.forEach(t => html += taskCard(t)); html += `</div>`; }
+  if (done.length > 0) {
+    html += `<details><summary class="section-title"><span><span class="chev">▶</span>Hotovo (${done.length})</span></summary><div class="list" style="margin-top: 8px;">`;
+    done.slice(0, 30).forEach(t => html += taskCard(t));
+    html += `</div></details>`;
+  }
+  if (filtered.length === 0) html += `<div class="empty">Žádné úkoly</div>`;
+  html += `</div><button class="fab" onclick="showAddTask()">+</button>`;
+  return html;
+}
+
+function tabBtn(id, label) {
+  return `<button class="tab ${currentFilter === id ? 'active' : ''}" onclick="setFilter('${id}')">${escapeHtml(label)}</button>`;
+}
+function setFilter(f) { currentFilter = f; renderScreen(); }
+window.setFilter = setFilter;
+
+function taskCard(t) {
+  const myName = getMyName();
+  const ownerLabel = t.owner === 'shared' ? 'Oba' : t.owner;
+  const badgeClass = t.owner === 'shared' ? 'badge-orange' : t.owner === myName ? 'badge-teal' : 'badge-purple';
+  const barClass = t.owner === 'shared' ? 'bar-orange' : t.owner === myName ? 'bar-teal' : 'bar-purple';
+
+  let dateInfo = '';
+  if (t.dueDate && !t.done) {
+    const d = new Date(t.dueDate + (t.dueTime ? 'T' + t.dueTime : ''));
+    const now = new Date();
+    const daysUntil = Math.ceil((d - now) / (1000*60*60*24));
+    let dateColor = 'rgba(255,255,255,0.5)';
+    let dateText = d.toLocaleDateString('cs-CZ', { day:'numeric', month:'short' });
+    if (t.dueTime) dateText += ' · ' + t.dueTime;
+    if (daysUntil < 0) { dateColor = '#ef5350'; dateText += ` (zpoždění ${Math.abs(daysUntil)}d)`; }
+    else if (daysUntil === 0) { dateColor = '#ffb74d'; dateText = 'Dnes' + (t.dueTime ? ' · ' + t.dueTime : ''); }
+    else if (daysUntil <= 3) { dateColor = '#ffb74d'; dateText += ` (za ${daysUntil}d)`; }
+    dateInfo = `<span style="color: ${dateColor}; font-size: 12px; font-weight: 500;">📅 ${dateText}</span>`;
+  }
+
+  let contacts = '';
+  if (t.address || t.phone || t.link) {
+    contacts = '<div class="contact-row">';
+    if (t.address) contacts += `<a class="contact-btn addr" href="${mapsUrl(t.address)}" target="_blank">📍 Mapy</a>`;
+    if (t.phone) contacts += `<a class="contact-btn phone" href="tel:${escapeHtml(t.phone.replace(/\s/g,''))}">📞 ${escapeHtml(t.phone)}</a>`;
+    if (t.link) contacts += `<a class="contact-btn link" href="${escapeHtml(t.link)}" target="_blank">🔗 Odkaz</a>`;
+    contacts += '</div>';
+  }
+
+  return `<div class="card ${t.done ? 'done' : ''}" style="align-items: stretch;">
+    <div class="calendar-day-bar ${barClass}"></div>
+    <button class="checkbox ${t.done ? 'checked' : ''}" onclick="toggleTask('${t.id}')" style="align-self: flex-start;"></button>
+    <div class="card-body">
+      <div class="card-title ${t.done ? 'done' : ''}">${escapeHtml(t.title)}</div>
+      ${t.note ? `<div class="card-note">${escapeHtml(t.note)}</div>` : ''}
+      <div class="card-meta">
+        ${ownerChipHtml(t.owner)}
+        ${dateInfo}
+      </div>
+      ${contacts}
+    </div>
+    <button class="del-btn" onclick="deleteTask('${t.id}', '${escAttr(t.title)}')">🗑️</button>
+  </div>`;
+}
+
+function showAddTask() {
+  openModal('Nový úkol', `
+    <div class="field"><input type="text" id="m-title" placeholder="Co je potřeba udělat?" autofocus></div>
+    <div class="field"><textarea id="m-note" rows="2" placeholder="Poznámka (nepovinné)"></textarea></div>
+    <div class="field-label">Termín (nepovinné)</div>
+    <div class="option-grid cols-2">
+      <input type="date" id="m-date">
+      <input type="time" id="m-time">
+    </div>
+    <div class="field-label">Kontakt (nepovinné)</div>
+    <input type="text" id="m-address" placeholder="📍 Adresa" style="margin-bottom: 8px;">
+    <input type="tel" id="m-phone" placeholder="📞 Telefon" style="margin-bottom: 8px;">
+    <input type="url" id="m-link" placeholder="🔗 Odkaz" style="margin-bottom: 12px;">
+    <div class="field-label">Pro koho?</div>
+    ${ownerChoiceGrid('m-owner-grid', 'shared', true)}
+    <button class="btn-submit" onclick="addTask()">Přidat</button>
+  `);
+  setupOwnerGrid('m-owner-grid');
+}
+window.showAddTask = showAddTask;
+
+async function addTask() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) return;
+  const note = document.getElementById('m-note').value.trim();
+  const dueDate = document.getElementById('m-date').value;
+  const dueTime = document.getElementById('m-time').value;
+  const address = document.getElementById('m-address').value.trim();
+  const phone = document.getElementById('m-phone').value.trim();
+  const link = document.getElementById('m-link').value.trim();
+  const ownerChoice = document.querySelector('#m-owner-grid .owner-option.active')?.dataset.v || 'shared';
+  const myName = getMyName();
+  const owner = ownerChoice === 'me' ? myName : ownerChoice === 'partner' ? getPartnerName() : 'shared';
+  await saveItem('tasks', {
+    title, note, dueDate, dueTime, address, phone, link, owner,
+    done: false, createdBy: myName, createdAt: Date.now()
+  });
+  await logActivity('přidal úkol', title);
+  closeModal();
+}
+window.addTask = addTask;
+
+async function toggleTask(id) {
+  const t = getList('tasks').find(x => x.id === id);
+  if (!t) return;
+  await saveItem('tasks', { done: !t.done, completedBy: !t.done ? getMyName() : null }, id);
+  await logActivity(!t.done ? 'dokončil úkol' : 'vrátil úkol', t.title);
+}
+window.toggleTask = toggleTask;
+
+async function deleteTask(id, title) {
+  if (!confirm('Smazat úkol "' + title + '"?')) return;
+  await removeItem('tasks', id);
+  await logActivity('smazal úkol', title);
+}
+window.deleteTask = deleteTask;
+
+// ============================================================
+// CALENDAR (monthly grid + weekly + list)
+// ============================================================
+function collectCalendarItems() {
+  // Returns array of items with normalized { id, type, title, note, start (Date), dateKey (YYYY-MM-DD), owner, address, phone, link }
+  const events = getList('events').map(e => ({
+    id: e.id, type: 'event', title: e.title, note: e.note,
+    start: new Date(e.start),
+    owner: e.forWhom, address: e.address, phone: e.phone, link: e.link
+  }));
+  const datedTasks = getList('tasks').filter(t => t.dueDate && !t.done).map(t => ({
+    id: t.id, type: 'task', title: t.title, note: t.note,
+    start: new Date(t.dueDate + 'T' + (t.dueTime || '09:00')),
+    owner: t.owner, address: t.address, phone: t.phone, link: t.link
+  }));
+  const petEvents = [];
+  getList('pets').forEach(p => {
+    (p.records || []).forEach((r, ridx) => {
+      if (r.nextDate) petEvents.push({
+        id: p.id + '_' + ridx, type: 'pet', title: p.name + ' — ' + r.type,
+        note: r.notes || '',
+        start: new Date(r.nextDate + 'T09:00'),
+        owner: r.responsible || 'shared',
+        address: r.vetAddress, phone: r.vetPhone,
+        petId: p.id, petName: p.name
+      });
+    });
+  });
+  const all = [...events, ...datedTasks, ...petEvents];
+  all.forEach(it => {
+    const d = it.start;
+    it.dateKey = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    it.timeStr = d.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+  });
+  return all.sort((a, b) => a.start - b.start);
+}
+
+function ownerColorClass(owner, type) {
+  const myName = getMyName();
+  if (type === 'pet') return 'paw';
+  if (owner === myName) return 'teal';
+  if (owner === 'shared') return 'orange';
+  return 'purple';
+}
+
+function dateKey(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function monthNameCZ(monthIdx) {
+  const names = ['Leden','Únor','Březen','Duben','Květen','Červen','Červenec','Srpen','Září','Říjen','Listopad','Prosinec'];
+  return names[monthIdx];
+}
+
+function renderCalendar() {
+  let html = header('Kalendář', 'Úkoly, události i pejsci') + '<div class="app">';
+
+  // View switcher
+  html += '<div class="cal-view-switch">' +
+    '<button class="cal-view-btn ' + (calendarView === 'month' ? 'active' : '') + '" onclick="setCalView(\'month\')">Měsíc</button>' +
+    '<button class="cal-view-btn ' + (calendarView === 'week' ? 'active' : '') + '" onclick="setCalView(\'week\')">Týden</button>' +
+    '<button class="cal-view-btn ' + (calendarView === 'list' ? 'active' : '') + '" onclick="setCalView(\'list\')">Seznam</button>' +
+    '</div>';
+
+  if (calendarView === 'month') html += renderCalendarMonth();
+  else if (calendarView === 'week') html += renderCalendarWeek();
+  else html += renderCalendarList();
+
+  html += '</div><button class="fab" onclick="showAddEvent()">+</button>';
+  return html;
+}
+
+function setCalView(v) {
+  calendarView = v;
+  calendarSelectedDate = null;
+  renderScreen();
+}
+window.setCalView = setCalView;
+
+function renderCalendarMonth() {
+  const anchor = new Date(calendarAnchor);
+  const year = anchor.getFullYear();
+  const month = anchor.getMonth();
+  const firstOfMonth = new Date(year, month, 1);
+  const lastOfMonth = new Date(year, month + 1, 0);
+  // First day of week: Monday = 1, ..., Sunday = 0. We want Monday-start.
+  const jsDayOfFirst = firstOfMonth.getDay(); // 0=Sun..6=Sat
+  const mondayOffset = (jsDayOfFirst + 6) % 7; // 0 if Monday, 6 if Sunday
+  const gridStart = new Date(year, month, 1 - mondayOffset);
+
+  // Collect items indexed by dateKey
+  const allItems = collectCalendarItems();
+  const byDay = {};
+  allItems.forEach(it => {
+    if (!byDay[it.dateKey]) byDay[it.dateKey] = [];
+    byDay[it.dateKey].push(it);
+  });
+
+  const todayKey = dateKey(new Date());
+
+  let html = '';
+
+  // Navigation
+  html += '<div class="cal-nav">' +
+    '<button onclick="calPrev()">‹</button>' +
+    '<div class="cal-month-label">' + monthNameCZ(month) + ' ' + year + '</div>' +
+    (todayKey.substring(0, 7) !== year + '-' + String(month + 1).padStart(2, '0') ? '<button class="today-btn" onclick="calToday()">Dnes</button>' : '') +
+    '<button onclick="calNext()">›</button>' +
+  '</div>';
+
+  // Export button
+  html += '<div style="padding: 0 20px 12px; display: flex; gap: 8px;">' +
+    '<button class="btn-small" style="flex: 1; background: rgba(100, 181, 246, 0.15); color: #64b5f6;" onclick="exportMonth()">📲 Exportovat ' + monthNameCZ(month).toLowerCase() + ' do iPhonu</button>' +
+  '</div>';
+
+  // Legend
+  const myName = getMyName();
+  html += '<div style="padding: 4px 20px 10px; display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: rgba(255,255,255,0.6);">' +
+    '<span>' + getMyProfile().emoji + ' ' + escapeHtml(myName) + '</span>' +
+    '<span>' + getPartnerProfile().emoji + ' ' + escapeHtml(getPartnerName()) + '</span>' +
+    '<span>👥 Společné</span>' +
+    '<span>🐾 Pejsci</span>' +
+  '</div>';
+
+  // Weekday row
+  const weekdays = ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'];
+  html += '<div class="cal-weekdays">';
+  weekdays.forEach((w, i) => {
+    html += '<div class="cal-weekday' + (i >= 5 ? ' weekend' : '') + '">' + w + '</div>';
+  });
+  html += '</div>';
+
+  // Grid (6 rows × 7 columns = 42 cells)
+  html += '<div class="cal-grid">';
+  for (let i = 0; i < 42; i++) {
+    const d = new Date(gridStart);
+    d.setDate(gridStart.getDate() + i);
+    const k = dateKey(d);
+    const isOtherMonth = d.getMonth() !== month;
+    const isToday = k === todayKey;
+    const isSelected = k === calendarSelectedDate;
+    const isWeekend = i % 7 >= 5;
+    const items = byDay[k] || [];
+
+    // Build emoji set: which avatars/icons should appear under day number?
+    // Show up to 3 unique emojis for: me / partner / shared / pet
+    const emojiSet = [];
+    let hasMe = false, hasPartner = false, hasShared = false, hasPet = false;
+    items.forEach(it => {
+      if (it.type === 'pet') hasPet = true;
+      else if (it.owner === 'shared') hasShared = true;
+      else if (it.owner === getMyName()) hasMe = true;
+      else hasPartner = true;
+    });
+    if (hasMe) emojiSet.push(getMyProfile().emoji);
+    if (hasPartner) emojiSet.push(getPartnerProfile().emoji);
+    if (hasShared) emojiSet.push('👥');
+    if (hasPet) emojiSet.push('🐾');
+    const moreCount = items.length > 3 ? items.length - 3 : 0;
+
+    let cls = 'cal-day';
+    if (isOtherMonth) cls += ' other-month';
+    if (isToday) cls += ' today';
+    if (isSelected) cls += ' selected';
+    if (isWeekend) cls += ' weekend';
+    if (items.length > 0) cls += ' has-events';
+
+    html += '<div class="' + cls + '" onclick="selectDay(\'' + k + '\')">' +
+      '<div class="cal-day-num">' + d.getDate() + '</div>' +
+      (emojiSet.length > 0 ? '<div class="cal-day-emojis">' + emojiSet.slice(0, 3).map(e => '<span class="cal-day-emoji">' + e + '</span>').join('') + '</div>' : '') +
+      (items.length > 1 ? '<div class="cal-day-count">' + items.length + ' události</div>' : '') +
+    '</div>';
+  }
+  html += '</div>';
+
+  // Day detail (if selected)
+  if (calendarSelectedDate) {
+    html += renderDayDetail(calendarSelectedDate, byDay[calendarSelectedDate] || []);
+  } else {
+    // Show today by default
+    html += renderDayDetail(todayKey, byDay[todayKey] || [], true);
+  }
+
+  return html;
+}
+
+function renderDayDetail(dateKey, items, isToday) {
+  const [y, m, d] = dateKey.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  const dayNames = ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'];
+  const dayName = dayNames[date.getDay()];
+  const todayLabel = dateKey === window.__todayKey ? ' · Dnes' : '';
+  const realTodayKey = (() => { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0'); })();
+  const isActuallyToday = dateKey === realTodayKey;
+
+  let html = '<div class="day-detail">';
+  html += '<div class="day-detail-header">' +
+    '<div class="day-detail-title">' + dayName + ' ' + d + '. ' + monthNameCZ(m - 1).toLowerCase() + (isActuallyToday ? ' · <span style="color:#f4a261;">dnes</span>' : '') + '</div>' +
+  '</div>';
+
+  if (items.length === 0) {
+    html += '<div class="day-detail-empty">' + (isActuallyToday ? 'Dnes nic nemáš v plánu ✨' : 'Tento den je prázdný') + '</div>';
+  } else {
+    const sorted = [...items].sort((a, b) => a.start - b.start);
+    sorted.forEach(it => {
+      const icon = it.type === 'task' ? '✓' : it.type === 'pet' ? '🐾' : '📅';
+      const iconCls = it.type === 'task' ? 'task' : it.type === 'pet' ? 'pet' : 'event';
+
+      // Contact row
+      let contacts = '';
+      if (it.address || it.phone || it.link) {
+        contacts = '<div class="contact-row" style="margin-top: 6px;">';
+        if (it.address) contacts += '<a class="contact-btn addr" href="' + mapsUrl(it.address) + '" target="_blank">📍 Mapy</a>';
+        if (it.phone) contacts += '<a class="contact-btn phone" href="tel:' + escapeHtml(it.phone.replace(/\s/g,'')) + '">📞 ' + escapeHtml(it.phone) + '</a>';
+        if (it.link) contacts += '<a class="contact-btn link" href="' + escapeHtml(it.link) + '" target="_blank">🔗 Odkaz</a>';
+        contacts += '</div>';
+      }
+
+      // Action buttons per type
+      let actions = '';
+      if (it.type === 'event') {
+        actions = '<div class="day-item-actions">' +
+          '<button onclick="exportEvent(\'' + it.id + '\')">📲 iPhone</button>' +
+          '<button onclick="deleteEvent(\'' + it.id + '\', \'' + escAttr(it.title) + '\')">🗑️</button>' +
+        '</div>';
+      } else if (it.type === 'task') {
+        actions = '<div class="day-item-actions">' +
+          '<button onclick="toggleTask(\'' + it.id + '\')">✓ Hotovo</button>' +
+        '</div>';
+      }
+
+      const ownerLabel = it.owner === 'shared' ? 'Oba' : (it.owner || '');
+      const badgeCls = it.owner === getMyName() ? 'badge-teal' : it.owner === 'shared' ? 'badge-orange' : it.type === 'pet' ? 'badge-orange' : 'badge-purple';
+
+      html += '<div class="day-item">' +
+        '<div class="day-item-icon ' + iconCls + '">' + icon + '</div>' +
+        '<div class="day-item-body">' +
+          '<div class="day-item-title">' + escapeHtml(it.title) + '</div>' +
+          '<div class="day-item-time">' +
+            (it.type !== 'pet' ? it.timeStr + ' · ' : '') +
+            ownerChipHtml(it.owner) +
+            (it.type === 'task' ? ' · úkol' : it.type === 'pet' ? ' · pejsek' : '') +
+          '</div>' +
+          (it.note ? '<div style="font-size: 12px; color: rgba(255,255,255,0.55); font-style: italic; margin-top: 4px;">' + escapeHtml(it.note) + '</div>' : '') +
+          contacts +
+        '</div>' +
+        actions +
+      '</div>';
+    });
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function selectDay(key) {
+  calendarSelectedDate = key === calendarSelectedDate ? null : key;
+  renderScreen();
+}
+window.selectDay = selectDay;
+
+function calPrev() {
+  const d = new Date(calendarAnchor);
+  if (calendarView === 'week') d.setDate(d.getDate() - 7);
+  else d.setMonth(d.getMonth() - 1);
+  calendarAnchor = d;
+  calendarSelectedDate = null;
+  renderScreen();
+}
+window.calPrev = calPrev;
+
+function calNext() {
+  const d = new Date(calendarAnchor);
+  if (calendarView === 'week') d.setDate(d.getDate() + 7);
+  else d.setMonth(d.getMonth() + 1);
+  calendarAnchor = d;
+  calendarSelectedDate = null;
+  renderScreen();
+}
+window.calNext = calNext;
+
+function calToday() {
+  calendarAnchor = new Date();
+  calendarSelectedDate = null;
+  renderScreen();
+}
+window.calToday = calToday;
+
+function renderCalendarWeek() {
+  // Week: Monday through Sunday containing calendarAnchor
+  const anchor = new Date(calendarAnchor);
+  const jsDay = anchor.getDay();
+  const mondayOffset = (jsDay + 6) % 7;
+  const weekStart = new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate() - mondayOffset);
+  const allItems = collectCalendarItems();
+  const byDay = {};
+  allItems.forEach(it => { if (!byDay[it.dateKey]) byDay[it.dateKey] = []; byDay[it.dateKey].push(it); });
+
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6);
+  const weekLabel = weekStart.getDate() + '. ' + monthNameCZ(weekStart.getMonth()).toLowerCase() + ' – ' + weekEnd.getDate() + '. ' + monthNameCZ(weekEnd.getMonth()).toLowerCase();
+  const todayKey = dateKey(new Date());
+
+  let html = '<div class="cal-nav">' +
+    '<button onclick="calPrev()">‹</button>' +
+    '<div class="cal-month-label" style="font-size: 14px; text-transform: none;">' + weekLabel + '</div>' +
+    '<button class="today-btn" onclick="calToday()">Dnes</button>' +
+    '<button onclick="calNext()">›</button>' +
+  '</div>';
+
+  html += '<div style="padding: 0 20px;">';
+  const dayNames = ['Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota','Neděle'];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(weekStart); d.setDate(weekStart.getDate() + i);
+    const k = dateKey(d);
+    const items = (byDay[k] || []).sort((a,b) => a.start - b.start);
+    const isToday = k === todayKey;
+    html += '<div class="week-day-card ' + (isToday ? 'today' : '') + '">' +
+      '<div class="week-day-card-head">' +
+        '<div class="week-day-card-name">' + dayNames[i] + '</div>' +
+        '<div class="week-day-card-date">' + d.getDate() + '. ' + monthNameCZ(d.getMonth()).toLowerCase() + '</div>' +
+        (isToday ? '<div class="week-day-card-today-badge">Dnes</div>' : '') +
+      '</div>';
+    if (items.length === 0) {
+      html += '<div style="color: rgba(255,255,255,0.35); font-size: 12px; font-style: italic;">— prázdno —</div>';
+    } else {
+      items.forEach(it => {
+        const icon = it.type === 'task' ? '✓' : it.type === 'pet' ? '🐾' : '📅';
+        html += '<div style="display: flex; gap: 8px; padding: 6px 0; font-size: 13px; align-items: center;">' +
+          '<span style="color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums; width: 42px; flex-shrink: 0;">' + (it.type !== 'pet' ? it.timeStr : '') + '</span>' +
+          '<span style="flex-shrink: 0;">' + icon + '</span>' +
+          '<span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' + escapeHtml(it.title) + '</span>' +
+          ownerChipHtml(it.owner) +
+        '</div>';
+      });
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderCalendarList() {
+  const allItems = collectCalendarItems();
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  const upcoming = allItems.filter(it => it.start >= now);
+  const past = allItems.filter(it => it.start < now && it.type === 'event');
+
+  const myName = getMyName();
+  let html = '<div style="padding: 12px 20px; display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: rgba(255,255,255,0.6);">' +
+    '<span>' + getMyProfile().emoji + ' ' + escapeHtml(myName) + '</span>' +
+    '<span>' + getPartnerProfile().emoji + ' ' + escapeHtml(getPartnerName()) + '</span>' +
+    '<span>👥 Společné</span>' +
+    '<span>🐾 Pejsci</span>' +
+  '</div>';
+
+  if (upcoming.length > 0) {
+    html += '<div class="section-title">Nadcházející</div><div class="list">';
+    upcoming.forEach(e => html += calendarCard(e));
+    html += '</div>';
+  }
+  if (past.length > 0) {
+    html += '<details style="margin-top: 16px;"><summary class="section-title"><span><span class="chev">▶</span>Proběhlé (' + past.length + ')</span></summary><div class="list" style="margin-top: 8px;">';
+    past.slice(0, 20).forEach(e => html += calendarCard(e));
+    html += '</div></details>';
+  }
+  if (allItems.length === 0) html += '<div class="empty">Žádné termíny</div>';
+  return html;
+}
+
+function calendarCard(e) {
+  const d = e.start;
+  const myName = getMyName();
+  let barClass = 'bar-orange', pillClass = 'orange';
+  let icon = '📅';
+  if (e.type === 'task') icon = '✓';
+  else if (e.type === 'pet') { icon = '🐾'; barClass = 'bar-orange'; pillClass = 'orange'; }
+  if (e.owner === myName) { barClass = 'bar-teal'; pillClass = 'teal'; }
+  else if (e.owner === 'shared') { barClass = 'bar-orange'; pillClass = 'orange'; }
+  else if (e.type === 'pet') { barClass = 'bar-orange'; pillClass = 'orange'; }
+  else { barClass = 'bar-purple'; pillClass = 'purple'; }
+
+  const ownerLabel = e.owner === 'shared' ? 'Oba' : e.owner;
+
+  let contacts = '';
+  if (e.address || e.phone || e.link) {
+    contacts = '<div class="contact-row">';
+    if (e.address) contacts += '<a class="contact-btn addr" href="' + mapsUrl(e.address) + '" target="_blank">📍 ' + escapeHtml(e.address.length > 30 ? e.address.substring(0,30) + '…' : e.address) + '</a>';
+    if (e.phone) contacts += '<a class="contact-btn phone" href="tel:' + escapeHtml(e.phone.replace(/\s/g,'')) + '">📞 ' + escapeHtml(e.phone) + '</a>';
+    if (e.link) contacts += '<a class="contact-btn link" href="' + escapeHtml(e.link) + '" target="_blank">🔗 Odkaz</a>';
+    contacts += '</div>';
+  }
+
+  const actionBar = e.type === 'event'
+    ? '<div class="action-bar"><button class="action-btn" style="background: rgba(100, 181, 246, 0.15); color: #64b5f6;" onclick="exportEvent(\'' + e.id + '\')">📲 Do iPhone kalendáře</button><button class="action-btn" style="background: rgba(239, 83, 80, 0.15); color: #ef5350; flex: 0 0 auto; padding: 8px 16px;" onclick="deleteEvent(\'' + e.id + '\', \'' + escAttr(e.title) + '\')">🗑️</button></div>'
+    : e.type === 'task'
+    ? '<div class="action-bar"><button class="action-btn" style="background: rgba(129, 199, 132, 0.15); color: #81c784;" onclick="toggleTask(\'' + e.id + '\')">✓ Hotovo</button></div>'
+    : '';
+
+  return '<div class="card" style="flex-direction: column; gap: 0; align-items: stretch;">' +
+    '<div style="display: flex; gap: 12px; width: 100%;">' +
+      '<div class="calendar-day-bar ' + barClass + '"></div>' +
+      '<div class="date-pill ' + pillClass + '">' +
+        '<div class="date-pill-month">' + d.toLocaleDateString('cs-CZ', { month:'short' }) + '</div>' +
+        '<div class="date-pill-day">' + d.getDate() + '</div>' +
+        '<div class="date-pill-time">' + d.toLocaleTimeString('cs-CZ', { hour:'2-digit', minute:'2-digit' }) + '</div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-title">' + icon + ' ' + escapeHtml(e.title) + '</div>' +
+        (e.note ? '<div class="card-note">' + escapeHtml(e.note) + '</div>' : '') +
+        '<div class="card-meta">' +
+          ownerChipHtml(e.owner) +
+          '<span>' + (e.type === 'task' ? 'úkol' : e.type === 'pet' ? 'pejsek' : 'událost') + '</span>' +
+        '</div>' +
+        contacts +
+      '</div>' +
+    '</div>' +
+    actionBar +
+  '</div>';
+}
+
+function showAddEvent() {
+  openModal('Nový termín',
+    '<div class="field"><input type="text" id="m-title" placeholder="Co za událost?" autofocus></div>' +
+    '<div class="option-grid cols-2">' +
+      '<input type="date" id="m-date">' +
+      '<input type="time" id="m-time" value="09:00">' +
+    '</div>' +
+    '<div class="field"><textarea id="m-note" rows="2" placeholder="Poznámka"></textarea></div>' +
+    '<div class="field-label">Kontakt (nepovinné)</div>' +
+    '<input type="text" id="m-address" placeholder="📍 Adresa" style="margin-bottom: 8px;">' +
+    '<input type="tel" id="m-phone" placeholder="📞 Telefon" style="margin-bottom: 8px;">' +
+    '<input type="url" id="m-link" placeholder="🔗 Odkaz" style="margin-bottom: 12px;">' +
+    '<div class="field-label">Koho se týká?</div>' +
+    ownerChoiceGrid('m-owner-grid', 'shared', true) +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #b39ddb, #7e57c2);" onclick="addEvent()">Přidat</button>'
+  );
+  setupOwnerGrid('m-owner-grid');
+  document.getElementById('m-date').value = new Date().toISOString().split('T')[0];
+}
+window.showAddEvent = showAddEvent;
+
+async function addEvent() {
+  const title = document.getElementById('m-title').value.trim();
+  const date = document.getElementById('m-date').value;
+  const time = document.getElementById('m-time').value || '09:00';
+  const note = document.getElementById('m-note').value.trim();
+  const address = document.getElementById('m-address').value.trim();
+  const phone = document.getElementById('m-phone').value.trim();
+  const link = document.getElementById('m-link').value.trim();
+  if (!title || !date) return;
+  const ownerChoice = document.querySelector('#m-owner-grid .owner-option.active')?.dataset.v || 'shared';
+  const myName = getMyName();
+  const forWhom = ownerChoice === 'me' ? myName : ownerChoice === 'partner' ? getPartnerName() : 'shared';
+  await saveItem('events', {
+    title, note, start: date + 'T' + time, forWhom, address, phone, link,
+    createdBy: myName, createdAt: Date.now()
+  });
+  await logActivity('přidal termín', title);
+  closeModal();
+}
+window.addEvent = addEvent;
+
+async function deleteEvent(id, title) {
+  if (!confirm('Smazat termín "' + title + '"?')) return;
+  await removeItem('events', id);
+  await logActivity('smazal termín', title);
+}
+window.deleteEvent = deleteEvent;
+
+function icsFmt(d) { return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z'; }
+
+function buildIcsEvent(item, idx) {
+  const start = item.start instanceof Date ? item.start : new Date(item.start);
+  const end = new Date(start.getTime() + 60*60*1000);
+  let desc = (item.note || '').replace(/\n/g, '\\n');
+  if (item.phone) desc += '\\n\\nTel: ' + item.phone;
+  if (item.link) desc += '\\nOdkaz: ' + item.link;
+  const uid = (item.id || 'x') + '_' + idx + '@domov';
+  let out = 'BEGIN:VEVENT\nUID:' + uid + '\nDTSTAMP:' + icsFmt(new Date()) + '\nDTSTART:' + icsFmt(start) + '\nDTEND:' + icsFmt(end) + '\nSUMMARY:' + (item.title || 'Událost');
+  if (item.address) out += '\nLOCATION:' + item.address;
+  if (desc) out += '\nDESCRIPTION:' + desc;
+  out += '\nBEGIN:VALARM\nTRIGGER:-PT1H\nACTION:DISPLAY\nDESCRIPTION:Reminder\nEND:VALARM\nEND:VEVENT';
+  return out;
+}
+
+function exportEvent(id) {
+  const e = getList('events').find(x => x.id === id);
+  if (!e) return;
+  const item = { id: e.id, title: e.title, note: e.note, start: new Date(e.start), address: e.address, phone: e.phone, link: e.link };
+  const ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Domov//CS\n' + buildIcsEvent(item, 0) + '\nEND:VCALENDAR';
+  downloadIcs(ics, (e.title || 'udalost'));
+}
+window.exportEvent = exportEvent;
+
+function exportMonth() {
+  const anchor = new Date(calendarAnchor);
+  const year = anchor.getFullYear();
+  const month = anchor.getMonth();
+  const allItems = collectCalendarItems();
+  const monthItems = allItems.filter(it => it.start.getFullYear() === year && it.start.getMonth() === month);
+  if (monthItems.length === 0) {
+    alert('V měsíci ' + monthNameCZ(month).toLowerCase() + ' ' + year + ' nejsou žádné termíny.');
+    return;
+  }
+  const parts = monthItems.map((it, i) => buildIcsEvent(it, i));
+  const ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Domov//CS\n' + parts.join('\n') + '\nEND:VCALENDAR';
+  downloadIcs(ics, 'Domov_' + monthNameCZ(month).toLowerCase() + '_' + year);
+}
+window.exportMonth = exportMonth;
+
+function downloadIcs(content, filename) {
+  const blob = new Blob([content], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename.replace(/[^a-z0-9_]/gi, '_') + '.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ============================================================
+// ============================================================
+// MONEY — unified transaction ledger (rent + payments)
+// ============================================================
+function renderMoney() {
+  const led = computeLedger();
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const cfg = led.config;
+
+  let html = header('Finance', cfg.payer + ' → ' + cfg.receiver + ' · ' + fmtMoney(cfg.monthlyAmount) + '/měs.') + '<div class="app">';
+
+  // If not configured yet, show onboarding
+  if (!cfg.startMonth) {
+    html += '<div class="prediction-card" style="margin: 20px;"><span class="prediction-icon">⚙️</span><span class="prediction-text">Nastav <strong>měsíční příspěvek</strong> a od kdy se počítá, abych ti mohl pomáhat sledovat stav.</span></div>';
+    html += '<div style="padding: 0 20px;"><button class="btn btn-orange" onclick="showFundConfig()">⚙️ Nastavit příspěvek</button></div>';
+    html += '</div><button class="fab" onclick="showAddTxn()">+</button>';
+    return html;
+  }
+
+  // Main status card
+  const credit = led.myCredit;
+  const iAmPayer = myName === cfg.payer;
+
+  // For the payer (Pavel), show housing status. For receiver (Marta), show what she owes him.
+  if (iAmPayer) {
+    // SHOW HOUSING STATUS
+    let statusClass, statusIcon, statusTitle, statusDetail;
+    if (led.currentMonthCovered && led.monthsAheadCount > 0) {
+      statusClass = 'positive';
+      statusIcon = '✨';
+      statusTitle = 'Předplaceno ' + led.monthsAheadCount + ' ' + (led.monthsAheadCount === 1 ? 'měsíc' : led.monthsAheadCount < 5 ? 'měsíce' : 'měsíců') + ' dopředu';
+      statusDetail = 'Do: <strong>' + monthLabel(fromAbsMonth(led.coveredUntilAbs)) + '</strong>' + (led.prepaidRemainder > 0 ? ' (+' + fmtMoney(led.prepaidRemainder) + ' navíc)' : '');
+    } else if (led.currentMonthCovered) {
+      statusClass = 'neutral';
+      statusIcon = '✅';
+      statusTitle = 'Tento měsíc zaplacen';
+      statusDetail = 'Další platba: <strong>' + led.nextRentDue.label + '</strong>';
+    } else {
+      statusClass = 'negative';
+      statusIcon = '⚠️';
+      statusTitle = 'Chybí zaplatit';
+      statusDetail = '<strong>' + fmtMoney(led.shortfall) + '</strong> za tento měsíc';
+    }
+
+    html += '<div class="balance-card ' + statusClass + '"><div class="balance-label">🏡 Stav bydlení · ' + monthLabel(new Date()) + '</div><div class="balance-amount">' + statusIcon + ' ' + statusTitle + '</div><div class="balance-sub">' + statusDetail + '</div></div>';
+
+    // Next payment card
+    if (led.nextRentDue) {
+      html += '<div class="prediction-card"><span class="prediction-icon">📅</span><span class="prediction-text">Další platba nájmu: <strong>' + led.nextRentDue.label + '</strong>' + (led.nextRentDue.amountToPay < cfg.monthlyAmount ? ' (stačí zaplatit jen <strong>' + fmtMoney(led.nextRentDue.amountToPay) + '</strong> — zbytek máš předplacený)' : ' (<strong>' + fmtMoney(led.nextRentDue.amountToPay) + '</strong>)') + '</span></div>';
+    }
+  }
+
+  // Net balance between the two (mutual credit, excluding rent logic)
+  // Show as "kdo komu" based on total txn sum
+  if (credit !== 0 || !iAmPayer) {
+    let balClass = credit > 0 ? 'positive' : credit < 0 ? 'negative' : 'neutral';
+    let balText;
+    if (credit === 0) balText = '<div class="balance-amount">Vyrovnáno ✓</div>';
+    else if (credit > 0) balText = '<div class="balance-amount">+' + fmtMoney(credit) + '</div><div class="balance-sub" style="color: #a5d6a7;">' + escapeHtml(partnerName) + ' ti dluží celkem</div>';
+    else balText = '<div class="balance-amount">' + fmtMoney(credit) + '</div><div class="balance-sub" style="color: #ef9a9a;">Dlužíš ' + escapeHtml(partnerName.toLowerCase()) + 'ovi celkem</div>';
+    html += '<div class="balance-card ' + balClass + '" style="margin-top: 8px;"><div class="balance-label">👥 Souhrnné saldo mezi vámi</div>' + balText + '<div class="balance-sub" style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 6px;">(včetně nájmu i osobních plateb)</div></div>';
+  }
+
+  // Quick action buttons
+  html += '<div style="padding: 12px 20px; display: flex; gap: 8px;">';
+  html += '<button class="btn btn-orange" style="flex: 1; margin: 0; padding: 12px;" onclick="showAddRent()">🏡 Zaplatit nájem</button>';
+  html += '<button class="btn btn-teal" style="flex: 1; margin: 0; padding: 12px;" onclick="showAddPayment()">💳 Jiná platba</button>';
+  html += '</div>';
+
+  // Transaction history
+  const txns = [...led.txns].reverse(); // newest first
+  if (txns.length > 0) {
+    html += '<div class="section-title">📜 Historie transakcí (' + txns.length + ')</div>';
+    html += '<div class="search-box"><input type="text" class="search-input" placeholder="Hledat v historii..." value="' + escAttr(historySearchMoney) + '" oninput="setMoneySearch(this.value)"></div>';
+    let filtered = txns;
+    if (historySearchMoney) {
+      const q = historySearchMoney.toLowerCase();
+      filtered = txns.filter(t =>
+        (t.note || '').toLowerCase().includes(q) ||
+        (t.from || '').toLowerCase().includes(q) ||
+        (t.to || '').toLowerCase().includes(q) ||
+        String(t.amount || '').includes(q)
+      );
+    }
+    html += '<div class="list">';
+    filtered.forEach(t => html += txnCard(t, cfg));
+    if (filtered.length === 0) html += '<div class="empty">Nic nenalezeno</div>';
+    html += '</div>';
+  } else {
+    html += '<div class="empty" style="padding: 32px 20px;">Zatím žádné transakce.<br>Klepni na <strong>🏡 Zaplatit nájem</strong> nebo <strong>💳 Jiná platba</strong>.</div>';
+  }
+
+  html += '<div style="padding: 20px; text-align: center;"><button class="link-btn" onclick="showFundConfig()">⚙️ Upravit nastavení nájmu</button></div>';
+  html += '</div><button class="fab" onclick="showAddTxn()">+</button>';
+  return html;
+}
+
+function txnCard(t, cfg) {
+  const myName = getMyName();
+  const isRent = t.type === 'rent';
+  const icon = isRent ? '🏡' : '💳';
+  const label = isRent ? 'Nájem' : 'Platba';
+  const badgeClass = isRent ? 'badge-orange' : 'badge-blue';
+  // Direction
+  const iPay = t.from === myName;
+  const amount = t.amount || 0;
+  const sign = iPay ? '-' : '+';
+  const amtClass = iPay ? 'amount-red' : 'amount-green';
+  const dirText = t.from + ' → ' + t.to;
+
+  return '<div class="card">' +
+    '<span style="font-size: 22px; flex-shrink: 0;">' + icon + '</span>' +
+    '<div class="card-body">' +
+      '<div class="card-title">' + escapeHtml(t.note || label) + '</div>' +
+      '<div class="card-meta">' +
+        '<span class="badge ' + badgeClass + '">' + label + (isRent && t.forMonth ? ' · ' + monthLabel(new Date(t.forMonth)) : '') + '</span>' +
+        '<span>' + escapeHtml(dirText) + '</span>' +
+        '<span>· ' + fmtDate(t.at) + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="amount ' + amtClass + '">' + sign + fmtMoney(amount) + '</div>' +
+    '<button class="del-btn" onclick="deleteTxn(\'' + t.id + '\', \'' + escAttr((t.note || label) + ' — ' + fmtMoney(amount)) + '\')">🗑️</button>' +
+  '</div>';
+}
+
+function setMoneySearch(v) {
+  historySearchMoney = v;
+  renderScreen();
+  setTimeout(() => { const inp = document.querySelector('.search-input'); if (inp) { inp.focus(); inp.setSelectionRange(v.length, v.length); } }, 0);
+}
+window.setMoneySearch = setMoneySearch;
+
+// === Fund config (settings) ===
+function showFundConfig() {
+  const cfg = getFundConfig();
+  const members = getAllMemberNames();
+  let payerOptions = '';
+  let receiverOptions = '';
+  members.forEach(m => {
+    payerOptions += '<button class="option ' + (m === cfg.payer ? 'active active-orange' : '') + '" data-v="' + escAttr(m) + '">' + escapeHtml(m) + '</button>';
+    receiverOptions += '<button class="option ' + (m === cfg.receiver ? 'active active-orange' : '') + '" data-v="' + escAttr(m) + '">' + escapeHtml(m) + '</button>';
+  });
+  const curMonth = cfg.startMonth || (new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0'));
+  openModal('Nastavení měsíčního příspěvku',
+    '<p style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 14px;">Kdo pravidelně platí komu kolik. Systém pak počítá stav (předplaceno / chybí) automaticky.</p>' +
+    '<div class="field-label">Kdo platí (přispěvatel)</div>' +
+    '<div class="option-grid cols-2" id="m-payer-grid">' + payerOptions + '</div>' +
+    '<div class="field-label">Komu platí (příjemce)</div>' +
+    '<div class="option-grid cols-2" id="m-receiver-grid">' + receiverOptions + '</div>' +
+    '<div class="field-label">Měsíční částka</div>' +
+    '<div class="field"><input type="number" id="m-amount" placeholder="10000" inputmode="decimal" value="' + cfg.monthlyAmount + '"></div>' +
+    '<div class="field-label">Od kterého měsíce začíná</div>' +
+    '<div class="field"><input type="month" id="m-start" value="' + curMonth + '"></div>' +
+    '<p style="font-size: 11px; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 12px;">Tip: nastav měsíc, od kdy začínáš platit. Všechny transakce pak naleznou své místo.</p>' +
+    '<button class="btn-submit" onclick="saveFundConfig()">Uložit nastavení</button>'
+  );
+  setupOptionGrid('m-payer-grid', 'active-orange');
+  setupOptionGrid('m-receiver-grid', 'active-orange');
+}
+window.showFundConfig = showFundConfig;
+
+async function saveFundConfig() {
+  const payer = document.querySelector('#m-payer-grid .option.active')?.dataset.v;
+  const receiver = document.querySelector('#m-receiver-grid .option.active')?.dataset.v;
+  const monthlyAmount = parseFloat(document.getElementById('m-amount').value);
+  const startMonth = document.getElementById('m-start').value;
+  if (!payer || !receiver || !monthlyAmount || !startMonth) { alert('Vyplň všechna pole'); return; }
+  if (payer === receiver) { alert('Přispěvatel a příjemce musí být různí'); return; }
+  await window.firebaseImports.set(
+    window.firebaseImports.ref(db, 'households/' + userData.householdId + '/fundConfig'),
+    { payer, receiver, monthlyAmount, startMonth, enabled: true }
+  );
+  await logActivity('upravil nastavení fondu', payer + ' → ' + receiver + ' ' + fmtMoney(monthlyAmount));
+  closeModal();
+}
+window.saveFundConfig = saveFundConfig;
+
+// === Add rent transaction ===
+function showAddRent() {
+  const cfg = getFundConfig();
+  if (!cfg.startMonth) { showFundConfig(); return; }
+  const curMonth = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0');
+  openModal('Platba nájmu',
+    '<p style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 14px;"><strong>' + escapeHtml(cfg.payer) + '</strong> → <strong>' + escapeHtml(cfg.receiver) + '</strong></p>' +
+    '<div class="field-label">Částka</div>' +
+    '<div class="field"><input type="number" id="m-amount" value="' + cfg.monthlyAmount + '" inputmode="decimal" autofocus></div>' +
+    '<p style="font-size: 11px; color: rgba(255,255,255,0.5); font-style: italic; margin: -6px 0 10px;">Pokud pošleš víc, systém to automaticky rozpočítá na další měsíce.</p>' +
+    '<div class="field-label">Za který měsíc (hlavní — může pokračovat dopředu)</div>' +
+    '<div class="field"><input type="month" id="m-month" value="' + curMonth + '"></div>' +
+    '<div class="field"><input type="text" id="m-note" placeholder="Poznámka (nepovinné)"></div>' +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #f4a261, #e76f51);" onclick="addRentTxn()">Zaplatit nájem</button>'
+  );
+}
+window.showAddRent = showAddRent;
+
+async function addRentTxn() {
+  const cfg = getFundConfig();
+  const amount = parseFloat(document.getElementById('m-amount').value);
+  const monthStr = document.getElementById('m-month').value;
+  const note = document.getElementById('m-note').value.trim();
+  if (!amount || amount <= 0 || !monthStr) return;
+  const [y, m] = monthStr.split('-').map(Number);
+  const forMonth = new Date(y, m - 1, 1).getTime();
+  await saveItem('txns', {
+    type: 'rent',
+    from: cfg.payer,
+    to: cfg.receiver,
+    amount,
+    forMonth,
+    note: note || ('Nájem ' + monthLabel(new Date(forMonth))),
+    at: Date.now(),
+    addedBy: getMyName()
+  });
+  await logActivity('zaplatil nájem', fmtMoney(amount) + ' (' + monthLabel(new Date(forMonth)) + ')');
+  closeModal();
+}
+window.addRentTxn = addRentTxn;
+
+// === Add generic payment ===
+function showAddPayment() {
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const myE = getMyProfile().emoji;
+  const peE = getPartnerProfile().emoji;
+  openModal('Nová platba',
+    '<p style="font-size: 12px; color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 14px;">Např. brejle, benzín, bunda... Všechny platby se započítají do saldu mezi vámi.</p>' +
+    '<div class="field"><input type="text" id="m-note" placeholder="Za co? (např. brejle)" autofocus></div>' +
+    '<div class="field"><input type="number" id="m-amount" placeholder="Kolik Kč?" inputmode="decimal"></div>' +
+    '<div class="field-label">Kdo zaplatil komu</div>' +
+    '<div class="option-grid cols-2" id="m-dir-grid">' +
+      '<button class="option active active-green" data-v="me2p">' + myE + ' ' + escapeHtml(myName) + ' → ' + peE + ' ' + escapeHtml(partnerName) + '</button>' +
+      '<button class="option" data-v="p2me">' + peE + ' ' + escapeHtml(partnerName) + ' → ' + myE + ' ' + escapeHtml(myName) + '</button>' +
+    '</div>' +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #2a9d8f, #264653); color: white;" onclick="addPaymentTxn()">Přidat platbu</button>'
+  );
+  setupOptionGrid('m-dir-grid', 'active-green');
+}
+window.showAddPayment = showAddPayment;
+
+async function addPaymentTxn() {
+  const note = document.getElementById('m-note').value.trim();
+  const amount = parseFloat(document.getElementById('m-amount').value);
+  if (!amount || amount <= 0 || !note) return;
+  const dir = document.querySelector('#m-dir-grid .option.active')?.dataset.v || 'me2p';
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const from = dir === 'me2p' ? myName : partnerName;
+  const to = dir === 'me2p' ? partnerName : myName;
+  await saveItem('txns', {
+    type: 'payment',
+    from, to, amount,
+    note,
+    at: Date.now(),
+    addedBy: getMyName()
+  });
+  await logActivity('přidal platbu', note + ' — ' + fmtMoney(amount) + ' (' + from + ' → ' + to + ')');
+  closeModal();
+}
+window.addPaymentTxn = addPaymentTxn;
+
+// === Quick + button menu ===
+function showAddTxn() {
+  const cfg = getFundConfig();
+  if (!cfg.startMonth) {
+    openModal('Nastav nejdříve', '<p>Nejdřív je potřeba nastavit, kdo pravidelně platí komu kolik.</p><button class="btn-submit" style="margin-top: 12px;" onclick="closeModal(); showFundConfig();">⚙️ Nastavit teď</button>');
+    return;
+  }
+  openModal('Nová transakce',
+    '<div style="display: flex; flex-direction: column; gap: 10px;">' +
+      '<button class="btn btn-orange" onclick="closeModal(); showAddRent();">🏡 Platba nájmu (' + fmtMoney(cfg.monthlyAmount) + ')</button>' +
+      '<button class="btn btn-teal" onclick="closeModal(); showAddPayment();">💳 Jiná platba (brejle, benzín...)</button>' +
+    '</div>' +
+    '<p style="margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); font-style: italic; text-align: center;">Vše se započítává do stejného salda</p>'
+  );
+}
+window.showAddTxn = showAddTxn;
+
+async function deleteTxn(id, desc) {
+  if (!confirm('Smazat "' + desc + '"?')) return;
+  await removeItem('txns', id);
+  await logActivity('smazal transakci', desc);
+}
+window.deleteTxn = deleteTxn;
+
+// Legacy aliases (for home tile etc.)
+function showMoneyMenu() { showAddTxn(); }
+window.showMoneyMenu = showMoneyMenu;
+
+// ============================================================
+// BILLS
+// ============================================================
+function renderBills() {
+  const bills = getList('expenses').sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const active = bills.filter(b => !b.paid);
+  const paid = bills.filter(b => b.paid).sort((a,b) => (b.paidAt || 0) - (a.paidAt || 0));
+  const total = active.reduce((s, b) => s + (b.amount || 0), 0);
+
+  let html = header('Společné výdaje', 'Nájem, energie, služby...') + '<div class="app">';
+  html += '<div class="balance-card" style="background: linear-gradient(135deg, rgba(100, 181, 246, 0.2), rgba(25, 118, 210, 0.1));"><div class="balance-label">K zaplacení tento měsíc</div><div class="balance-amount">' + fmtMoney(total) + '</div><div class="balance-sub" style="color: #90caf9;">Napůl = ' + fmtMoney(total / 2) + ' / osoba</div></div>';
+
+  if (active.length > 0) {
+    html += '<div class="section-title">K zaplacení (' + active.length + ')</div><div class="list">';
+    active.forEach(b => html += billCard(b));
+    html += '</div>';
+  } else {
+    html += '<div class="empty" style="padding: 32px 20px;">✨ Vše zaplaceno — čistý stůl!</div>';
+  }
+  if (paid.length > 0) {
+    html += '<details style="margin-top: 12px;"><summary class="section-title"><span><span class="chev">▶</span>Historie (' + paid.length + ')</span></summary><div class="list" style="margin-top: 8px;">';
+    paid.slice(0, 30).forEach(b => html += billCard(b));
+    html += '</div></details>';
+  }
+  html += '</div><button class="fab" onclick="showAddBill()">+</button>';
+  return html;
+}
+
+function billCard(b) {
+  const today = new Date().getDate();
+  const overdue = b.dueDay && today > b.dueDay && !b.paid;
+  return '<div class="card ' + (b.paid ? 'done' : '') + '" style="' + (overdue ? 'border-color: rgba(239,83,80,0.3); background: rgba(239,83,80,0.06);' : '') + '"><button class="checkbox ' + (b.paid ? 'checked' : '') + '" onclick="toggleBill(\'' + b.id + '\')"></button><div class="card-body"><div class="card-title ' + (b.paid ? 'done' : '') + '">' + escapeHtml(b.name) + '</div><div class="card-meta"><span>Platí ' + escapeHtml(b.paidBy || '?') + '</span>' + (b.dueDay ? '<span style="' + (overdue ? 'color: #ef5350;' : '') + '">· do ' + b.dueDay + '. v měsíci' + (overdue ? ' (zpoždění!)' : '') + '</span>' : '') + (b.paid && b.paidAt ? '<span>· zaplaceno ' + fmtDate(b.paidAt) + '</span>' : '') + '</div></div><div class="amount">' + fmtMoney(b.amount) + '</div><button class="del-btn" onclick="deleteBill(\'' + b.id + '\', \'' + escAttr(b.name) + '\')">🗑️</button></div>';
+}
+
+function showAddBill() {
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const myE = getMyProfile().emoji;
+  const peE = getPartnerProfile().emoji;
+  openModal('Nový výdaj',
+    '<div class="field"><input type="text" id="m-name" placeholder="Co? (Nájem, Internet, Elektřina...)" autofocus></div>' +
+    '<div class="field"><input type="number" id="m-amount" placeholder="Částka Kč" inputmode="decimal"></div>' +
+    '<div class="field"><input type="number" min="1" max="31" id="m-dueday" placeholder="Den splatnosti v měsíci (nepovinné)"></div>' +
+    '<div class="field-label">Kdo platí?</div>' +
+    '<div class="option-grid cols-2" id="m-paid-grid">' +
+      '<button class="option active active-blue" data-v="' + escAttr(myName) + '">' + myE + ' ' + escapeHtml(myName) + '</button>' +
+      '<button class="option" data-v="' + escAttr(partnerName) + '">' + peE + ' ' + escapeHtml(partnerName) + '</button>' +
+    '</div>' +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #64b5f6, #1976d2); color: white;" onclick="addBill()">Přidat</button>'
+  );
+  setupOptionGrid('m-paid-grid', 'active-blue');
+}
+window.showAddBill = showAddBill;
+
+async function addBill() {
+  const name = document.getElementById('m-name').value.trim();
+  const amount = parseFloat(document.getElementById('m-amount').value);
+  const dueDay = parseInt(document.getElementById('m-dueday').value) || null;
+  if (!name || !amount) return;
+  const paidBy = document.querySelector('#m-paid-grid .option.active')?.dataset.v || getMyName();
+  await saveItem('expenses', { name, amount, paidBy, dueDay, paid: false, createdAt: Date.now() });
+  await logActivity('přidal výdaj', name + ' — ' + amount + ' Kč');
+  closeModal();
+}
+window.addBill = addBill;
+
+async function toggleBill(id) {
+  const b = getList('expenses').find(x => x.id === id);
+  if (!b) return;
+  await saveItem('expenses', { paid: !b.paid, paidAt: !b.paid ? Date.now() : null }, id);
+  await logActivity(!b.paid ? 'zaplatil' : 'vrátil platbu', b.name);
+}
+window.toggleBill = toggleBill;
+
+async function deleteBill(id, name) {
+  if (!confirm('Smazat "' + name + '"?')) return;
+  await removeItem('expenses', id);
+  await logActivity('smazal výdaj', name);
+}
+window.deleteBill = deleteBill;
+
+// ============================================================
+// SHOPPING - with categories + realtime "bought by"
+// ============================================================
+const SHOP_CATEGORIES = [
+  { id: 'fruit', label: 'Ovoce a zelenina', icon: '🥕' },
+  { id: 'meat', label: 'Maso a ryby', icon: '🥩' },
+  { id: 'dairy', label: 'Mléčné výrobky', icon: '🧀' },
+  { id: 'bakery', label: 'Pečivo', icon: '🍞' },
+  { id: 'drinks', label: 'Nápoje', icon: '🥤' },
+  { id: 'drugstore', label: 'Drogerie', icon: '🧴' },
+  { id: 'pets', label: 'Pro pejsky', icon: '🐾' },
+  { id: 'other', label: 'Ostatní', icon: '📦' },
+];
+
+function renderShopping() {
+  const items = getList('shopping').sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const active = items.filter(i => !i.done);
+  const done = items.filter(i => i.done);
+
+  let html = header('Nákupy') + '<div class="app"><div style="padding: 16px 20px; display: flex; gap: 8px;"><input type="text" id="shop-input" placeholder="Přidat položku..." onkeydown="if(event.key===\'Enter\') addShoppingItem()"><button class="btn-small" style="background: linear-gradient(135deg, #81c784, #4caf50); color: white; padding: 12px 18px; font-size: 20px;" onclick="addShoppingItem()">+</button></div>';
+
+  if (active.length > 0) {
+    const byCat = {};
+    active.forEach(i => { const c = i.category || 'other'; if (!byCat[c]) byCat[c] = []; byCat[c].push(i); });
+    SHOP_CATEGORIES.forEach(cat => {
+      const list = byCat[cat.id];
+      if (!list || list.length === 0) return;
+      html += '<div class="shop-category-header"><span class="shop-category-icon">' + cat.icon + '</span><span>' + cat.label + ' (' + list.length + ')</span></div>';
+      html += '<div class="list" style="margin-top: 0;">';
+      list.forEach(i => {
+        html += '<div class="card"><button class="checkbox" onclick="toggleShopping(\'' + i.id + '\')"></button><div class="card-body"><div class="card-title">' + escapeHtml(i.name) + '</div>' + (i.addedBy ? '<div class="card-meta"><span style="font-size: 11px; color: rgba(255,255,255,0.35);">přidal ' + escapeHtml(i.addedBy) + '</span></div>' : '') + '</div><button class="del-btn" onclick="deleteShopping(\'' + i.id + '\')">🗑️</button></div>';
+      });
+      html += '</div>';
+    });
+  }
+
+  if (done.length > 0) {
+    html += '<details style="margin-top: 16px;"><summary class="section-title"><span><span class="chev">▶</span>Nakoupeno (' + done.length + ')</span><button class="link-btn" onclick="clearDoneShopping(event)">vymazat vše</button></summary><div class="list" style="margin-top: 8px;">';
+    done.forEach(i => {
+      html += '<div class="card done"><button class="checkbox checked" onclick="toggleShopping(\'' + i.id + '\')"></button><div class="card-body"><div class="card-title done">' + escapeHtml(i.name) + '</div>' + (i.doneBy ? '<div class="card-meta"><span class="badge badge-green">✓ Koupil ' + escapeHtml(i.doneBy) + '</span></div>' : '') + '</div></div>';
+    });
+    html += '</div></details>';
+  }
+
+  if (items.length === 0) html += '<div class="empty">Prázdný seznam</div>';
+  html += '</div>';
+  return html;
+}
+
+async function addShoppingItem() {
+  const input = document.getElementById('shop-input');
+  const name = input.value.trim();
+  if (!name) return;
+  let catOptions = '';
+  SHOP_CATEGORIES.forEach(c => {
+    catOptions += '<button class="option ' + (c.id === 'other' ? 'active active-green' : '') + '" data-v="' + c.id + '">' + c.icon + ' ' + c.label + '</button>';
+  });
+  openModal('Kategorie pro "' + name + '"', '<div class="option-grid cols-2" id="m-cat-grid">' + catOptions + '</div><button class="btn-submit" style="background: linear-gradient(135deg, #81c784, #4caf50);" onclick="confirmAddShopping(\'' + escAttr(name) + '\')">Přidat na seznam</button>');
+  setupOptionGrid('m-cat-grid', 'active-green');
+}
+window.addShoppingItem = addShoppingItem;
+
+async function confirmAddShopping(name) {
+  const category = document.querySelector('#m-cat-grid .option.active')?.dataset.v || 'other';
+  await saveItem('shopping', { name, category, done: false, addedBy: getMyName(), createdAt: Date.now() });
+  await logActivity('přidal nákup', name);
+  closeModal();
+  setTimeout(() => { const inp = document.getElementById('shop-input'); if (inp) { inp.value = ''; inp.focus(); } }, 100);
+}
+window.confirmAddShopping = confirmAddShopping;
+
+async function toggleShopping(id) {
+  const i = getList('shopping').find(x => x.id === id);
+  if (!i) return;
+  await saveItem('shopping', { done: !i.done, doneBy: !i.done ? getMyName() : null, doneAt: !i.done ? Date.now() : null }, id);
+  await logActivity(!i.done ? 'koupil' : 'vrátil na nákup', i.name);
+}
+window.toggleShopping = toggleShopping;
+
+async function deleteShopping(id) { await removeItem('shopping', id); }
+window.deleteShopping = deleteShopping;
+
+async function clearDoneShopping(ev) {
+  if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+  if (!confirm('Vymazat všechny nakoupené položky?')) return;
+  const items = getList('shopping').filter(i => i.done);
+  for (const i of items) await removeItem('shopping', i.id);
+  await logActivity('vymazal nakoupené', '');
+}
+window.clearDoneShopping = clearDoneShopping;
+
+// ============================================================
+// PETS
+// ============================================================
+const PET_RECORD_TYPES = [
+  { id: 'vaccine', label: 'Očkování', icon: '💉' },
+  { id: 'deworm', label: 'Odčervení', icon: '💊' },
+  { id: 'vet', label: 'Veterinární kontrola', icon: '🩺' },
+  { id: 'flea', label: 'Proti klíšťatům', icon: '🛡️' },
+  { id: 'grooming', label: 'Stříhání / koupel', icon: '✂️' },
+  { id: 'weight', label: 'Vážení', icon: '⚖️' },
+  { id: 'medication', label: 'Léky', icon: '💊' },
+  { id: 'other', label: 'Jiné', icon: '📝' },
+];
+
+function renderPets() {
+  const pets = getList('pets').sort((a,b) => (a.createdAt || 0) - (b.createdAt || 0));
+  let html = header('Pejsci', pets.length > 0 ? pets.map(p => p.name).join(' · ') : 'Přidej svého pejska') + '<div class="app">';
+  if (pets.length === 0) html += '<div class="empty">Zatím žádný pejsek 🐾<br><br>Klepni na + dole pro přidání.</div>';
+  else pets.forEach(p => html += petCard(p));
+  html += '</div><button class="fab" onclick="showAddPet()">+</button>';
+  return html;
+}
+
+function petCard(p) {
+  const records = p.records || [];
+  const now = Date.now();
+  const upcoming = records.filter(r => r.nextDate).map(r => ({ ...r, daysUntil: Math.ceil((new Date(r.nextDate).getTime() - now) / (1000*60*60*24)) })).sort((a,b) => a.daysUntil - b.daysUntil);
+
+  let nextInfo = '';
+  if (upcoming.length > 0) {
+    const next = upcoming[0];
+    const urgCls = next.daysUntil < 0 ? 'urgent' : next.daysUntil <= 14 ? '' : 'ok';
+    const daysText = next.daysUntil < 0 ? 'Před ' + Math.abs(next.daysUntil) + ' dny! (zmeškáno)' : next.daysUntil === 0 ? 'Dnes!' : next.daysUntil === 1 ? 'Zítra' : 'Za ' + next.daysUntil + ' dní';
+    const respChip = next.responsible ? ' ' + ownerChipHtml(next.responsible) : '';
+    nextInfo = '<div class="pet-next ' + urgCls + '"><span>⏰</span><span><strong>' + daysText + ':</strong> ' + escapeHtml(next.type) + ' <span style="color: rgba(255,255,255,0.5);">(' + fmtDate(next.nextDate, false) + ')</span>' + respChip + '</span></div>';
+  }
+
+  let recordsHtml = '';
+  if (records.length > 0) {
+    recordsHtml = '<div class="pet-records-title">Záznamy</div>';
+    const sorted = [...records].sort((a,b) => {
+      if (a.nextDate && b.nextDate) return new Date(a.nextDate) - new Date(b.nextDate);
+      if (a.nextDate) return -1; if (b.nextDate) return 1;
+      return new Date(b.lastDate || 0) - new Date(a.lastDate || 0);
+    });
+    sorted.forEach((r) => {
+      const origIdx = records.indexOf(r);
+      const rt = PET_RECORD_TYPES.find(x => x.label === r.type) || { icon: '📝' };
+      const respChip = r.responsible ? '<div style="margin-top: 4px;">' + ownerChipHtml(r.responsible) + '</div>' : '';
+      recordsHtml += '<div class="pet-record"><span class="pet-record-icon">' + rt.icon + '</span><div class="pet-record-body"><div class="pet-record-name">' + escapeHtml(r.type) + (r.notes ? ' <span style="color: rgba(255,255,255,0.5); font-size: 12px; font-style: italic;">— ' + escapeHtml(r.notes) + '</span>' : '') + '</div><div class="pet-record-dates">' + (r.lastDate ? 'Provedeno: ' + fmtDate(r.lastDate, false) : '') + (r.lastDate && r.nextDate ? ' · ' : '') + (r.nextDate ? 'Příště: ' + fmtDate(r.nextDate, false) : '') + '</div>' + respChip + '</div><button class="del-btn" onclick="deletePetRecord(\'' + p.id + '\', ' + origIdx + ')">🗑️</button></div>';
+    });
+  }
+
+  let vetBlock = '';
+  if (p.vetName || p.vetAddress || p.vetPhone) {
+    vetBlock = '<div style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; font-size: 13px;"><div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); font-weight: 600; margin-bottom: 6px;">Veterinář</div>' + (p.vetName ? '<div style="margin-bottom: 4px;">' + escapeHtml(p.vetName) + '</div>' : '') + '<div class="contact-row">' + (p.vetAddress ? '<a class="contact-btn addr" href="' + mapsUrl(p.vetAddress) + '" target="_blank">📍 ' + escapeHtml(p.vetAddress.length > 25 ? p.vetAddress.substring(0,25) + '…' : p.vetAddress) + '</a>' : '') + (p.vetPhone ? '<a class="contact-btn phone" href="tel:' + escapeHtml(p.vetPhone.replace(/\s/g,'')) + '">📞 ' + escapeHtml(p.vetPhone) + '</a>' : '') + '</div></div>';
+  }
+
+  return '<div class="pet-card"><div class="pet-header"><div class="pet-avatar">🐶</div><div style="flex: 1;"><div class="pet-name">' + escapeHtml(p.name) + '</div>' + (p.breed ? '<div class="pet-breed">' + escapeHtml(p.breed) + (p.birthYear ? ' · ' + (new Date().getFullYear() - p.birthYear) + ' let' : '') + '</div>' : '') + '</div><button class="del-btn" onclick="deletePet(\'' + p.id + '\', \'' + escAttr(p.name) + '\')">🗑️</button></div>' + nextInfo + vetBlock + recordsHtml + '<div class="pet-actions"><button class="btn-small" style="background: linear-gradient(135deg, #ffb74d, #f57c00); color: white; flex: 1;" onclick="showAddPetRecord(\'' + p.id + '\')">+ Záznam</button><button class="btn-small" style="background: rgba(255,255,255,0.1); color: white;" onclick="showEditPet(\'' + p.id + '\')">Upravit</button></div></div>';
+}
+
+function showAddPet() {
+  openModal('Nový pejsek', '<div class="field"><input type="text" id="m-name" placeholder="Jméno pejska" autofocus></div><div class="field"><input type="text" id="m-breed" placeholder="Plemeno (nepovinné)"></div><div class="field"><input type="number" id="m-year" placeholder="Rok narození (nepovinné)" min="2000" max="2030"></div><div class="field-label">Veterinář (nepovinné)</div><input type="text" id="m-vet-name" placeholder="Jméno veteriny / MVDr." style="margin-bottom: 8px;"><input type="text" id="m-vet-addr" placeholder="📍 Adresa" style="margin-bottom: 8px;"><input type="tel" id="m-vet-phone" placeholder="📞 Telefon" style="margin-bottom: 12px;"><button class="btn-submit" style="background: linear-gradient(135deg, #ffb74d, #f57c00); color: white;" onclick="addPet()">Přidat</button>');
+}
+window.showAddPet = showAddPet;
+
+async function addPet() {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) return;
+  await saveItem('pets', {
+    name,
+    breed: document.getElementById('m-breed').value.trim(),
+    birthYear: parseInt(document.getElementById('m-year').value) || null,
+    vetName: document.getElementById('m-vet-name').value.trim(),
+    vetAddress: document.getElementById('m-vet-addr').value.trim(),
+    vetPhone: document.getElementById('m-vet-phone').value.trim(),
+    records: [], createdAt: Date.now(), addedBy: getMyName()
+  });
+  await logActivity('přidal pejska', name);
+  closeModal();
+}
+window.addPet = addPet;
+
+function showEditPet(id) {
+  const p = getList('pets').find(x => x.id === id);
+  if (!p) return;
+  openModal('Upravit: ' + p.name, '<div class="field"><input type="text" id="m-name" placeholder="Jméno" value="' + escAttr(p.name) + '"></div><div class="field"><input type="text" id="m-breed" placeholder="Plemeno" value="' + escAttr(p.breed || '') + '"></div><div class="field"><input type="number" id="m-year" placeholder="Rok narození" value="' + (p.birthYear || '') + '"></div><div class="field-label">Veterinář</div><input type="text" id="m-vet-name" placeholder="Jméno" value="' + escAttr(p.vetName || '') + '" style="margin-bottom: 8px;"><input type="text" id="m-vet-addr" placeholder="📍 Adresa" value="' + escAttr(p.vetAddress || '') + '" style="margin-bottom: 8px;"><input type="tel" id="m-vet-phone" placeholder="📞 Telefon" value="' + escAttr(p.vetPhone || '') + '" style="margin-bottom: 12px;"><button class="btn-submit" style="background: linear-gradient(135deg, #ffb74d, #f57c00); color: white;" onclick="updatePet(\'' + id + '\')">Uložit</button>');
+}
+window.showEditPet = showEditPet;
+
+async function updatePet(id) {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) return;
+  await saveItem('pets', {
+    name,
+    breed: document.getElementById('m-breed').value.trim(),
+    birthYear: parseInt(document.getElementById('m-year').value) || null,
+    vetName: document.getElementById('m-vet-name').value.trim(),
+    vetAddress: document.getElementById('m-vet-addr').value.trim(),
+    vetPhone: document.getElementById('m-vet-phone').value.trim()
+  }, id);
+  await logActivity('upravil pejska', name);
+  closeModal();
+}
+window.updatePet = updatePet;
+
+async function deletePet(id, name) {
+  if (!confirm('Smazat pejska "' + name + '"?\nVšechny záznamy se smažou.')) return;
+  await removeItem('pets', id);
+  await logActivity('smazal pejska', name);
+}
+window.deletePet = deletePet;
+
+function showAddPetRecord(petId) {
+  const p = getList('pets').find(x => x.id === petId);
+  if (!p) return;
+  let typeOptions = '';
+  PET_RECORD_TYPES.forEach((t, i) => {
+    typeOptions += '<button class="option ' + (i === 0 ? 'active active-orange' : '') + '" data-v="' + escAttr(t.label) + '">' + t.icon + ' ' + t.label + '</button>';
+  });
+  openModal('Záznam pro ' + p.name,
+    '<div class="field-label">Typ záznamu</div><div class="option-grid cols-2" id="m-type-grid">' + typeOptions + '</div>' +
+    '<div class="field-label">Datum provedení</div><div class="field"><input type="date" id="m-last" value="' + new Date().toISOString().split('T')[0] + '"></div>' +
+    '<div class="field-label">Datum další kontroly (zobrazí se v kalendáři s 🐾)</div><div class="field"><input type="date" id="m-next"></div>' +
+    '<div class="field-label">Kdo to bude řešit? (kdo pejska vezme)</div>' +
+    ownerChoiceGrid('m-resp-grid', 'shared', true) +
+    '<div class="field"><input type="text" id="m-notes" placeholder="Poznámka (vakcína, váha, lék...)"></div>' +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #ffb74d, #f57c00); color: white;" onclick="addPetRecord(\'' + petId + '\')">Přidat záznam</button>'
+  );
+  setupOptionGrid('m-type-grid', 'active-orange');
+  setupOwnerGrid('m-resp-grid');
+}
+window.showAddPetRecord = showAddPetRecord;
+
+async function addPetRecord(petId) {
+  const p = getList('pets').find(x => x.id === petId);
+  if (!p) return;
+  const type = document.querySelector('#m-type-grid .option.active')?.dataset.v || 'Jiné';
+  const lastDate = document.getElementById('m-last').value;
+  const nextDate = document.getElementById('m-next').value;
+  const notes = document.getElementById('m-notes').value.trim();
+  const respChoice = document.querySelector('#m-resp-grid .owner-option.active')?.dataset.v || 'shared';
+  const responsible = respChoice === 'me' ? getMyName() : respChoice === 'partner' ? getPartnerName() : 'shared';
+  const records = p.records || [];
+  records.push({
+    type, lastDate, nextDate, notes, responsible,
+    vetName: p.vetName || '', vetAddress: p.vetAddress || '', vetPhone: p.vetPhone || '',
+    addedBy: getMyName(), addedAt: Date.now()
+  });
+  await saveItem('pets', { records }, petId);
+  await logActivity('přidal záznam pro ' + p.name, type);
+  closeModal();
+}
+window.addPetRecord = addPetRecord;
+
+async function deletePetRecord(petId, idx) {
+  const p = getList('pets').find(x => x.id === petId);
+  if (!p) return;
+  if (!confirm('Smazat tento záznam?')) return;
+  const records = [...(p.records || [])];
+  records.splice(idx, 1);
+  await saveItem('pets', { records }, petId);
+  await logActivity('smazal záznam pro ' + p.name, '');
+}
+window.deletePetRecord = deletePetRecord;
+
+// ============================================================
+// LOYALTY CARDS with JsBarcode
+// ============================================================
+const BARCODE_FORMATS = [
+  { id: 'CODE128', label: 'CODE128 (nejčastější)' },
+  { id: 'EAN13', label: 'EAN-13' },
+  { id: 'CODE39', label: 'CODE39' },
+  { id: 'UPC', label: 'UPC' },
+];
+
+function renderCards() {
+  const cards = getList('loyaltyCards').sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  let html = header('Věrnostní karty', 'Pípni u pokladny') + '<div class="app">';
+  if (cards.length === 0) html += '<div class="empty">Zatím žádná karta 💳<br><br>Klepni na + dole pro přidání.</div>';
+  else {
+    html += '<div class="list">';
+    cards.forEach(c => {
+      const bg = c.color || '#2a2d4a';
+      html += '<div class="card-loyalty" style="background: linear-gradient(135deg, ' + bg + ', #1a1f3a);"><div class="card-loyalty-header"><div><div class="card-loyalty-name">' + escapeHtml(c.name) + '</div>' + (c.store ? '<div class="card-loyalty-store">' + escapeHtml(c.store) + '</div>' : '') + '</div><button class="del-btn" onclick="deleteCard(\'' + c.id + '\', \'' + escAttr(c.name) + '\')">🗑️</button></div><div class="card-loyalty-number">' + escapeHtml(c.number) + '</div><div class="barcode-box"><svg class="barcode" data-number="' + escAttr(c.number) + '" data-format="' + escAttr(c.format || 'CODE128') + '"></svg></div></div>';
+    });
+    html += '</div>';
+  }
+  html += '</div><button class="fab" onclick="showAddCard()">+</button>';
+  return html;
+}
+
+function renderAllBarcodes() {
+  document.querySelectorAll('.barcode').forEach(svg => {
+    const number = svg.dataset.number;
+    const format = svg.dataset.format || 'CODE128';
+    try {
+      JsBarcode(svg, number, { format, displayValue: true, fontSize: 14, height: 60, margin: 0, background: '#ffffff', lineColor: '#000000' });
+    } catch (e) {
+      svg.outerHTML = '<div style="color: #c62828; font-size: 13px; padding: 10px;">Čárový kód nelze vygenerovat. Zkus jiný formát (například CODE128).</div>';
+    }
+  });
+}
+
+function showAddCard() {
+  let formatOptions = '';
+  BARCODE_FORMATS.forEach((f, i) => {
+    formatOptions += '<button class="option ' + (i === 0 ? 'active active-purple' : '') + '" data-v="' + f.id + '">' + f.label + '</button>';
+  });
+  openModal('Nová věrnostní karta', '<div class="field"><input type="text" id="m-name" placeholder="Název (Tesco, Billa...)" autofocus></div><div class="field"><input type="text" id="m-store" placeholder="Obchod (nepovinné)"></div><div class="field"><input type="text" id="m-number" placeholder="Číslo karty (bez mezer)" inputmode="numeric"></div><div class="field-label">Formát čárového kódu</div><div class="option-grid" id="m-fmt-grid">' + formatOptions + '</div><p style="font-size: 11px; color: rgba(255,255,255,0.5); font-style: italic; margin-bottom: 12px;">Většina karet = CODE128. Pokud to nefunguje, zkus EAN-13 (13 číslic).</p><button class="btn-submit" style="background: linear-gradient(135deg, #9575cd, #5e35b1); color: white;" onclick="addCard()">Přidat</button>');
+  setupOptionGrid('m-fmt-grid', 'active-purple');
+}
+window.showAddCard = showAddCard;
+
+async function addCard() {
+  const name = document.getElementById('m-name').value.trim();
+  const store = document.getElementById('m-store').value.trim();
+  const number = document.getElementById('m-number').value.trim().replace(/\s/g,'');
+  const format = document.querySelector('#m-fmt-grid .option.active')?.dataset.v || 'CODE128';
+  if (!name || !number) return;
+  const colors = ['#2a2d4a', '#3d2645', '#264653', '#1e3a5f', '#4a2c2a', '#2a4a3a'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  await saveItem('loyaltyCards', { name, store, number, format, color, createdAt: Date.now(), addedBy: getMyName() });
+  await logActivity('přidal věrnostní kartu', name);
+  closeModal();
+}
+window.addCard = addCard;
+
+async function deleteCard(id, name) {
+  if (!confirm('Smazat kartu "' + name + '"?')) return;
+  await removeItem('loyaltyCards', id);
+  await logActivity('smazal kartu', name);
+}
+window.deleteCard = deleteCard;
+
+// ============================================================
+// WISHLIST
+// ============================================================
+function renderWishlist() {
+  const items = getList('wishlist').sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  let filtered = items;
+  if (currentFilter === 'mine') filtered = items.filter(w => w.forWhom === myName);
+  else if (currentFilter === 'partner') filtered = items.filter(w => w.forWhom === partnerName);
+  const active = filtered.filter(w => !w.bought);
+  const bought = filtered.filter(w => w.bought);
+
+  let html = header('Přání & dárky') + '<div class="app"><div class="tabs"><button class="tab ' + (currentFilter === 'all' ? 'active' : '') + '" style="' + (currentFilter === 'all' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : '') + '" onclick="setFilter(\'all\')">Vše</button><button class="tab ' + (currentFilter === 'mine' ? 'active' : '') + '" style="' + (currentFilter === 'mine' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : '') + '" onclick="setFilter(\'mine\')">Moje přání</button><button class="tab ' + (currentFilter === 'partner' ? 'active' : '') + '" style="' + (currentFilter === 'partner' ? 'background: linear-gradient(135deg, #f06292, #c2185b); color: white;' : '') + '" onclick="setFilter(\'partner\')">' + escapeHtml(partnerName) + ' chce</button></div><div class="list">';
+
+  active.forEach(w => {
+    html += '<div class="card"><button class="checkbox" onclick="toggleWish(\'' + w.id + '\')"></button><div class="card-body"><div class="card-title">' + escapeHtml(w.name) + '</div><div class="card-meta"><span class="badge" style="background: rgba(240, 98, 146, 0.15); color: #f06292;">' + getEmojiFor(w.forWhom) + ' Pro ' + escapeHtml(w.forWhom) + '</span>' + (w.price ? '<span>' + fmtMoney(parseFloat(w.price)) + '</span>' : '') + (w.link ? '<a href="' + escapeHtml(w.link) + '" target="_blank" style="color: #64b5f6; font-size: 11px;">odkaz</a>' : '') + '</div></div><button class="del-btn" onclick="deleteWish(\'' + w.id + '\', \'' + escAttr(w.name) + '\')">🗑️</button></div>';
+  });
+  html += '</div>';
+
+  if (bought.length > 0) {
+    html += '<details style="margin-top: 16px;"><summary class="section-title"><span><span class="chev">▶</span>Koupeno (' + bought.length + ')</span></summary><div class="list" style="margin-top: 8px;">';
+    bought.forEach(w => {
+      html += '<div class="card done"><button class="checkbox checked" style="background: #f06292; border-color: #f06292;" onclick="toggleWish(\'' + w.id + '\')"></button><div class="card-body"><div class="card-title done">' + escapeHtml(w.name) + '</div></div><button class="del-btn" onclick="deleteWish(\'' + w.id + '\', \'' + escAttr(w.name) + '\')">🗑️</button></div>';
+    });
+    html += '</div></details>';
+  }
+  if (active.length === 0 && bought.length === 0) html += '<div class="empty">Žádná přání</div>';
+  html += '</div><button class="fab" onclick="showAddWish()">+</button>';
+  return html;
+}
+
+function showAddWish() {
+  const myName = getMyName();
+  const partnerName = getPartnerName();
+  const myE = getMyProfile().emoji;
+  const peE = getPartnerProfile().emoji;
+  openModal('Nové přání',
+    '<div class="field"><input type="text" id="m-name" placeholder="Co by sis přál(a)?" autofocus></div>' +
+    '<div class="field"><input type="text" id="m-link" placeholder="Odkaz (nepovinné)"></div>' +
+    '<div class="field"><input type="number" id="m-price" placeholder="Cena Kč (nepovinné)"></div>' +
+    '<div class="field-label">Pro koho?</div>' +
+    '<div class="option-grid cols-2" id="m-for-grid">' +
+      '<button class="option active active-pink" data-v="' + escAttr(myName) + '">' + myE + ' ' + escapeHtml(myName) + '</button>' +
+      '<button class="option" data-v="' + escAttr(partnerName) + '">' + peE + ' ' + escapeHtml(partnerName) + '</button>' +
+    '</div>' +
+    '<button class="btn-submit" style="background: linear-gradient(135deg, #f06292, #c2185b); color: white;" onclick="addWish()">Přidat</button>'
+  );
+  setupOptionGrid('m-for-grid', 'active-pink');
+}
+window.showAddWish = showAddWish;
+
+async function addWish() {
+  const name = document.getElementById('m-name').value.trim();
+  const link = document.getElementById('m-link').value.trim();
+  const price = document.getElementById('m-price').value;
+  if (!name) return;
+  const forWhom = document.querySelector('#m-for-grid .option.active')?.dataset.v || getMyName();
+  await saveItem('wishlist', { name, link, price, forWhom, addedBy: getMyName(), bought: false, createdAt: Date.now() });
+  await logActivity('přidal přání', name);
+  closeModal();
+}
+window.addWish = addWish;
+
+async function toggleWish(id) {
+  const w = getList('wishlist').find(x => x.id === id);
+  if (!w) return;
+  await saveItem('wishlist', { bought: !w.bought, boughtBy: !w.bought ? getMyName() : null }, id);
+  await logActivity(!w.bought ? 'koupil dárek' : 'vrátil dárek', w.name);
+}
+window.toggleWish = toggleWish;
+
+async function deleteWish(id, name) {
+  if (!confirm('Smazat "' + name + '"?')) return;
+  await removeItem('wishlist', id);
+  await logActivity('smazal přání', name);
+}
+window.deleteWish = deleteWish;
+
+// ============================================================
+// MEALS
+// ============================================================
+function renderMeals() {
+  const meals = householdData.meals || {};
+  const today = new Date();
+  const day = today.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + diffToMonday + mealWeekOffset * 7);
+  monday.setHours(0, 0, 0, 0);
+  const days = [];
+  for (let i = 0; i < 7; i++) { const d = new Date(monday); d.setDate(monday.getDate() + i); days.push(d); }
+  const dayLabels = ['Po','Út','St','Čt','Pá','So','Ne'];
+  const mealTypes = [{ id: 'breakfast', label: 'Snídaně' }, { id: 'lunch', label: 'Oběd' }, { id: 'dinner', label: 'Večeře' }];
+
+  let html = header('Jídelníček') + '<div class="app"><div class="week-nav"><button onclick="changeWeek(-1)">←</button><span style="font-weight: 500;">' + (mealWeekOffset === 0 ? 'Tento týden' : mealWeekOffset === 1 ? 'Příští týden' : mealWeekOffset === -1 ? 'Minulý týden' : (mealWeekOffset > 0 ? '+' : '') + mealWeekOffset + ' týdnů') + '</span><button onclick="changeWeek(1)">→</button></div><div style="padding: 0 20px;">';
+
+  days.forEach((d, i) => {
+    const key = d.toISOString().split('T')[0];
+    const dayMeals = meals[key] || {};
+    const isToday = d.toDateString() === new Date().toDateString();
+    html += '<div class="meal-day ' + (isToday ? 'today' : '') + '"><div class="meal-day-header"><span class="meal-day-name">' + dayLabels[i] + ' <span class="meal-day-date">' + d.getDate() + '. ' + d.toLocaleDateString('cs-CZ', { month: 'short' }) + '</span></span>' + (isToday ? '<span style="color: #ffb74d; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">Dnes</span>' : '') + '</div>';
+    mealTypes.forEach(mt => {
+      const val = dayMeals[mt.id] || '';
+      html += '<button class="meal-row" onclick="editMeal(\'' + key + '\', \'' + mt.id + '\', \'' + mt.label + '\', \'' + dayLabels[i] + ' ' + d.getDate() + '.\')"><span class="meal-type">' + mt.label + '</span><span class="meal-text ' + (!val ? 'empty-meal' : '') + '">' + (val ? escapeHtml(val) : 'přidat...') + '</span></button>';
+    });
+    html += '</div>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function changeWeek(delta) { mealWeekOffset += delta; renderScreen(); }
+window.changeWeek = changeWeek;
+
+function editMeal(key, type, typeLabel, dayLabel) {
+  const meals = householdData.meals || {};
+  const current = (meals[key] && meals[key][type]) || '';
+  openModal(typeLabel + ' — ' + dayLabel, '<div class="field"><input type="text" id="m-meal" placeholder="Co vaříte?" value="' + escAttr(current) + '" autofocus></div><button class="btn-submit" style="background: linear-gradient(135deg, #ffb74d, #f57c00);" onclick="saveMeal(\'' + key + '\', \'' + type + '\', \'' + typeLabel + '\', \'' + dayLabel + '\')">Uložit</button>');
+  setTimeout(() => { const inp = document.getElementById('m-meal'); inp && inp.addEventListener('keydown', e => { if (e.key === 'Enter') saveMeal(key, type, typeLabel, dayLabel); }); }, 100);
+}
+window.editMeal = editMeal;
+
+async function saveMeal(key, type, typeLabel, dayLabel) {
+  const val = document.getElementById('m-meal').value.trim();
+  const path = 'households/' + userData.householdId + '/meals/' + key;
+  const ref = window.firebaseImports.ref(db, path);
+  const snap = await window.firebaseImports.get(ref);
+  const existing = snap.val() || {};
+  if (val) existing[type] = val; else delete existing[type];
+  await window.firebaseImports.set(ref, existing);
+  await logActivity('upravil jídelníček', dayLabel + ' ' + typeLabel + ': ' + (val || 'smazáno'));
+  closeModal();
+}
+window.saveMeal = saveMeal;
+
+// ============================================================
+// PLACES
+// ============================================================
+const PLACE_CATEGORIES = {
+  restaurant: { label: 'Restaurace', icon: '🍽️' },
+  trip: { label: 'Výlet', icon: '🏞️' },
+  cafe: { label: 'Kavárna', icon: '☕' },
+  culture: { label: 'Kultura', icon: '🎭' },
+  other: { label: 'Jiné', icon: '📍' },
+};
+
+function renderPlaces() {
+  const places = getList('places').sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const toVisit = places.filter(p => !p.visited);
+  const visited = places.filter(p => p.visited);
+
+  let html = header('Místa') + '<div class="app">';
+  if (toVisit.length > 0) {
+    html += '<div class="section-title">K navštívení (' + toVisit.length + ')</div><div class="list">';
+    toVisit.forEach(p => {
+      const cat = PLACE_CATEGORIES[p.category] || PLACE_CATEGORIES.other;
+      html += '<div class="card"><span style="font-size: 24px; flex-shrink: 0;">' + cat.icon + '</span><div class="card-body"><div class="card-title">' + escapeHtml(p.name) + '</div>' + (p.note ? '<div class="card-note">' + escapeHtml(p.note) + '</div>' : '') + '<div class="card-meta"><span>' + cat.label + ' · přidal ' + escapeHtml(p.addedBy || '?') + '</span></div></div><button class="btn-small" style="background: rgba(77, 182, 172, 0.2); color: #4db6ac;" onclick="visitPlace(\'' + p.id + '\')">Navštívit ✓</button><button class="del-btn" onclick="deletePlace(\'' + p.id + '\', \'' + escAttr(p.name) + '\')">🗑️</button></div>';
+    });
+    html += '</div>';
+  }
+  if (visited.length > 0) {
+    html += '<details style="margin-top: 12px;"><summary class="section-title"><span><span class="chev">▶</span>Navštíveno (' + visited.length + ')</span></summary><div class="list" style="margin-top: 8px;">';
+    visited.forEach(p => {
+      const cat = PLACE_CATEGORIES[p.category] || PLACE_CATEGORIES.other;
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += '<button onclick="ratePlace(\'' + p.id + '\', ' + i + ')" style="background: transparent; padding: 2px; font-size: 14px; color: ' + (i <= (p.rating || 0) ? '#ffc107' : 'rgba(255,255,255,0.3)') + ';">★</button>';
+      }
+      html += '<div class="card" style="opacity: 0.7;"><span style="font-size: 20px; flex-shrink: 0;">' + cat.icon + '</span><div class="card-body"><div class="card-title">' + escapeHtml(p.name) + '</div><div>' + stars + '</div></div><button class="link-btn" onclick="unvisitPlace(\'' + p.id + '\')">vrátit</button><button class="del-btn" onclick="deletePlace(\'' + p.id + '\', \'' + escAttr(p.name) + '\')">🗑️</button></div>';
+    });
+    html += '</div></details>';
+  }
+  if (places.length === 0) html += '<div class="empty">Žádná místa</div>';
+  html += '</div><button class="fab" onclick="showAddPlace()">+</button>';
+  return html;
+}
+
+function showAddPlace() {
+  let options = '';
+  Object.entries(PLACE_CATEGORIES).forEach(([id, c], idx) => {
+    options += '<button class="option ' + (idx === 0 ? 'active' : '') + '" data-v="' + id + '">' + c.icon + ' ' + c.label + '</button>';
+  });
+  openModal('Nové místo', '<div class="field"><input type="text" id="m-name" placeholder="Název místa" autofocus></div><div class="field-label">Kategorie</div><div class="option-grid cols-3" id="m-cat-grid">' + options + '</div><div class="field"><textarea id="m-note" rows="2" placeholder="Poznámka"></textarea></div><button class="btn-submit" style="background: linear-gradient(135deg, #4db6ac, #00796b); color: white;" onclick="addPlace()">Přidat</button>');
+  setupOptionGrid('m-cat-grid');
+}
+window.showAddPlace = showAddPlace;
+
+async function addPlace() {
+  const name = document.getElementById('m-name').value.trim();
+  const note = document.getElementById('m-note').value.trim();
+  if (!name) return;
+  const category = document.querySelector('#m-cat-grid .option.active')?.dataset.v || 'other';
+  await saveItem('places', { name, note, category, addedBy: getMyName(), visited: false, rating: 0, createdAt: Date.now() });
+  await logActivity('přidal místo', name);
+  closeModal();
+}
+window.addPlace = addPlace;
+
+async function visitPlace(id) {
+  const p = getList('places').find(x => x.id === id);
+  if (!p) return;
+  await saveItem('places', { visited: true }, id);
+  await logActivity('navštívil', p.name);
+}
+window.visitPlace = visitPlace;
+
+async function unvisitPlace(id) { await saveItem('places', { visited: false }, id); }
+window.unvisitPlace = unvisitPlace;
+
+async function ratePlace(id, rating) {
+  const p = getList('places').find(x => x.id === id);
+  if (!p) return;
+  await saveItem('places', { rating: p.rating === rating ? 0 : rating }, id);
+}
+window.ratePlace = ratePlace;
+
+async function deletePlace(id, name) {
+  if (!confirm('Smazat "' + name + '"?')) return;
+  await removeItem('places', id);
+  await logActivity('smazal místo', name);
+}
+window.deletePlace = deletePlace;
+
+// ============================================================
+// MAINTENANCE
+// ============================================================
+function renderMaintenance() {
+  const items = getList('maintenance').sort((a,b) => {
+    if (!a.nextDate && !b.nextDate) return 0;
+    if (!a.nextDate) return 1;
+    if (!b.nextDate) return -1;
+    return new Date(a.nextDate) - new Date(b.nextDate);
+  });
+  let html = header('Domácí údržba') + '<div class="app"><div class="list">';
+  items.forEach(m => {
+    let daysUntil = null, urgent = false, overdue = false;
+    if (m.nextDate) {
+      daysUntil = Math.ceil((new Date(m.nextDate).getTime() - Date.now()) / (1000*60*60*24));
+      overdue = daysUntil < 0;
+      urgent = daysUntil >= 0 && daysUntil <= 30;
+    }
+    const bg = overdue ? 'rgba(239, 83, 80, 0.1)' : urgent ? 'rgba(255, 183, 77, 0.1)' : 'rgba(255,255,255,0.04)';
+    const bc = overdue ? 'rgba(239, 83, 80, 0.3)' : urgent ? 'rgba(255, 183, 77, 0.3)' : 'rgba(255,255,255,0.08)';
+    const dc = overdue ? '#ef5350' : urgent ? '#ffb74d' : 'rgba(255,255,255,0.5)';
+    html += '<div class="card" style="background: ' + bg + '; border-color: ' + bc + ';"><span style="font-size: 20px;">🔧</span><div class="card-body"><div class="card-title">' + escapeHtml(m.name) + '</div>' + (m.note ? '<div class="card-note">' + escapeHtml(m.note) + '</div>' : '') + '<div style="font-size: 12px; margin-top: 4px;">' + (m.lastDate ? '<div style="color: rgba(255,255,255,0.5);">Naposledy: ' + fmtDate(m.lastDate, false) + '</div>' : '') + (m.nextDate ? '<div style="color: ' + dc + ';">Příště: ' + fmtDate(m.nextDate, false) + (daysUntil !== null ? (overdue ? ' (před ' + Math.abs(daysUntil) + ' dny!)' : urgent ? ' (za ' + daysUntil + ' d)' : '') : '') + '</div>' : '') + '</div></div><button class="btn-small" style="background: rgba(129, 199, 132, 0.15); color: #81c784;" onclick="markMaintDone(\'' + m.id + '\')">Hotovo</button><button class="del-btn" onclick="deleteMaint(\'' + m.id + '\', \'' + escAttr(m.name) + '\')">🗑️</button></div>';
+  });
+  if (items.length === 0) html += '<div class="empty">Žádná údržba</div>';
+  html += '</div></div><button class="fab" onclick="showAddMaint()">+</button>';
+  return html;
+}
+
+function showAddMaint() {
+  openModal('Nová údržba', '<div class="field"><input type="text" id="m-name" placeholder="Co? (Revize plynu, Servis auta...)" autofocus></div><div class="field-label">Naposledy provedeno</div><div class="field"><input type="date" id="m-last"></div><div class="field-label">Další termín</div><div class="field"><input type="date" id="m-next"></div><div class="field"><textarea id="m-note" rows="2" placeholder="Poznámka (firma, telefon...)"></textarea></div><button class="btn-submit" style="background: linear-gradient(135deg, #90a4ae, #455a64); color: white;" onclick="addMaint()">Přidat</button>');
+}
+window.showAddMaint = showAddMaint;
+
+async function addMaint() {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) return;
+  await saveItem('maintenance', {
+    name,
+    lastDate: document.getElementById('m-last').value,
+    nextDate: document.getElementById('m-next').value,
+    note: document.getElementById('m-note').value.trim(),
+    addedBy: getMyName(), createdAt: Date.now()
+  });
+  await logActivity('přidal údržbu', name);
+  closeModal();
+}
+window.addMaint = addMaint;
+
+async function markMaintDone(id) {
+  const m = getList('maintenance').find(x => x.id === id);
+  if (!m) return;
+  const today = new Date().toISOString().split('T')[0];
+  await saveItem('maintenance', { lastDate: today, nextDate: '' }, id);
+  await logActivity('provedl údržbu', m.name);
+}
+window.markMaintDone = markMaintDone;
+
+async function deleteMaint(id, name) {
+  if (!confirm('Smazat "' + name + '"?')) return;
+  await removeItem('maintenance', id);
+  await logActivity('smazal údržbu', name);
+}
+window.deleteMaint = deleteMaint;
+
+// ============================================================
+// PROFILE
+// ============================================================
+const EMOJI_CATEGORIES = {
+  faces: { label: '😊 Obličeje', emojis: ['😊','🙂','😎','🤓','🧐','🤠','😇','🥰','🤗','🤨','😏','🥸','🤩','🤖','👻','🦸','🦹'] },
+  people: { label: '👤 Lidi', emojis: ['👨','👩','🧔','🧔‍♀️','🧑','👱','👱‍♀️','👨‍🦱','👩‍🦱','👨‍🦰','👩‍🦰','👨‍🦳','👩‍🦳','👨‍🦲','🧕','👸','🤴','👳','🕵️','🥷'] },
+  flowers: { label: '🌸 Květiny', emojis: ['🌸','🌺','🌻','🌹','🌷','💐','🌼','🪷','🌱','🌿','🍀','🌳','⭐','✨','💫','💖','💝','🌙'] },
+  animals: { label: '🐶 Zvířata', emojis: ['🐶','🐱','🦊','🐰','🐼','🦁','🐯','🐸','🐮','🐷','🐭','🐹','🐨','🐻','🐵','🦝','🦄','🐲','🐙'] },
+  hobbies: { label: '🎨 Zájmy', emojis: ['🎨','🎸','🎹','🎮','⚽','🏋️','🏊','🚴','🧘','📚','🍳','☕','🍷','🎬','🎵','🎤','📷','✈️'] },
+  symbols: { label: '🔥 Symboly', emojis: ['🔥','⚡','💎','👑','🏆','🎯','🎲','💰','🗝️','🔮','🌟','💡','🎁','🎈','🍀','🌈','☀️','🌊'] }
+};
+
+let profileEmojiCat = 'faces';
+let profileEmojiPending = null; // the currently selected (unsaved) emoji
+
+function renderProfile() {
+  const me = getMyProfile();
+  const myName = getMyName();
+  const partnerEmoji = getPartnerProfile().emoji;
+  const partnerName = getPartnerName();
+  const selected = profileEmojiPending || me.emoji;
+
+  let html = header('Můj profil', 'Vyber si avatar pro tvoje jméno') + '<div class="app">';
+
+  // Current avatar preview
+  html += '<div class="profile-current">' +
+    '<div class="user-avatar xlarge">' + selected + '</div>' +
+    '<div class="profile-current-name">' + escapeHtml(myName) + '</div>' +
+    '<p style="font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 6px; font-style: italic;">Tento avatar uvidí ' + escapeHtml(partnerName) + ' ve společné appce</p>' +
+  '</div>';
+
+  // Category tabs
+  html += '<div style="padding: 0 20px;"><div class="emoji-picker-cats">';
+  Object.keys(EMOJI_CATEGORIES).forEach(catId => {
+    const cat = EMOJI_CATEGORIES[catId];
+    html += '<button class="' + (catId === profileEmojiCat ? 'active' : '') + '" onclick="setProfileCat(\'' + catId + '\')">' + cat.label + '</button>';
+  });
+  html += '</div>';
+
+  // Emoji grid
+  html += '<div class="emoji-picker-grid">';
+  EMOJI_CATEGORIES[profileEmojiCat].emojis.forEach(emoji => {
+    const sel = emoji === selected ? 'selected' : '';
+    html += '<button class="emoji-picker-item ' + sel + '" onclick="pickProfileEmoji(\'' + emoji + '\')">' + emoji + '</button>';
+  });
+  html += '</div>';
+
+  // Partner reference
+  html += '<div style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.04); border-radius: 14px; display: flex; align-items: center; gap: 12px;">' +
+    '<div class="user-avatar">' + partnerEmoji + '</div>' +
+    '<div style="flex: 1;"><div style="font-weight: 600;">' + escapeHtml(partnerName) + '</div><div style="font-size: 12px; color: rgba(255,255,255,0.55);">' + (getProfiles()[getPartnerUid()] ? 'vybral si svůj avatar' : 'ještě si nevybral avatar') + '</div></div>' +
+  '</div>';
+
+  // Save button
+  if (profileEmojiPending && profileEmojiPending !== me.emoji) {
+    html += '<button class="btn-submit" style="margin-top: 16px;" onclick="saveProfileEmoji()">Uložit avatar</button>';
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function setProfileCat(cat) {
+  profileEmojiCat = cat;
+  renderScreen();
+}
+window.setProfileCat = setProfileCat;
+
+function pickProfileEmoji(emoji) {
+  profileEmojiPending = emoji;
+  renderScreen();
+}
+window.pickProfileEmoji = pickProfileEmoji;
+
+async function saveProfileEmoji() {
+  if (!profileEmojiPending) return;
+  await saveMyProfile(profileEmojiPending);
+  await logActivity('změnil avatar', profileEmojiPending);
+  profileEmojiPending = null;
+  renderScreen();
+}
+window.saveProfileEmoji = saveProfileEmoji;
+
+// ============================================================
+// ACTIVITY
+// ============================================================
+function renderActivity() {
+  const activity = getList('activity').sort((a,b) => (b.at || 0) - (a.at || 0));
+  let html = header('Aktivita') + '<div class="app"><p style="padding: 0 20px; color: rgba(255,255,255,0.5); font-style: italic; font-size: 13px;">Kdo co kdy dělal</p><div class="list" style="margin-top: 12px;">';
+  activity.forEach(a => {
+    const emoji = getEmojiFor(a.user);
+    const bgCls = a.user === getMyName() ? 'with-bg-teal' : 'with-bg-orange';
+    html += '<div class="activity-item"><div class="user-avatar ' + bgCls + '" style="width:32px;height:32px;font-size:16px;">' + emoji + '</div><div style="flex: 1; min-width: 0;"><div style="font-size: 13px;"><strong>' + escapeHtml(a.user || '?') + '</strong> <span style="color: rgba(255,255,255,0.6);">' + escapeHtml(a.action) + '</span>' + (a.detail ? ': ' + escapeHtml(a.detail) : '') + '</div><div style="color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 2px;">' + fmtDate(a.at, true) + '</div></div></div>';
+  });
+  if (activity.length === 0) html += '<div class="empty">Zatím žádná aktivita</div>';
+  html += '</div></div>';
+  return html;
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function escapeHtml(s) {
+  if (s === undefined || s === null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function escAttr(s) {
+  if (s === undefined || s === null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function fmtMoney(n) {
+  if (!n && n !== 0) return '0 Kč';
+  return Math.round(n).toLocaleString('cs-CZ') + ' Kč';
+}
+function fmtDate(d, includeTime) {
+  const date = typeof d === 'number' ? new Date(d) : new Date(d);
+  const opts = { day: 'numeric', month: 'short' };
+  if (includeTime) { opts.hour = '2-digit'; opts.minute = '2-digit'; }
+  return date.toLocaleString('cs-CZ', opts);
+}
+function pluralCZ(n) {
+  if (n === 1) return 'položka';
+  if (n >= 2 && n <= 4) return 'položky';
+  return 'položek';
+}
+function mapsUrl(address) {
+  // On iOS, maps:// opens Apple Maps. On Android/desktop, https://maps.google.com works.
+  const encoded = encodeURIComponent(address);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  return isIOS ? 'maps://?q=' + encoded : 'https://www.google.com/maps/search/?api=1&query=' + encoded;
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(title, content) {
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.id = 'modal-bg';
+  bg.innerHTML = '<div class="modal" onclick="event.stopPropagation()"><div class="modal-header"><h3>' + title + '</h3><button class="modal-close" onclick="closeModal()">✕</button></div>' + content + '</div>';
+  bg.onclick = closeModal;
+  document.body.appendChild(bg);
+  setTimeout(() => { const af = bg.querySelector('[autofocus]'); if (af) af.focus(); }, 100);
+}
+
+function closeModal() {
+  const bg = document.getElementById('modal-bg');
+  if (bg) bg.remove();
+}
+window.closeModal = closeModal;
+
+function setupOptionGrid(gridId, activeClass = '') {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.querySelectorAll('.option').forEach(btn => {
+    btn.onclick = () => {
+      grid.querySelectorAll('.option').forEach(b => {
+        b.classList.remove('active', 'active-orange', 'active-pink', 'active-green', 'active-blue', 'active-purple');
+      });
+      btn.classList.add('active');
+      if (activeClass) btn.classList.add(activeClass);
+    };
+  });
+}
+
+// ============================================================
+// ONLINE/OFFLINE
+// ============================================================
+window.addEventListener('online', () => document.getElementById('conn-status').classList.add('hidden'));
+window.addEventListener('offline', () => document.getElementById('conn-status').classList.remove('hidden'));
+if (!navigator.onLine) document.getElementById('conn-status').classList.remove('hidden');
+
+window.resetConfig = () => {
+  if (confirm('Smazat Firebase nastavení a začít znovu?')) {
+    localStorage.removeItem('firebase-config');
+    location.reload();
+  }
+};
+</script>
+</body>
+</html>
